@@ -12,7 +12,7 @@
                 %b.caret
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
             %li
-              = link_to "Logout", "#"
+              = link_to "Logout", destroy_user_session_path, :method => :delete
         .logo-element
           LK
       %li{:class => "#{'active' if current_page?('/')}"}

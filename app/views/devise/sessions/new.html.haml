@@ -1,0 +1,19 @@
+.middle-box.text-center.loginscreen.animated.fadeInDown
+  %div
+    %div
+      %h1.logo-name LK
+    %h3 Welcome to Lakbima
+    %p This app helps you complete common tasks related to finance of Lakbima Restaurant.
+    %p Login to see it in action.
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-group
+        = f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control"
+      .form-group
+        = f.password_field :password, placeholder: "Password", class: "form-control"
+      - if devise_mapping.rememberable?
+        %label
+          = f.check_box :remember_me
+          Remember me
+      = f.submit "Log in", class: "btn btn-primary block full-width m-b"
+      = render "devise/shared/links"
+      %p.text-muted.text-center
