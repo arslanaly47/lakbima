@@ -1,0 +1,25 @@
+%nav.navbar-default.navbar-static-side{:role => "navigation"}
+  .sidebar-collapse
+    %ul#side-menu.nav.metismenu
+      %li.nav-header
+        .dropdown.profile-element
+          = link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown" } do
+            %span.clear
+              %span.block.m-t-xs
+                %strong.font-bold Example user
+              %span.text-muted.text-xs.block
+                Example menu
+                %b.caret
+          %ul.dropdown-menu.animated.fadeInRight.m-t-xs
+            %li
+              = link_to "Logout", "#"
+        .logo-element
+          LK
+      %li{:class => "#{'active' if current_page?('/')}"}
+        = link_to "/" do
+          %i.fa.fa-laptop
+          %span.nav-label Main page
+      %li{:class => "#{'active' if current_page?('/home/minor')}"}
+        = link_to "/home/minor" do
+          %i.fa.fa-desktop
+          %span.nav-label Minor page
