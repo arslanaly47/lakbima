@@ -5,6 +5,11 @@
     %h3 Welcome to Lakbima
     %p This app helps you complete common tasks related to finance of Lakbima Restaurant.
     %p Login to see it in action.
+    - if flash && flash[:alert]
+      .alert.alert-danger.alert-dismissable
+        %button.close{"aria-hidden" => true, data: { dismiss: "alert" }, type: "button"}
+          ×
+        = flash[:alert]
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .form-group
         = f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control"
