@@ -16,9 +16,11 @@
       .form-group
         = f.password_field :password, placeholder: "Password", class: "form-control"
       - if devise_mapping.rememberable?
-        %label
-          = f.check_box :remember_me
-          Remember me
+        .form-group
+          %label
+            = f.check_box :remember_me, class: "i-checks"
+            %i
+            Remember me
       = f.submit "Log in", class: "btn btn-primary block full-width m-b"
       = render "devise/shared/links"
       %p.text-muted.text-center

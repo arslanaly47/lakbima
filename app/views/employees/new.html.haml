@@ -1,0 +1,12 @@
+.row
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        %h5 Create a new Employee
+      .ibox-content
+        = form_for @employee do |f|
+          .form-group
+            = f.label :first_name, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :first_name, class: 'form-control'
+
