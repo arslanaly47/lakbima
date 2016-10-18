@@ -1,0 +1,18 @@
+.passwordBox.animated.fadeInDown
+  .row
+    .col-md-12
+      .ibox-content
+        %h2.font-bold Forgot password
+        %p Enter your email address, and you will be sent instructions on how to reset you password
+        .row
+          .col-lg-12
+            = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: "form", class: "m-t" }) do |f|
+              .form-group
+                = f.email_field :email, class: "form-control", placeholder: "Email address", required: true, autofocus: true
+
+              = f.submit "Send me reset password instructions", class: "btn btn-primary block full-width m-b"
+            = render "devise/shared/links"
+  %hr
+  .row
+    .col-md-6
+      Lakbmia Restaurant
