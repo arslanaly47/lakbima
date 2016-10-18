@@ -50,5 +50,6 @@ gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-rails'
 gem 'devise'
+gem 'cancancan', '~> 1.10'
 
 ruby "2.3.0"
