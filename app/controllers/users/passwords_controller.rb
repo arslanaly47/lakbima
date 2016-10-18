@@ -1,5 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
-  layout "empty", only: [:new]
+  layout "empty", only: [:new, :create]
 
   # GET /resource/password/new
   def new

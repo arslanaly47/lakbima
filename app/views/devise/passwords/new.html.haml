@@ -7,6 +7,12 @@
         .row
           .col-lg-12
             = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: "form", class: "m-t" }) do |f|
+              - if resource.errors.any?
+                .alert.alert-danger.alert-dismissable
+                  %button.close{"aria-hidden" => true, data: { dismiss: "alert" }, type: "button"}
+                    ×
+                  - resource.errors.full_messages.each do |msg|
+                    %p= msg
               .form-group
                 = f.email_field :email, class: "form-control", placeholder: "Email address", required: true, autofocus: true
 
