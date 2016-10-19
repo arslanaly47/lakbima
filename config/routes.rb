@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get 'users/new' => 'users/manages#new'
   get 'home/index'
   get 'home/minor'
-  root 'home#index'
+  root 'employees#index'
 end
