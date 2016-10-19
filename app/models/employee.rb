@@ -1,6 +1,6 @@
 class Employee < ApplicationRecord
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true
 
   default_scope { order('id ASC') }
 
