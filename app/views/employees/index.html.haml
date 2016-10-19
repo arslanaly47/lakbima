@@ -1,0 +1,29 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title All Employees
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr 
+                  %th #
+                  %th First Name
+                  %th Last Name
+                  %th Username
+                  %th Phone Number
+                  %th Actions
+              %tbody
+                - @employees.each do |employee|
+                  %tr{data: { id: employee.id} }
+                    %td= link_to employee.id, employee
+                    %td= employee.first_name
+                    %td= employee.last_name
+                    %td= employee.username
+                    %td= employee.phone_number
+                    %td
+                      = link_to employee, method: :delete, remote: true, data: { confirm: "Are you sure to delete this employee from database?" }, class: "action-link" do
+                        %i.fa.fa-trash{"aria-hidden" => true}
+                      = link_to edit_employee_path(employee), class: "action-link" do
+                        %i.fa.fa-pencil{"aria-hidden" => true}

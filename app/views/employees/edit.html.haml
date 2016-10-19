@@ -1,8 +1,9 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
+      = link_to "All Employees", employees_path, class: "btn btn-primary btn-rounded m-md"
       .ibox.float-e-margins
         .ibox-title
-          %h5 Create a new Employee
+          %h5 Edit an Employee
         .ibox-content
           = render 'form', employee: @employee

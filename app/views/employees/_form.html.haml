@@ -1,0 +1,35 @@
+= form_for employee, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: employee
+  .form-group
+    = f.label :first_name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :first_name, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :last_name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :last_name, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :username, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :username, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.email_field :email, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :address, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :address, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :phone_number, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.phone_field :phone_number, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"

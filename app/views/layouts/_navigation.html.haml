@@ -15,6 +15,10 @@
               = link_to "Logout", destroy_user_session_path, :method => :delete
         .logo-element
           LK
+      %li{class: "#{'active' if controller_name == 'employees' }"}
+        = link_to employees_path do
+          %i.fa.fa-male
+          %span.nav-label Employee Section
       %li{:class => "#{'active' if current_page?('/')}"}
         = link_to "/" do
           %i.fa.fa-laptop
