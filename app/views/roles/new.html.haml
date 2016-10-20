@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to "All Roles", roles_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox
+        .ibox-title
+          Create a new Role
+        .ibox-content
+          %p Please assign the permissions you would like the new Role to have. You can choose all as well, and later on, it can be edited as well.
+          = render 'form', role: @role, permissions: @permissions

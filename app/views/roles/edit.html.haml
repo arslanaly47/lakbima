@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to "All Employees", employees_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox
+        .ibox-title
+          Edit the role
+        .ibox-content
+          %p Please assign the new permissions, or you can delete the existing ones. Adding or deleting a permission will affect all the users assigned this role.
+          = render 'form', role: @role, permissions: @permissions

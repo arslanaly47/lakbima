@@ -20,7 +20,7 @@
           %i.fa.fa-male
           %span.nav-label Employee Section
       %li{class: "#{'active' if controller_name == 'roles' }"}
-        = link_to employees_path do
+        = link_to roles_path do
           %i.fa.fa-briefcase
           %span.nav-label Manage Roles
       %li{:class => "#{'active' if current_page?('/')}"}

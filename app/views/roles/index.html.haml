@@ -1,0 +1,28 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to new_role_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+        %i.fa.fa-plus{"aria-hidden" => true}
+        &nbsp;&nbsp; New Role
+      .ibox.float-e-margins
+        .ibox-title All Roles
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Permissions
+                  %th Actions
+              %tbody
+                - @roles.each do |role|
+                  %tr{data: { id: role.id} }
+                    %td= link_to role.id, role
+                    %td= role.name
+                    %td= render 'permissions', permissions: role.permissions
+                    %td
+                      = link_to role, method: :delete, remote: true, data: { confirm: "Are you sure to delete this role from database?" }, class: "action-link" do
+                        %i.fa.fa-trash{"aria-hidden" => true}
+                      = link_to edit_role_path(role), class: "action-link" do
+                        %i.fa.fa-pencil{"aria-hidden" => true}
