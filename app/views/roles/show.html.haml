@@ -7,6 +7,11 @@
           %h2=@role.name
         .ibox-content
           .row
+            .col-md-2 
+              %p.font-bold Description
+            .col-md-10
+              %p= @role.description
+          .row
             .col-md-2
               %p.font-bold Permissions
             .col-md-10
