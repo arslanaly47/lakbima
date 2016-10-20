@@ -6,9 +6,9 @@
           = link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown" } do
             %span.clear
               %span.block.m-t-xs
-                %strong.font-bold Example user
+                %strong.font-bold= current_user.full_name
               %span.text-muted.text-xs.block
-                Example menu
+                = current_user.role.try(:name)
                 %b.caret
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
             %li
