@@ -1,6 +1,7 @@
 //= require animate/animate.css
+//= require datapicker/datepicker3.css
+//= require jasny/jasny-bootstrap.min.css
 
-.action-link {
-  font-size: 16px;
-  margin: 2px;
+.input-group.date {
+  padding-left: 15px;
 }

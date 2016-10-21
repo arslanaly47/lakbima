@@ -1,0 +1,28 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = render 'shared/flash_messages'
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@department.name
+        .ibox-content
+          .col-md-2
+            %p.font-bold Name
+          .col-md-10
+            %p= @department.name
+          %br
+          .col-md-2
+            %p.font-bold Description
+          .col-md-10
+            %p= @department.description
+          %br
+          .col-md-2
+            %p.font-bold Associated Job Titles
+          .col-md-10
+            = render 'job_titles', department: @department
+          %br
+          .clearfix
+  .row
+    .col-lg-12
+      = link_to "Edit", edit_department_path(@department), class: "btn btn-primary btn-rounded"
+      = link_to "All Departments", departments_path, class: "btn btn-primary btn-rounded"

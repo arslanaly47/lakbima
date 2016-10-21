@@ -19,11 +19,21 @@
         = link_to employees_path do
           %i.fa.fa-male
           %span.nav-label Employee Section
-      %li{:class => "#{'active' if current_page?('/')}"}
-        = link_to "/" do
-          %i.fa.fa-laptop
-          %span.nav-label Main page
-      %li{:class => "#{'active' if current_page?('/home/minor')}"}
-        = link_to "/home/minor" do
-          %i.fa.fa-desktop
-          %span.nav-label Minor page
+      %li{class: "#{'active' if %w(departments job_titles currencies).include? controller_name}"}
+        = link_to '#' do
+          %i.fa.fa-cogs
+          %span.nav-label Settings
+          %span.fa.arrow
+        %ul.nav.nav-second-level
+          %li{class: "#{'active' if controller_name == 'departments'}"}
+            = link_to departments_path do
+              %i.fa.fa-bank
+              %span.nav-label Departments
+          %li{class: "#{'active' if controller_name == 'job_titles'}"}
+            = link_to job_titles_path do
+              %i.fa.fa-briefcase
+              %span.nav-label Manage Job Titles
+          %li{class: "#{'active' if controller_name == 'currencies'}"}
+            = link_to currencies_path do
+              %i.fa.fa-money
+              %span.nav-label Currencies

@@ -1,0 +1,33 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = render 'shared/flash_messages'
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@currency.name
+        .ibox-content
+          .col-md-2
+            %p.font-bold Name
+          .col-md-10
+            %p= @currency.name
+          %br
+          .col-md-2
+            %p.font-bold Code
+          .col-md-10
+            %p= @currency.code
+          %br
+          .col-md-2
+            %p.font-bold Symbol
+          .col-md-10
+            %p= @currency.symbol
+          %br
+          .col-md-2
+            %p.font-bold Country
+          .col-md-10
+            %p= @currency.country
+          %br
+          .clearfix
+  .row
+    .col-lg-12
+      = link_to "Edit", edit_currency_path(@currency), class: "btn btn-primary btn-rounded"
+      = link_to "All Currencies", currencies_path, class: "btn btn-primary btn-rounded"

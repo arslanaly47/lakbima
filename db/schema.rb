@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018142854) do
+ActiveRecord::Schema.define(version: 20161021193330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "currencies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "symbol"
+    t.string   "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "employees", force: :cascade do |t|
     t.string   "first_name"
@@ -21,9 +37,29 @@ ActiveRecord::Schema.define(version: 20161018142854) do
     t.string   "email"
     t.text     "address"
     t.string   "phone_number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "username"
+    t.string   "nationality"
+    t.string   "passport_no"
+    t.date     "passport_expiry"
+    t.string   "visa_no"
+    t.string   "id_no"
+    t.date     "visa_expiry"
+    t.date     "medical_expiry"
+    t.string   "job_title"
+    t.decimal  "basic_salary",    precision: 10, scale: 2
+    t.decimal  "fixed_allowance", precision: 8,  scale: 2
+    t.date     "date_of_joining"
+  end
+
+  create_table "job_titles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "department_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["department_id"], name: "index_job_titles_on_department_id", using: :btree
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -42,8 +78,9 @@ ActiveRecord::Schema.define(version: 20161018142854) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "description"
   end
 
   create_table "users", force: :cascade do |t|
@@ -70,6 +107,7 @@ ActiveRecord::Schema.define(version: 20161018142854) do
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
+  add_foreign_key "job_titles", "departments"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "users", "roles"

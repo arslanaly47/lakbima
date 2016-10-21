@@ -13,3 +13,8 @@
  *= require animate/animate.css
  *= require style
  */
+
+.action-link {
+  font-size: 16px;
+  margin: 2px;
+}
