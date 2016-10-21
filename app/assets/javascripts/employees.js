@@ -20,7 +20,7 @@ $(document).ready(function() {
       "employee[last_name]": {
         minlength: 3,
         maxlength: 100
-      }
+      },
       "employee[last_name]": {
         email: true
       },
@@ -28,7 +28,7 @@ $(document).ready(function() {
         minlength: 3,
         maxlength: 20
       },
-      "employee[mobile_no]" {
+      "employee[mobile_no]": {
 
       }
 
