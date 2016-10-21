@@ -4,6 +4,8 @@ class Employee < ApplicationRecord
 
   default_scope { order('id ASC') }
 
+  NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
+
   def full_name
     [first_name, last_name]*" "
   end

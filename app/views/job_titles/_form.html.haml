@@ -1,0 +1,19 @@
+= form_for job_title, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: job_title
+  .form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :description, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :department_id, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :department_id, @departments.map { |d| [d.name, d.id] }, { selected: job_title.department }, class: 'form-control'
+  .hr-line-dashed
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"

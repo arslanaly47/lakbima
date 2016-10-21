@@ -1,0 +1,9 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to "All Job Titles", job_titles_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Create a new Job Title
+        .ibox-content
+          = render 'form', job_title: @job_title

@@ -1,0 +1,30 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to new_job_title_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+        %i.fa.fa-plus{"aria-hidden" => true}
+        &nbsp;&nbsp; New Job Title
+      .ibox.float-e-margins
+        .ibox-title All Job Titles
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Description
+                  %th Department
+                  %th Actions
+              %tbody
+                - @job_title.each do |job_title|
+                  %tr{data: { id: job_title.id } }
+                    %td= link_to job_title.id, job_title
+                    %td= job_title.name
+                    %td= job_title.description
+                    %td= job_title.department_name
+                    %td
+                      = link_to job_title, method: :delete, remote: true, data: { confirm: "Are you sure to delete this job title from database?" }, class: "action-link" do
+                        %i.fa.fa-trash{"aria-hidden" => true}
+                      = link_to edit_job_title_path(job_title), class: "action-link" do
+                        %i.fa.fa-pencil{"aria-hidden" => true}
