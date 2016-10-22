@@ -37,3 +37,7 @@
             = link_to currencies_path do
               %i.fa.fa-money
               %span.nav-label Currencies
+          %li{class: "#{'active' if controller_name == 'allowance_types'}"}
+            = link_to allowance_types_path do
+              %i.fa.fa-bar-chart-o
+              %span.nav-label Allowance Types
