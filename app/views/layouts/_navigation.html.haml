@@ -19,7 +19,7 @@
         = link_to employees_path do
           %i.fa.fa-male
           %span.nav-label Employee Section
-      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types).include? controller_name}"}
+      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types).include? controller_name}"}
         = link_to '#' do
           %i.fa.fa-cogs
           %span.nav-label Settings
@@ -41,3 +41,7 @@
             = link_to allowance_types_path do
               %i.fa.fa-bar-chart-o
               %span.nav-label Allowance Types
+          %li{class: "#{'active' if controller_name == 'vacation_types'}"}
+            = link_to vacation_types_path do
+              %i.fa.fa-plane
+              %span.nav-label Vacation Types

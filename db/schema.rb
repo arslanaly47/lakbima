@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022111058) do
+ActiveRecord::Schema.define(version: 20161022191248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 20161022111058) do
   create_table "allowance_types", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.decimal  "percentage_of_basic_salary", precision: 4, scale: 1
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "lump_sum_amount"
+    t.integer  "currency_id"
+    t.index ["currency_id"], name: "index_allowance_types_on_currency_id", using: :btree
   end
 
   create_table "currencies", force: :cascade do |t|
@@ -115,6 +117,15 @@ ActiveRecord::Schema.define(version: 20161022111058) do
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
+  create_table "vacation_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "number_of_days"
+  end
+
+  add_foreign_key "allowance_types", "currencies"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"

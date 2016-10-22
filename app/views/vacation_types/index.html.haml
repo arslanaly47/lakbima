@@ -1,0 +1,30 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to new_vacation_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+        %i.fa.fa-plus{"aria-hidden" => true}
+        &nbsp;&nbsp; New Vacation Type
+      .ibox.float-e-margins
+        .ibox-title All Vacation Types
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Description
+                  %th Number of Days
+                  %th Actions
+              %tbody
+                - @vacation_types.each do |vacation_type|
+                  %tr{data: { id: vacation_type.id } }
+                    %td= link_to vacation_type.id, vacation_type
+                    %td= vacation_type.name
+                    %td= vacation_type.description
+                    %td= vacation_type.number_of_days
+                    %td
+                      = link_to vacation_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this vacation type from database?" }, class: "action-link" do
+                        %i.fa.fa-trash{"aria-hidden" => true}
+                      = link_to edit_vacation_type_path(vacation_type), class: "action-link" do
+                        %i.fa.fa-pencil{"aria-hidden" => true}
