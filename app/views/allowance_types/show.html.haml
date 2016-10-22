@@ -19,7 +19,7 @@
           .col-md-2
             %p.font-bold Percentage of Basic Salary
           .col-md-10
-            %p= @allowance_type.percentage_of_basic_salary
+            %p.font-bold= number_to_percentage @allowance_type.percentage_of_basic_salary, precision: 1
           %br
           .clearfix
   .row

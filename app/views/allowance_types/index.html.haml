@@ -22,7 +22,7 @@
                     %td= link_to allowance_type.id, allowance_type
                     %td= allowance_type.name
                     %td= allowance_type.description
-                    %td= allowance_type.percentage_of_basic_salary
+                    %td.font-bold= number_to_percentage allowance_type.percentage_of_basic_salary, precision: 1
                     %td
                       = link_to allowance_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this allowance type from database?" }, class: "action-link" do
                         %i.fa.fa-trash{"aria-hidden" => true}
