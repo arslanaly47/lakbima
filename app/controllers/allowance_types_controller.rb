@@ -44,7 +44,7 @@ class AllowanceTypesController < ApplicationController
   private
 
   def allowance_type_params
-    params.require(:allowance_type).permit(:name, :description, :percentage_of_basic_salary) 
+    params.require(:allowance_type).permit(:name, :description, :lump_sum_amount) 
   end
 
   def set_allowance_type
