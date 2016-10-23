@@ -22,7 +22,7 @@
                     %td= link_to allowance_type.id, allowance_type
                     %td= allowance_type.name
                     %td= allowance_type.description
-                    %td.font-bold= number_to_currency allowance_type.lump_sum_amount, unit: allowance_type.currency.symbol
+                    %td.font-bold= number_to_currency allowance_type.lump_sum_amount, unit: allowance_type.currency_symbol
                     %td
                       = link_to allowance_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this allowance type from database?" }, class: "action-link" do
                         %i.fa.fa-trash{"aria-hidden" => true}
