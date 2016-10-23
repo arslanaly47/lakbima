@@ -4,6 +4,7 @@ class AllowanceTypesController < ApplicationController
 
   def new
     @allowance_type = AllowanceType.new
+    @currencies = Currency.all
   end
 
   def create
@@ -16,6 +17,7 @@ class AllowanceTypesController < ApplicationController
   end
 
   def edit
+    @currencies = Currency.all
   end
 
   def update
@@ -44,7 +46,7 @@ class AllowanceTypesController < ApplicationController
   private
 
   def allowance_type_params
-    params.require(:allowance_type).permit(:name, :description, :lump_sum_amount) 
+    params.require(:allowance_type).permit(:name, :description, :lump_sum_amount, :currency_id) 
   end
 
   def set_allowance_type

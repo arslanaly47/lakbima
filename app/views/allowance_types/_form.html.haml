@@ -11,16 +11,16 @@
       = f.text_area :description, class: 'form-control'
   .hr-line-dashed
   .form-group
+    %label.col-sm-2.control-label Please choose currency
+    .col-sm-10
+      - @currencies.each do |currency|
+        .radio.radio-info.radio-inline
+          = f.radio_button :currency_id, currency.id, id: "inlineRadio#{currency.id}"
+          = f.label :currency_id, currency.name, for: "inlineRadio#{currency.id}"
+  .form-group
     = f.label :lump_sum_amount, 'Lump sum amount', class: 'col-sm-2 control-label'
     .col-sm-10
       = f.number_field :lump_sum_amount, class: 'form-control'
-  .hr-line-dashed
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save", class: "btn btn-primary"
-.radio
-  %input{type: "radio", id: "inlineRadio1", name: 'arslan'}
-  %label{for: "inlineRadio1"} Inline One
-.radio
-  %input{type: "radio", id: "inlineRadio2", checked: "", name: 'arslan'}
-  %label{for: "inlineRadio2"} Inline Two
