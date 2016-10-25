@@ -3,7 +3,7 @@ $(document).ready(function() {
     rules: {
       "account[account_id]": {
         required: true,
-        range: [1100, 5000]
+        range: [1000, 5999]
       },
       "account[name]": {
         required: true,
