@@ -1,0 +1,30 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to new_account_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+        %i.fa.fa-plus{"aria-hidden" => true}
+        &nbsp;&nbsp; New Account
+      .ibox.float-e-margins
+        .ibox-title All Accounts
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th #
+                  %th Account ID
+                  %th Name
+                  %th Description
+                  %th Actions
+              %tbody
+                - @accounts.each do |account|
+                  %tr{data: { id: account.id } }
+                    %td= link_to account.id, account
+                    %td.font-bold= account.account_id
+                    %td= account.name
+                    %td= account.description
+                    %td
+                      = link_to account, method: :delete, remote: true, data: { confirm: "Are you sure to delete this account from database?" }, class: "action-link" do
+                        %i.fa.fa-trash{"aria-hidden" => true}
+                      = link_to edit_account_path(account), class: "action-link" do
+                        %i.fa.fa-pencil{"aria-hidden" => true}
