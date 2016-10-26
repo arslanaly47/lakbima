@@ -11,7 +11,6 @@
             %table.table.table-bordered.table-striped
               %thead
                 %tr
-                  %th #
                   %th Account ID
                   %th Name
                   %th Description
@@ -19,8 +18,7 @@
               %tbody
                 - @accounts.each do |account|
                   %tr{data: { id: account.id } }
-                    %td= link_to account.id, account
-                    %td.font-bold= account.account_id
+                    %td.font-bold= link_to account.account_id, account
                     %td= account.name
                     %td= account.description
                     %td
