@@ -1,7 +1,12 @@
 class AllowanceType < ApplicationRecord
+
+  has_many :allowances
+  belongs_to :currency
+
+  default_scope { order('id ASC') }
+
   validates :name, :lump_sum_amount, presence: true
 
-  belongs_to :currency
 
   validates_associated :currency
 
