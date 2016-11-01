@@ -51,5 +51,6 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-rails'
 gem 'devise'
 gem 'cancancan', '~> 1.10'
+gem 'nested_form'
 
 ruby "2.3.0"

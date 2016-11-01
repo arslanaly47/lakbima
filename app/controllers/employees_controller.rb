@@ -4,6 +4,9 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
+    set_departments
+    set_job_titles
+    set_salary
   end
 
   def create
@@ -11,17 +14,26 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to @employee, notice: "Employee has successfully been saved."
     else
+      set_departments
+      set_job_titles
+      set_salary
       render :new
     end
   end
 
   def edit
+    set_departments
+    set_job_titles
+    @allowances = @employee.salary.allowances
   end
 
   def update
     if @employee.update_attributes(employee_params)    
       redirect_to @employee, notice: "Employee has successfully been updated."
     else
+      set_departments
+      set_job_titles
+      set_salary
       render :edit
     end
   end
@@ -44,10 +56,22 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username) 
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
   end
 
   def set_employee
     @employee = Employee.find(params[:id]) 
+  end
+
+  def set_departments
+    @departments = Department.all
+  end
+
+  def set_job_titles
+    @job_titles = @departments.first.try(:job_titles)
+  end
+
+  def set_salary
+    @employee.salary || @employee.build_salary
   end
 end

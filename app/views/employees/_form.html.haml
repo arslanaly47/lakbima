@@ -1,5 +1,6 @@
-= form_for employee, html: { class: "form-horizontal" } do |f|
+= nested_form_for employee, html: { class: "form-horizontal", id: "manageEmployee" } do |f|
   = render "shared/errors", resource: employee
+  %h3 Basic Info
   .form-group
     = f.label :first_name, class: 'col-sm-2 control-label'
     .col-sm-10
@@ -21,9 +22,67 @@
       = f.email_field :email, class: 'form-control', required: true
   .hr-line-dashed
   .form-group
-    = f.label :phone_number, class: 'col-sm-2 control-label'
+    = f.label :phone_number, 'Mobile No.', class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.phone_field :phone_number, class: 'form-control'
+      = f.phone_field :phone_number, class: 'form-control', data: { mask: "9999999" }
+  .hr-line-dashed
+  %h3 Employment Info
+  .form-group
+    = f.label :nationality, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :nationality, Employee::NATIONALITIES, { selected: employee.nationality }, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :passport_no, 'Passport No.', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :passport_no, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :passport_expiry, 'Passport Expiry', class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :passport_expiry, class: 'form-control input-group date'
+  .hr-line-dashed
+  .form-group
+    = f.label :visa_no, 'Visa No.', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :visa_no, class: 'form-control', data: { mask: "999999999999" }
+  .hr-line-dashed
+  .form-group
+    = f.label :id_no, 'ID No.', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :id_no, class: 'form-control', data: { mask: "99999999999" }
+  .hr-line-dashed
+  .form-group
+    = f.label :visa_expirty, 'Visa Expiry', class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :visa_expiry, class: 'form-control input-group date'
+  .hr-line-dashed
+  .form-group
+    = f.label :medical_expiry, 'Medical Expiry', class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :medical_expiry, class: 'form-control input-group date'
+  .hr-line-dashed
+  .form-group
+    = label_tag :department, 'Choose department', class: "col-sm-2 control-label"
+    .col-sm-10
+      = select_tag :department, options_for_select(departments.map { |d| [d.name, d.id] }), class: "form-control", id: "departmentSelect"
+  .hr-line-dashed
+  .form-group
+    = f.label :job_title, 'Job Title', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :job_title, options_for_select(job_titles.map { |j| [j.name, j.id] }), {}, class: 'form-control', id: "jobTitleSelect"
+  .hr-line-dashed
+  %h3 Salary
+  .form-group
+    = f.fields_for :salary do |salary_field|
+      = render 'salary', f: salary_field
+  .hr-line-dased
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save", class: "btn btn-primary"
