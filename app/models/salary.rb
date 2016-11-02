@@ -11,7 +11,7 @@ class Salary < ApplicationRecord
   def total_amount
     total_allowances_amount = 0
     unless applicable_allowances.blank?
-      total_allowances_amount = applicable_allowances.map(&:lump_sum_amount).inject do |sum, i| 
+      total_allowances_amount = applicable_allowances.map(&:lump_sum_amount).inject do |sum, i|
         sum + i
       end
     end

@@ -31,10 +31,10 @@ class Allowance < ApplicationRecord
   end
 
   def applicable?
-    Date.today.between? starts_from, ends_at 
+    Date.today.between? starts_from, ends_at
   end
 
   def expired?
-    !applicable? 
+    !applicable?
   end
 end

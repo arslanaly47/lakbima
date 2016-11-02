@@ -4,6 +4,8 @@ class Employee < ApplicationRecord
   belongs_to :job_title
   validates :username, presence: true, uniqueness: true
 
+  validates_associated :job_title
+
   default_scope { order('id ASC') }
 
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
