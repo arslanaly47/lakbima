@@ -57,7 +57,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
   end
 
   def set_employee
