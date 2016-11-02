@@ -24,6 +24,7 @@ class EmployeesController < ApplicationController
   def edit
     set_departments
     set_job_titles
+    set_salary
     @allowances = @employee.salary.try(:allowances)
   end
 
