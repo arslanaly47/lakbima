@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
 
-  before_action :set_department, only: [:edit, :update, :show, :destroy]
+  before_action :set_department, only: [:edit, :update, :show, :destroy, :job_titles]
 
   def new
     @department = Department.new
@@ -37,6 +37,13 @@ class DepartmentsController < ApplicationController
     @department && @department.destroy    
     respond_to do |format|
       flash.now[:notice] = "Department: #{@department.name} has been deleted." 
+      format.js
+    end
+  end
+
+  def job_titles
+    @job_titles = @department.job_titles
+    respond_to do |format|
       format.js
     end
   end
