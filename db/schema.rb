@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101015744) do
+ActiveRecord::Schema.define(version: 20161102212837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 20161101015744) do
     t.string   "email"
     t.text     "address"
     t.string   "phone_number"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "username"
     t.string   "nationality"
     t.string   "passport_no"
@@ -99,10 +99,9 @@ ActiveRecord::Schema.define(version: 20161101015744) do
     t.string   "id_no"
     t.date     "visa_expiry"
     t.date     "medical_expiry"
-    t.string   "job_title"
-    t.decimal  "basic_salary",    precision: 10, scale: 2
-    t.decimal  "fixed_allowance", precision: 8,  scale: 2
     t.date     "date_of_joining"
+    t.integer  "job_title_id"
+    t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -180,6 +179,7 @@ ActiveRecord::Schema.define(version: 20161101015744) do
   add_foreign_key "allowance_types", "currencies"
   add_foreign_key "allowances", "allowance_types"
   add_foreign_key "allowances", "salaries"
+  add_foreign_key "employees", "job_titles"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"

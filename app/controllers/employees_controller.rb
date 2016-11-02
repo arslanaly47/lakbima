@@ -57,7 +57,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
   end
 
   def set_employee
@@ -69,7 +69,11 @@ class EmployeesController < ApplicationController
   end
 
   def set_job_titles
-    @job_titles = @departments.first.try(:job_titles)
+    if @employee.job_title
+      @job_titles = @employee.department.job_titles
+    else
+      @job_titles = @departments.first.try(:job_titles)
+    end
   end
 
   def set_salary
