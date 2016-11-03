@@ -11,9 +11,9 @@ class Employee < ApplicationRecord
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
   accepts_nested_attributes_for :salary, allow_destroy: true
 
-  delegate :department, to: :job_title
-  delegate :applicable_allowances, to: :salary
-  delegate :expired_allowances, to: :salary
+  delegate :department, to: :job_title, allow_nil: true
+  delegate :applicable_allowances, to: :salary, allow_nil: true
+  delegate :expired_allowances, to: :salary, allow_nil: true
 
   def full_name
     [first_name, last_name]*" "
