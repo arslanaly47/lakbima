@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :employees, :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts
+  resources :employees, :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts, :attachment_types
 
   resources :departments do
     member do

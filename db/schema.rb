@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103215415) do
+ActiveRecord::Schema.define(version: 20161104174120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 20161103215415) do
     t.index ["salary_id"], name: "index_allowances_on_salary_id", using: :btree
   end
 
+  create_table "attachment_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "currencies", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -89,8 +96,8 @@ ActiveRecord::Schema.define(version: 20161103215415) do
     t.string   "email"
     t.text     "address"
     t.string   "phone_number"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "username"
     t.string   "nationality"
     t.string   "passport_no"
@@ -101,6 +108,7 @@ ActiveRecord::Schema.define(version: 20161103215415) do
     t.date     "medical_expiry"
     t.date     "date_of_joining"
     t.integer  "job_title_id"
+    t.date     "appointment_date"
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
   end
 

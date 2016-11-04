@@ -23,7 +23,7 @@
         = link_to employees_path do
           %i.fa.fa-male
           %span.nav-label Employee Section
-      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types).include? controller_name}"}
+      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types attachment_types).include? controller_name}"}
         = link_to '#' do
           %i.fa.fa-cogs
           %span.nav-label Settings
@@ -49,3 +49,7 @@
             = link_to vacation_types_path do
               %i.fa.fa-plane
               %span.nav-label Vacation Types
+          %li{class: "#{'active' if controller_name == 'attachment_types'}"}
+            = link_to attachment_types_path do
+              %i.fa.fa-paperclip
+              %span.nav-label Attachment Types
