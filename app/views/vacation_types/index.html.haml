@@ -14,7 +14,6 @@
                   %th #
                   %th Name
                   %th Description
-                  %th Number of Days
                   %th Actions
               %tbody
                 - @vacation_types.each do |vacation_type|
@@ -22,7 +21,6 @@
                     %td= link_to vacation_type.id, vacation_type
                     %td= vacation_type.name
                     %td= vacation_type.description
-                    %td= vacation_type.number_of_days
                     %td
                       = link_to vacation_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this vacation type from database?" }, class: "action-link" do
                         %i.fa.fa-trash{"aria-hidden" => true}

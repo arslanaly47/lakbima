@@ -7,6 +7,7 @@ class EmployeesController < ApplicationController
     set_departments
     set_job_titles
     set_salary
+    set_vacation
   end
 
   def create
@@ -57,7 +58,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :username, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, :date_of_joining, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]], vacations_attributes: [:id, :vacation_type_id, :starts_from, :ends_at])
   end
 
   def set_employee
@@ -78,5 +79,9 @@ class EmployeesController < ApplicationController
 
   def set_salary
     @employee.salary || @employee.build_salary
+  end
+
+  def set_vacation
+    @employee.vacations.build
   end
 end

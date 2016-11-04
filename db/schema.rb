@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102212837) do
+ActiveRecord::Schema.define(version: 20161103215415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,9 +169,19 @@ ActiveRecord::Schema.define(version: 20161102212837) do
   create_table "vacation_types", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "number_of_days"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "vacations", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "vacation_type_id"
+    t.date     "starts_from"
+    t.date     "ends_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["employee_id"], name: "index_vacations_on_employee_id", using: :btree
+    t.index ["vacation_type_id"], name: "index_vacations_on_vacation_type_id", using: :btree
   end
 
   add_foreign_key "account_sub_types", "account_types"
@@ -185,4 +195,6 @@ ActiveRecord::Schema.define(version: 20161102212837) do
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "salaries", "employees"
   add_foreign_key "users", "roles"
+  add_foreign_key "vacations", "employees"
+  add_foreign_key "vacations", "vacation_types"
 end

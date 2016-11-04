@@ -26,7 +26,19 @@
     .col-sm-10
       = f.phone_field :phone_number, class: 'form-control', data: { mask: "9999999" }
   .hr-line-dashed
+  .form-group
+    = f.label :address, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :address, class: 'form-control'
+  .hr-line-dashed
   %h3 Employment Info
+  .form-group
+    = f.label :date_of_joining, 'Date of joining', class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :date_of_joining, class: 'form-control input-group date'
+  .hr-line-dashed
   .form-group
     = f.label :nationality, class: 'col-sm-2 control-label'
     .col-sm-10
@@ -69,6 +81,13 @@
       = f.text_field :medical_expiry, class: 'form-control input-group date'
   .hr-line-dashed
   .form-group
+    = f.label :appointment_date, 'Medical appointment date', class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :appointment_date, class: 'form-control input-group date'
+  .hr-line-dashed
+  .form-group
     = label_tag :department, 'Choose department', class: "col-sm-2 control-label"
     .col-sm-10
       = select_tag :department, options_for_select(departments.map { |d| [d.name, d.id]}, selected: employee.department.try(:id)), class: "form-control", id: "departmentSelect"
@@ -77,6 +96,15 @@
     = f.label :job_title, 'Job Title', class: 'col-sm-2 control-label'
     .col-sm-10
       = f.select :job_title_id, options_for_select(job_titles.map { |j| [j.name, j.id] }, selected: employee.job_title_id), {}, class: 'form-control', id: "jobTitleSelect"
+  .hr-line-dashed
+  .form-group
+    = label_tag :vacations, "Vacations", class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.fields_for :vacations do |vacation_field|
+        = render 'vacation', f: vacation_field
+      = f.link_to_add :vacations, class: 'btn btn-primary m-t-xs' do
+        %i.fa.fa-plus-circle
+        %span.bold Add a new Vacation
   .hr-line-dashed
   %h3 Salary
   .form-group

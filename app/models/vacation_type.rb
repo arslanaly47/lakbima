@@ -1,3 +1,5 @@
 class VacationType < ApplicationRecord
-  validates :name, :number_of_days, presence: true
+  validates :name, presence: true
+
+  has_many :vacations
 end

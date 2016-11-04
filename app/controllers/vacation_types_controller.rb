@@ -44,7 +44,7 @@ class VacationTypesController < ApplicationController
   private
 
   def vacation_type_params
-    params.require(:vacation_type).permit(:name, :description, :number_of_days) 
+    params.require(:vacation_type).permit(:name, :description)
   end
 
   def set_vacation_type
