@@ -2,6 +2,7 @@ class Employee < ApplicationRecord
 
   has_one :salary
   has_many :vacations
+  has_many :attachments, as: :attachable
   belongs_to :job_title
   validates :username, presence: true, uniqueness: true
 

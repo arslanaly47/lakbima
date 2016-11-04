@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104174120) do
+ActiveRecord::Schema.define(version: 20161104202657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 20161104174120) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.boolean  "verified"
+    t.integer  "attachment_type_id"
+    t.string   "attachable_type"
+    t.integer  "attachable_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id", using: :btree
+    t.index ["attachment_type_id"], name: "index_attachments_on_attachment_type_id", using: :btree
   end
 
   create_table "currencies", force: :cascade do |t|
@@ -197,6 +208,7 @@ ActiveRecord::Schema.define(version: 20161104174120) do
   add_foreign_key "allowance_types", "currencies"
   add_foreign_key "allowances", "allowance_types"
   add_foreign_key "allowances", "salaries"
+  add_foreign_key "attachments", "attachment_types"
   add_foreign_key "employees", "job_titles"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "permissions_roles", "permissions"
