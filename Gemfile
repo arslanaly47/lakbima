@@ -52,6 +52,7 @@ gem 'font-awesome-rails'
 gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'nested_form'
-gem 'paperclip', '~> 5.0.0'
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
 
 ruby "2.3.0"

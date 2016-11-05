@@ -1,0 +1,6 @@
+.row.form-inline
+  = f.label :attachment_type_id, 'Vacation Type'
+  = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }, selected: f.object.attachment_type_id), {}, class: 'form-control input-sm'
+  = f.label :image, f.object.image_file_name if f.object.image?
+  = f.file_field :image, class: 'form-control'
+  = f.link_to_remove 'Remove', class: 'btn btn-outline btn-danger btn-xs m-l-sm m-t-sm'

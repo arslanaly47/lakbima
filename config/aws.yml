@@ -1,0 +1,8 @@
+development:
+  region: ENV['LAKBIMA_AWS_REGION']
+  access_key_id: ENV['LAKBIMA_AWS_ACCESS_KEY_ID']
+  secret_access_key: ENV['LAKBIMA_AWS_SECRET_ACCESS_KEY']
+production:
+  region: ENV['LAKBIMA_AWS_REGION']
+  access_key_id: ENV['LAKBIMA_AWS_ACCESS_KEY_ID']
+  secret_access_key: ENV['LAKBIMA_AWS_SECRET_ACCESS_KEY']

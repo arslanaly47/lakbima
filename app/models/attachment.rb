@@ -8,4 +8,5 @@ class Attachment < ApplicationRecord
                             }
   validates_associated :attachment_type
   validates_attachment_size :image, in: 0..20.megabytes
+  do_not_validate_attachment_file_type :image
 end
