@@ -1,6 +1,7 @@
 //= require datapicker/bootstrap-datepicker.js
 //= require validate/jquery.validate.min.js
 //= require jasny/jasny-bootstrap.min.js
+//= require slick/slick.min.js
 
 $(document).on('ready nested:fieldAdded', function() {
   $('.input-group.date').datepicker({
@@ -52,4 +53,15 @@ $(document).on('ready nested:fieldAdded', function() {
       }
     });
   });
+});
+
+$(document).on('ready', function() {
+  document.getElementById('links').onclick = function(event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+      link  = target.src ? target.parentNode : target,
+      options = { index: link, event: event },
+      links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+  };
 });

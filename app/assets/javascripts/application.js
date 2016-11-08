@@ -17,4 +17,5 @@
 //= require pace/pace.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require jquery_nested_form
+//= require blueimp-gallery-all
 //= require_tree .
