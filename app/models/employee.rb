@@ -4,6 +4,7 @@ class Employee < ApplicationRecord
   has_many :vacations
   has_many :attachments, as: :attachable
   belongs_to :job_title
+  has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
   validates :username, presence: true, uniqueness: true
 
   validates_associated :job_title
@@ -32,6 +33,7 @@ class Employee < ApplicationRecord
   delegate :department, to: :job_title, allow_nil: true
   delegate :applicable_allowances, to: :salary, allow_nil: true
   delegate :expired_allowances, to: :salary, allow_nil: true
+  delegate :allowances, to: :salary, allow_nil: true
 
   def full_name
     [first_name, last_name]*" "
