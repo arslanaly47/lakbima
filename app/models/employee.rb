@@ -11,11 +11,22 @@ class Employee < ApplicationRecord
   default_scope { order('id ASC') }
 
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
-  accepts_nested_attributes_for :salary, allow_destroy: true
-  accepts_nested_attributes_for :vacations, allow_destroy: true
+  accepts_nested_attributes_for :salary,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes|
+                                  attributes['basic_salary'].blank?
+                                }
+  accepts_nested_attributes_for :vacations,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes|
+                                  attributes['starts_from'].blank? ||
+                                    attributes['ends_at'].blank?
+                                }
   accepts_nested_attributes_for :attachments,
                                 allow_destroy: true,
-                                reject_if: proc { |attributes| attributes['image'].blank? }
+                                reject_if: proc { |attributes|
+                                  attributes['image'].blank?
+                                }
 
 
   delegate :department, to: :job_title, allow_nil: true
@@ -26,19 +37,11 @@ class Employee < ApplicationRecord
     [first_name, last_name]*" "
   end
 
-  def passport_expiry=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
-    write_attribute :passport_expiry, date
-  end
-
-  def visa_expiry=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
-    write_attribute :visa_expiry, date
-  end
-
-  def medical_expiry=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
-    write_attribute :medical_expiry, date
+  %w(passport_expiry visa_expiry medical_expiry appointment_date).each do |attribute|
+    define_method "#{attribute}=" do |val|
+      date = Date.strptime(val, "%m/%d/%Y") if val.present?
+      write_attribute attribute.to_sym, date
+    end
   end
 
   def department_name

@@ -6,7 +6,12 @@ class Salary < ApplicationRecord
   belongs_to :employee
 
   validates :basic_salary, presence: true
-  accepts_nested_attributes_for :allowances, allow_destroy: true
+  accepts_nested_attributes_for :allowances,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| 
+                                  attributes['starts_from'].blank? ||
+                                    attributes['ends_at'].blank?
+                                }
 
   def total_amount
     total_allowances_amount = 0
