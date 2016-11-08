@@ -75,39 +75,70 @@
             .col-md-2
               %p.font-bold Salary
             .col-md-10
-              %p= @employee.salary.total_amount
+              %p= @employee.salary.try(:total_amount)
           .row
             .col-md-2
               %p.font-bold Allowances
+            - if @employee.allowances.blank?
+              .col-md-10
+                %p This emlpoyee has got no allowances.
+            - else
+              .col-md-10
+                %dl
+                  %dt Applicable Allowances
+                  %dd
+                    %dl.m-l-sm
+                      - @employee.applicable_allowances.each do |allowance|
+                        %dt= allowance.name
+                        %dd
+                          %span Lump sum amount:
+                          %span.font-bold
+                            = allowance.lump_sum_amount
+                          %span & Expires at:
+                          %span.font-bold
+                            = allowance.ends_at.to_s
+                %dl
+                  %dt Expired Allowances
+                  %dd
+                    %dl.m-l-sm
+                      - @employee.expired_allowances.each do |allowance|
+                        %dt= allowance.name
+                        %dd
+                          %span Lump sum amount:
+                          %span.font-bold
+                            = allowance.lump_sum_amount
+                          %span & Expired at:
+                          %span.font-bold
+                            = allowance.ends_at.to_s
+          .row
+            .col-md-2
+              %p.font-bold Attachments
             .col-md-10
-              %dl
-                %dt Applicable Allowances
-                %dd
-                  %dl.m-l-sm
-                    - @employee.applicable_allowances.each do |allowance|
-                      %dt= allowance.name
-                      %dd
-                        %span Lump sum amount:
-                        %span.font-bold
-                          = allowance.lump_sum_amount
-                        %span & Expires at:
-                        %span.font-bold
-                          = allowance.ends_at.to_s
-              %dl
-                %dt Expired Allowances
-                %dd
-                  %dl.m-l-sm
-                    - @employee.expired_allowances.each do |allowance|
-                      %dt= allowance.name
-                      %dd
-                        %span Lump sum amount:
-                        %span.font-bold
-                          = allowance.lump_sum_amount
-                        %span & Expired at:
-                        %span.font-bold
-                          = allowance.ends_at.to_s
+              - if @employee.attachments.blank?
+                %p There are currently no attachments.
+              -else
+                .row
+                  .col-md-2.font-bold Attachment Type
+                  .col-md-6.font-bold Attachment Name
+                  .col-md-4.font-bold Attachment Thumbnail
+                  #links
+                    - @employee.attachments.each do |attachment|
+                      .row.m-b-md.m-l-xs
+                        .col-md-2.font-bold= attachment.attachment_type.name
+                        .col-md-6= attachment.image_file_name
+                        .col-md-4
+                          = link_to attachment.image.url do
+                            = image_tag attachment.image.url(:thumb)
           .clearfix
   .row
-    .col-lg-12
+    .col-lg-12.m-b-xs
       = link_to "Edit", edit_employee_path(@employee), class: "btn btn-primary btn-rounded"
       = link_to "All Employees", employees_path, class: "btn btn-primary btn-rounded"
+#blueimp-gallery.blueimp-gallery
+  .slides
+  %h3.title
+  = content_tag 'a', '‹', class: 'prev'
+  = content_tag 'a', '›', class: 'next'
+  = content_tag 'a', '×', class: 'close'
+  = content_tag 'a', nil, class: 'play-pause'
+  %ol.indicator

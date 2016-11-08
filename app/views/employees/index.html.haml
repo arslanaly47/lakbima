@@ -12,6 +12,7 @@
               %thead
                 %tr 
                   %th #
+                  %th Profile Picture
                   %th First Name
                   %th Last Name
                   %th Username
@@ -19,8 +20,12 @@
                   %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id} }
+                  %tr{data: { id: employee.id } }
                     %td= link_to employee.id, employee
+                    - if employee.profile_image
+                      %td= image_tag employee.profile_image.image.url(:thumb)
+                    - else
+                      %td No image
                     %td= employee.first_name
                     %td= employee.last_name
                     %td= employee.username
