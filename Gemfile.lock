@@ -48,6 +48,8 @@ GEM
     aws-sdk-resources (2.3.22)
       aws-sdk-core (= 2.3.22)
     bcrypt (3.1.11)
+    blueimp-gallery (2.11.0.1)
+      railties (>= 3.1.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -196,6 +198,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 2.3)
+  blueimp-gallery
   bootstrap-sass (~> 3.3.6)
   byebug
   cancancan (~> 1.10)

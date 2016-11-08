@@ -54,5 +54,6 @@ gem 'cancancan', '~> 1.10'
 gem 'nested_form'
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
+gem 'blueimp-gallery'
 
 ruby "2.3.0"
