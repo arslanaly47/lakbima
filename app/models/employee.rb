@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates_associated :job_title
-  #validate :attachment_types_should_be_unique
+  validate :attachment_types_should_be_unique
 
   default_scope { order('id ASC') }
 
