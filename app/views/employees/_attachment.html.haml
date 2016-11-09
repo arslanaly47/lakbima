@@ -6,6 +6,18 @@
     = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
   - else
     = f.select :attachment_type_id, options_for_select(@attachment_type_ids.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
-  = f.label :image, f.object.image_file_name if f.object.image?
-  = f.file_field :image, class: 'form-control'
+  - if f.object.image?
+    .fileinput.fileinput-exists{ data: { provides: "fileinput" } }
+      %span.btn.btn-default.btn-file
+        %span.fileinput-new Select File
+        %span.fileinput-exists Change
+        = f.file_field :image, class: 'form-control'
+      %span.fileinput-filename= f.object.image_file_name
+  - else
+    .fileinput.fileinput-new{ data: { provides: "fileinput" } }
+      %span.btn.btn-default.btn-file
+        %span.fileinput-new Select File
+        %span.fileinput-exists Change
+        = f.file_field :image, class: 'form-control'
+      %span.fileinput-filename
   = f.link_to_remove 'Remove', class: 'btn btn-outline btn-danger btn-xs m-l-sm m-t-sm'
