@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   end
 
   get 'users/new' => 'users/manages#new'
-  get 'home/index'
-  get 'home/minor'
+  resources :employees do
+    member do
+      get 'download_attachment/:attachment_id' => 'employees#download_attachment',
+        as: :attachment
+    end
+  end
   root 'employees#index'
 end

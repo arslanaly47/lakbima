@@ -114,21 +114,25 @@
             .col-md-2
               %p.font-bold Attachments
             .col-md-10
+              .row
               - if @employee.attachments.blank?
                 %p There are currently no attachments.
               -else
-                .row
-                  .col-md-2.font-bold Attachment Type
-                  .col-md-6.font-bold Attachment Name
-                  .col-md-4.font-bold Attachment Thumbnail
-                  #links
-                    - @employee.attachments.each do |attachment|
-                      .row.m-b-md.m-l-xs
-                        .col-md-2.font-bold= attachment.attachment_type.name
-                        .col-md-6= attachment.image_file_name
-                        .col-md-4
-                          = link_to attachment.image.url do
-                            = image_tag attachment.image.url(:thumb)
+                .col-md-3.font-bold Attachment Type
+                .col-md-3.font-bold Attachment Name
+                .col-md-3.font-bold Attachment Thumbnail
+                .col-md-3.font-bold Download
+                - @employee.attachments.each do |attachment|
+                  .row
+                    .col-md-3.font-bold= attachment.attachment_type.name
+                    .col-md-3= attachment.image_file_name
+                    .col-md-3#links.m-b-md
+                      = link_to attachment.image.url do
+                        = image_tag attachment.image.url(:thumb)
+                    .col-md-3
+                      = button_to attachment_employee_path(@employee, attachment), method: :get, class: "btn btn-primary" do
+                        %i.fa.fa-download &nbsp;&nbsp;
+                        %span.bold Download
           .clearfix
   .row
     .col-lg-12.m-b-xs

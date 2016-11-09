@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
 
-  before_action :set_employee, only: [:edit, :update, :show, :destroy]
+  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment]
 
   def new
     @employee = Employee.new
@@ -54,6 +54,16 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       flash.now[:notice] = "Employee: #{@employee.full_name} has been deleted." 
       format.js
+    end
+  end
+
+  def download_attachment
+    attachment = @employee.attachments.find_by_id params[:attachment_id]
+    if attachment
+      data = open(attachment.image.url)
+      send_data data.read, type: attachment.image_content_type, x_sendfile: true,
+        url_based_filename: true, disposition: "attachment"
+    else
     end
   end
 
