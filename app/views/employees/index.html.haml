@@ -8,15 +8,15 @@
         .ibox-title All Employees
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr 
-                  %th #
+                  %th= sortable "id", "ID"
                   %th Profile Picture
-                  %th First Name
-                  %th Last Name
-                  %th Username
-                  %th Phone Number
+                  %th= sortable "first_name"
+                  %th= sortable "last_name"
+                  %th= sortable "username"
+                  %th= sortable "phone_number"
                   %th Actions
               %tbody
                 - @employees.each do |employee|

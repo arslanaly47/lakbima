@@ -10,8 +10,6 @@ class Employee < ApplicationRecord
   validates_associated :job_title
   validate :attachment_types_should_be_unique
 
-  default_scope { order('id ASC') }
-
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
   accepts_nested_attributes_for :salary,
                                 allow_destroy: true,
