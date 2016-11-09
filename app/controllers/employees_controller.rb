@@ -9,6 +9,7 @@ class EmployeesController < ApplicationController
     set_salary
     set_vacation
     set_attachment
+    set_attachment_types
   end
 
   def create
@@ -28,6 +29,7 @@ class EmployeesController < ApplicationController
     set_job_titles
     set_salary
     set_attachment
+    set_attachment_types
     @allowances = @employee.salary.try(:allowances)
   end
 
@@ -99,5 +101,10 @@ class EmployeesController < ApplicationController
 
   def set_attachment
     @employee.attachments.build
+  end
+
+  def set_attachment_types
+    unallocated_ids = @employee.unallocted_attachment_type_ids
+    @attachment_type_ids = AttachmentType.find unallocated_ids
   end
 end

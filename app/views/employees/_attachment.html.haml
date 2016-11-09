@@ -1,6 +1,11 @@
 .row.form-inline
   = f.label :attachment_type_id, 'Attachment Type'
-  = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }, selected: f.object.attachment_type_id), {}, class: 'form-control input-sm'
+  - if f.object.attachment_type_id.is_a? Integer
+    = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }, selected: f.object.attachment_type_id), {}, class: 'form-control input-sm', disabled: true
+  - elsif @attachment_type_ids.blank?
+    = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
+  - else
+    = f.select :attachment_type_id, options_for_select(@attachment_type_ids.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
   = f.label :image, f.object.image_file_name if f.object.image?
   = f.file_field :image, class: 'form-control'
   = f.link_to_remove 'Remove', class: 'btn btn-outline btn-danger btn-xs m-l-sm m-t-sm'

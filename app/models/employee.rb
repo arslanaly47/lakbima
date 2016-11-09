@@ -5,9 +5,10 @@ class Employee < ApplicationRecord
   has_many :attachments, as: :attachable
   belongs_to :job_title
   has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
-  validates :username, presence: true, uniqueness: true
 
+  validates :username, presence: true, uniqueness: true
   validates_associated :job_title
+  #validate :attachment_types_should_be_unique
 
   default_scope { order('id ASC') }
 
@@ -48,5 +49,17 @@ class Employee < ApplicationRecord
 
   def department_name
     job_title.try(:department).try(:name)
+  end
+
+  def unallocted_attachment_type_ids
+    allocated_ids = attachments.map(&:attachment_type_id)
+    AttachmentType.ids - allocated_ids
+  end
+
+  def attachment_types_should_be_unique
+     allocated_ids = attachments.map(&:attachment_type_id)
+     unless allocated_ids.uniq.length == allocated_ids.length
+       errors.add :base, "You can't upload an item for the same attachment type twice."
+     end
   end
 end
