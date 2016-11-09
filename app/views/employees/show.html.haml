@@ -126,7 +126,7 @@
                   .row
                     .col-md-3.font-bold= attachment.attachment_type.name
                     .col-md-3= attachment.image_file_name
-                    .col-md-3#links.m-b-md
+                    .col-md-3.m-b-md{id: "links-#{attachment.id}"}
                       = link_to attachment.image.url do
                         = image_tag attachment.image.url(:thumb)
                     .col-md-3
