@@ -8,9 +8,8 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(current_user.id)
-    if @user.update(user_params)
-      @user.temp_password_changed = true
-      @user.save
+    if @user.update(user_params.merge temp_password_changed: true)
+      bypass_sign_in @user
       redirect_to root_path
     else
       render :edit
