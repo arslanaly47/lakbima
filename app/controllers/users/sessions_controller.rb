@@ -1,5 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   layout "empty", only: [:new]
+  skip_before_action :authenticate_and_check_user!, only: [:destroy]
+  before_action :authenticate_user!
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
