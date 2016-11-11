@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
   belongs_to :user
 
   validates_associated :job_title
-  validates :first_name, :last_name, presence: true 
+  validates :first_name, :last_name, presence: true
   validate :attachment_types_should_be_unique
 
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
@@ -73,11 +73,11 @@ class Employee < ApplicationRecord
   end
 
   def generate_random_password
-    SecureRandom.base64(8)     
+    SecureRandom.base64(8)
   end
 
   def generate_uniq_username
-    username = full_name.downcase.sub ' ', '_' 
+    username = full_name.downcase.sub ' ', '_'
     begin
       rand_username  = username + rand(111..999).to_s
     end unless User.uniq_username? rand_username

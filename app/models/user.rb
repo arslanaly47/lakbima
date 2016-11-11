@@ -31,11 +31,11 @@ class User < ApplicationRecord
   end
 
   def unread_notifications_count
-    unread_notifications.count 
+    unread_notifications.count
   end
 
   def has_notifications_to_read?
-    !unread_notifications.blank? 
+    !unread_notifications.blank?
   end
 
   def self.uniq_username?(username)
@@ -44,11 +44,11 @@ class User < ApplicationRecord
 
   # Devise override
   def email_required?
-    false 
+    false
   end
 
   def temp_password_changed?
-    temp_password_changed 
+    temp_password_changed
   end
 
   # Allowing login through either email or username in devise
