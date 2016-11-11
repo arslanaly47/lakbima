@@ -3,11 +3,12 @@ class Employee < ApplicationRecord
   has_one :salary
   has_many :vacations
   has_many :attachments, as: :attachable
-  belongs_to :job_title
   has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
+  belongs_to :job_title
+  belongs_to :user
 
-  validates :username, presence: true, uniqueness: true
   validates_associated :job_title
+  validates :first_name, :last_name, presence: true 
   validate :attachment_types_should_be_unique
 
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
@@ -34,6 +35,8 @@ class Employee < ApplicationRecord
   delegate :expired_allowances, to: :salary, allow_nil: true
   delegate :allowances, to: :salary, allow_nil: true
 
+  after_create :create_associated_user
+
   def full_name
     [first_name, last_name]*" "
   end
@@ -59,5 +62,25 @@ class Employee < ApplicationRecord
      unless allocated_ids.uniq.length == allocated_ids.length
        errors.add :base, "You can't upload an item for the same attachment type twice."
      end
+  end
+
+  def create_associated_user
+    temp_password = generate_random_password
+    uniq_username = generate_uniq_username
+    role = Role.find_by_name "Employee"
+    User.create(username: uniq_username, password: temp_password,
+                temp_password: temp_password, employee: self, role: role)
+  end
+
+  def generate_random_password
+    SecureRandom.base64(8)     
+  end
+
+  def generate_uniq_username
+    username = full_name.downcase.sub ' ', '_' 
+    begin
+      rand_username  = username + rand(111..999).to_s
+    end unless User.uniq_username? rand_username
+    rand_username
   end
 end
