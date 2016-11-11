@@ -8,11 +8,15 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'users/new' => 'users/manages#new'
   resources :employees do
     member do
       get 'download_attachment/:attachment_id' => 'employees#download_attachment',
         as: :attachment
+    end
+  end
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
     end
   end
   root 'employees#index'
