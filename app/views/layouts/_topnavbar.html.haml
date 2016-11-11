@@ -5,6 +5,26 @@
         %i.fa.fa-bars
     %ul.nav.navbar-top-links.navbar-right
       %li
+        %span.m-r-sm.text-muted.welcome-message{data: { "i18n" => "topnav.welcometext "}}
+      %li.dropdown
+        %a.dropdown-toggle.count-info{data: { toggle: "dropdown" }, href: "#"}
+          %i.fa.fa-bell
+          - if current_user.has_notifications_to_read?
+            %span.label.label-primary
+              = current_user.unread_notifications_count
+        %ul.dropdown-menu.dropdown-messages
+          - if current_user.notifications.blank?
+            .text-center.font-bold
+              You're all caught up!
+            %li.divider
+          - else
+            - current_user.notifications.each do |notification|
+              = render 'layouts/notification', notification: notification
+          %li
+            .text-center.link-block
+              %a{href: "#"}
+                %strong.text-info View All Notifications
+      %li
         = link_to destroy_user_session_path, :method => :delete do
           %i.fa.fa-sign-out
           Log out

@@ -3,7 +3,7 @@
     %div
       %h1.logo-name LK
     %h3 Welcome to Lakbima
-    %p This app helps you complete common tasks related to finance of Lakbima Restaurant.
+    %p This app helps you complete day to day tasks related to Lakbima Restaurant.
     %p Login to see it in action.
     - if flash && flash[:alert]
       .alert.alert-danger.alert-dismissable
@@ -12,7 +12,7 @@
         = flash[:alert]
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .form-group
-        = f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control"
+        = f.text_field :login, placeholder: "Email", autofocus: true, class: "form-control"
       .form-group
         = f.password_field :password, placeholder: "Password", class: "form-control"
       - if devise_mapping.rememberable?

@@ -1,0 +1,10 @@
+.middle-box.text-center.animated.fadeInDown
+  %h2 Reset your password first!
+  = form_for @user, url: update_password_user_path, html: { method: :patch } do |f|
+    = render "shared/errors", resource: @user
+    .form-group
+      = f.password_field :password, placeholder: "Password", class: "form-control"
+    .form-group
+      = f.password_field :password_confirmation, placeholder: "Confirm password", class: "form-control"
+    = f.submit "Update", class: "btn btn-primary block full-width m-b"
+    %p.text-muted.text-center

@@ -1,0 +1,14 @@
+= link_to '#', style: "padding: 0px;" do
+  %li
+    .dropdown-messages-box
+      .pull-left.p-xxs
+        = image_tag "rails.png", alt: "image", class: "img-circle"
+      .media-body.p-xxs
+        %strong
+          = notification.generator.try(:full_name)
+        = notification.content
+        %br
+        %small.text-muted
+          = time_ago_in_words(notification.created_at) + " ago at "
+          = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
+  %li.divider

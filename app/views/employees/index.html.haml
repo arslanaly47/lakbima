@@ -15,7 +15,6 @@
                   %th Profile Picture
                   %th= sortable "first_name"
                   %th= sortable "last_name"
-                  %th= sortable "username"
                   %th= sortable "phone_number"
                   %th Actions
               %tbody
@@ -28,7 +27,6 @@
                       %td No image
                     %td= employee.first_name
                     %td= employee.last_name
-                    %td= employee.username
                     %td= employee.phone_number
                     %td
                       = link_to employee, method: :delete, remote: true, data: { confirm: "Are you sure to delete this employee from database?" }, class: "action-link" do
