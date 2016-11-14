@@ -1,0 +1,9 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to "All Accounts", leave_applications_path(current_user), class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Create a new Leave Application
+        .ibox-content
+          = render 'form', leave_application: @leave_application

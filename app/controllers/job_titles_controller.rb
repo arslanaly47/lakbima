@@ -1,4 +1,5 @@
 class JobTitlesController < ApplicationController
+  load_and_authorize_resource
 
   before_action :set_job_title, only: [:edit, :update, :show, :destroy]
   before_action :set_departments, only: [:new, :edit]

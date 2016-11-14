@@ -1,0 +1,44 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@leave_application.subject
+        .ibox-content
+          .row
+            .col-md-2
+              %p.font-bold Subject
+            .col-md-10
+              %p= @leave_application.subject
+          .row
+            .col-md-2
+              %p.font-bold Reason
+            .col-md-10
+              %p= @leave_application.reason
+          .row
+            .col-md-2
+              %p.font-bold Number of days
+            .col-md-10
+              %p= @leave_application.number_of_days
+          - if @leave_application.end_date.nil?
+            .row
+              .col-md-2
+                %p.font-bold Leave Date
+              .col-md-10
+                %p= @leave_application.start_date
+            .clearfix
+          - else
+            .row
+              .col-md-2
+                %p.font-bold Start Date
+              .col-md-10
+                %p= @leave_application.start_date
+            .row
+              .col-md-2
+                %p.font-bold End Date
+              .col-md-10
+                %p= @leave_application.end_date
+            .clearfix
+  .row
+    .col-lg-12
+      = link_to "All Leaves Application", leave_applications_path(current_user), class: "btn btn-primary btn-rounded"

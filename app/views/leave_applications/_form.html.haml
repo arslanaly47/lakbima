@@ -1,0 +1,51 @@
+= form_for leave_application, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: leave_application
+  .form-group
+    = f.label :subject, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :subject, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :reason, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :reason, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = label_tag :number_of_days, 'Choose the number of days', class: 'col-sm-2 control-label'
+    .col-sm-3
+      .radio.radio-inline
+        = radio_button_tag :number_of_days, nil, true, id: "one-day", class: "numberOfDays"
+        = label_tag "one-day", "One day"
+    .col-sm-3
+      .radio.radio-inline
+        = radio_button_tag :number_of_days, nil, false, id: "more-than-one-day", class: "numberOfDays"
+        = label_tag "more-than-one-day", "More than one day"
+  .hr-line-dashed
+  #oneDay
+    .form-group
+      = f.label :start_date, 'Date', class: 'col-sm-2 control-label'
+      .col-sm-10
+        .input-group.date
+          %span.input-group-addon
+            %i.fa.fa-calendar
+          = f.text_field :start_date, class: 'form-control', placeholder: 'Enter the date of leave'
+  #moreThanOneDay
+    .form-group
+      = f.label :start_date, class: 'col-sm-2 control-label'
+      .col-sm-10
+        .input-group.date
+          %span.input-group-addon
+            %i.fa.fa-calendar
+          = f.text_field :start_date, class: 'form-control', placeholder: 'Start Date'
+    .form-group
+      = f.label :end_date, class: 'col-sm-2 control-label'
+      .col-sm-10
+        .input-group.date
+          %span.input-group-addon
+            %i.fa.fa-calendar
+          = f.text_field :end_date, class: 'form-control', placeholder: 'End Date'
+  .hr-line-da
+  .form-group#saveButtonDiv
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"
+      = link_to "Cancel", leave_applications_path, class: "btn btn-primary"

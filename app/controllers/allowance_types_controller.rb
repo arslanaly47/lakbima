@@ -1,4 +1,5 @@
 class AllowanceTypesController < ApplicationController
+  load_and_authorize_resource
 
   before_action :set_allowance_type, only: [:edit, :update, :show, :destroy]
 

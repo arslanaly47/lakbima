@@ -18,4 +18,20 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require jquery_nested_form
 //= require blueimp-gallery-all
+//= require toastr/toastr.min.js
+//= require_self
 //= require_tree .
+
+// Defining toastr options site wide
+$(document).ready(function () { 
+  toastr.options = {
+    "closeButton": true,
+    "progressBar": true,
+    "showDuration": "400",
+    "hideDuration": "1000",
+    "timeOut": "7000",
+    "showEasing": "swing",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
+});

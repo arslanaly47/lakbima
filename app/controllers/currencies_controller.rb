@@ -1,5 +1,5 @@
 class CurrenciesController < ApplicationController
-
+  load_and_authorize_resource
   before_action :set_currency, only: [:edit, :update, :show, :destroy]
 
   def new

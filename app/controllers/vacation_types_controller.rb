@@ -1,4 +1,5 @@
 class VacationTypesController < ApplicationController
+  load_and_authorize_resource
 
   before_action :set_vacation_type, only: [:edit, :update, :show, :destroy]
 

@@ -35,8 +35,6 @@ class Employee < ApplicationRecord
   delegate :expired_allowances, to: :salary, allow_nil: true
   delegate :allowances, to: :salary, allow_nil: true
 
-  after_create :create_associated_user
-
   def full_name
     [first_name, last_name]*" "
   end
@@ -64,12 +62,11 @@ class Employee < ApplicationRecord
      end
   end
 
-  def create_associated_user
+  def create_associated_user(role_id)
     temp_password = generate_random_password
     uniq_username = generate_uniq_username
-    role = Role.find_by_name "Employee"
     User.create(username: uniq_username, password: temp_password,
-                temp_password: temp_password, employee: self, role: role)
+                temp_password: temp_password, employee: self, role_id: role_id)
   end
 
   def generate_random_password

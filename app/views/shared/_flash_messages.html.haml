@@ -1,11 +1,11 @@
 - if flash && flash[:alert]
-  .alert.alert-danger.alert-dismissable
+  .alert.alert-danger.alert-dismissable.m-t-xs
     %button.close{"aria-hidden" => true, data: { dismiss: "alert" }, type: "button"}
       ×
     = flash[:alert]
 
 - if flash && flash[:notice]
-  .alert.alert-success.alert-dismissable
+  .alert.alert-success.alert-dismissable.m-t-xs
     %button.close{"aria-hidden" => true, data: { dismiss: "alert" }, type: "button"}
       ×
     = flash[:notice]

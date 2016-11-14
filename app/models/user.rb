@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :read_notifications,   through: :notification_users,
                                   class_name: "Notification",
                                   source: :notification
+  has_many :leave_applications
   validates :role, :username, presence: true
   validates :username, uniqueness: true
 

@@ -4,6 +4,7 @@
 //= require slick/slick.min.js
 
 $(document).on('ready nested:fieldAdded', function() {
+  //toastr.success("Such a pleasure that you read it.", "Big Title");
   $('.input-group.date').datepicker({
     format: "mm/dd/yyyy",
     todayBtn: "linked",

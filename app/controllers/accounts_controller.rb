@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  load_and_authorize_resource
 
   before_action :set_account, only: [:edit, :update, :show, :destroy, :job_titles]
 

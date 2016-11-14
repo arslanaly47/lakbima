@@ -1,7 +1,6 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = render 'shared/flash_messages'
       .ibox.float-e-margins
         .ibox-title
           %h2=@account.name
@@ -24,5 +23,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_account_path(@account), class: "btn btn-primary btn-rounded"
-      = link_to "All Accounts", accounts_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, Account
+        = link_to "Edit", edit_account_path(@account), class: "btn btn-primary btn-rounded"
+      - if can? :index, Account
+        = link_to "All Accounts", accounts_path, class: "btn btn-primary btn-rounded"

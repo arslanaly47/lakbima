@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  load_and_authorize_resource
 
   helper_method :sort_column, :sort_direction
 
@@ -17,6 +18,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.save
+      Employee.create_associated_user(params[:role_id])
       redirect_to @employee, notice: "Employee has successfully been saved."
     else
       set_departments

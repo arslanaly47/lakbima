@@ -12,44 +12,62 @@
                 %b.caret
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
             %li
-              = link_to "Logout", destroy_user_session_path, :method => :delete
+              = link_to "Logout", destroy_user_session_path, method: :delete
         .logo-element
           LK
-      %li{class: "#{'active' if controller_name == 'accounts' }"}
-        = link_to accounts_path do
-          %i.fa.fa-book
-          %span.nav-label Manage Accounts
-      %li{class: "#{'active' if controller_name == 'employees' }"}
-        = link_to employees_path do
-          %i.fa.fa-male
-          %span.nav-label Employee Section
-      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types attachment_types).include? controller_name}"}
+      - if can? :index, LeaveApplication
+        %li{class: "#{'active' if controller_name == 'leave_applications'}"}
+          = link_to leave_applications_path do
+            %i.fa.fa-bed
+            %span.nav-label Leave Applications
+      - if can? :index, Account
+        %li{class: "#{'active' if controller_name == 'accounts' }"}
+          = link_to accounts_path do
+            %i.fa.fa-book
+            %span.nav-label Manage Accounts
+      - if can? :index, Employee
+        %li{class: "#{'active' if controller_name == 'employees' }"}
+          = link_to employees_path do
+            %i.fa.fa-male
+            %span.nav-label Employee Section
+      %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types attachment_types roles).include? controller_name}"}
         = link_to '#' do
           %i.fa.fa-cogs
           %span.nav-label Settings
           %span.fa.arrow
         %ul.nav.nav-second-level
-          %li{class: "#{'active' if controller_name == 'departments'}"}
-            = link_to departments_path do
-              %i.fa.fa-bank
-              %span.nav-label Departments
-          %li{class: "#{'active' if controller_name == 'job_titles'}"}
-            = link_to job_titles_path do
-              %i.fa.fa-briefcase
-              %span.nav-label Manage Job Titles
-          %li{class: "#{'active' if controller_name == 'currencies'}"}
-            = link_to currencies_path do
-              %i.fa.fa-money
-              %span.nav-label Currencies
-          %li{class: "#{'active' if controller_name == 'allowance_types'}"}
-            = link_to allowance_types_path do
-              %i.fa.fa-bar-chart-o
-              %span.nav-label Allowance Types
-          %li{class: "#{'active' if controller_name == 'vacation_types'}"}
-            = link_to vacation_types_path do
-              %i.fa.fa-plane
-              %span.nav-label Vacation Types
-          %li{class: "#{'active' if controller_name == 'attachment_types'}"}
-            = link_to attachment_types_path do
-              %i.fa.fa-paperclip
-              %span.nav-label Attachment Types
+          - if can? :index, Department
+            %li{class: "#{'active' if controller_name == 'departments'}"}
+              = link_to departments_path do
+                %i.fa.fa-bank
+                %span.nav-label Departments
+          - if can? :index, JobTitle
+            %li{class: "#{'active' if controller_name == 'job_titles'}"}
+              = link_to job_titles_path do
+                %i.fa.fa-briefcase
+                %span.nav-label Manage Job Titles
+          - if can? :index, Currency
+            %li{class: "#{'active' if controller_name == 'currencies'}"}
+              = link_to currencies_path do
+                %i.fa.fa-money
+                %span.nav-label Currencies
+          - if can? :index, AllowanceType
+            %li{class: "#{'active' if controller_name == 'allowance_types'}"}
+              = link_to allowance_types_path do
+                %i.fa.fa-bar-chart-o
+                %span.nav-label Allowance Types
+          - if can? :index, VacationType
+            %li{class: "#{'active' if controller_name == 'vacation_types'}"}
+              = link_to vacation_types_path do
+                %i.fa.fa-plane
+                %span.nav-label Vacation Types
+          - if can? :index, AttachmentType
+            %li{class: "#{'active' if controller_name == 'attachment_types'}"}
+              = link_to attachment_types_path do
+                %i.fa.fa-paperclip
+                %span.nav-label Attachment Types
+          - if can? :index, Role
+            %li{class: "#{'active' if controller_name == 'roles'}"}
+              = link_to roles_path do
+                %i.fa.fa-user-circle-o
+                %span.nav-label Roles

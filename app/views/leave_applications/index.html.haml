@@ -1,0 +1,34 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, LeaveApplication
+        = link_to new_leave_application_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Leave Application
+      .ibox.float-e-margins
+        .ibox-title All Leave Applications
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, LeaveApplication
+                    %th Leave Application ID
+                  %th Subject
+                  %th Reason
+                  %th Number of Days
+                  %th Start Date
+                  %th End Date
+              %tbody
+                - @leave_applications.each do |leave_application|
+                  %tr
+                    - if can? :show, LeaveApplication
+                      %td.font-bold= link_to leave_application.id, leave_application
+                    %td= leave_application.subject
+                    %td= leave_application.reason
+                    %td= leave_application.number_of_days
+                    %td= leave_application.start_date
+                    - if leave_application.end_date.nil?
+                      %td Undefined
+                    -else
+                      %td= leave_application.end_date

@@ -14,13 +14,6 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user)
   end
 
-  # Load the permissions for the current user so that UI can be manipulated
-  def load_permissions
-    @current_permission = current_user.role.permissions.collect do |permission| 
-      [permission.subject_class, permission.action]
-    end
-  end
-
   def configure_permitted_paramters
     added_attrs = [:login, :password, :remember_me]
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
@@ -32,5 +25,9 @@ class ApplicationController < ActionController::Base
     if current_user && !current_user.temp_password_changed?
       redirect_to edit_user_path
     end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
   end
 end

@@ -1,4 +1,5 @@
 class AttachmentTypesController < ApplicationController
+  load_and_authorize_resource
 
   before_action :set_attachment_type, only: [:edit, :update, :show, :destroy]
 

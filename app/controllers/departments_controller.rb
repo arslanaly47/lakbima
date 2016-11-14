@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  load_and_authorize_resource except: [:job_titles]
 
   before_action :set_department, only: [:edit, :update, :show, :destroy, :job_titles]
 
