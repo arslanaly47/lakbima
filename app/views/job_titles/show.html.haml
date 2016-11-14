@@ -16,15 +16,18 @@
             %p= @job_title.description
           %br
           %br
-          .col-md-2
-            %p.font-bold Department
-          .col-md-10
-            = link_to @job_title.department do
-              %p
-                %span.label.label-primary= @job_title.department_name
-          %br
+          - if can? :show, Department
+            .col-md-2
+              %p.font-bold Department
+            .col-md-10
+              = link_to @job_title.department do
+                %p
+                  %span.label.label-primary= @job_title.department_name
+            %br
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_job_title_path(@job_title), class: "btn btn-primary btn-rounded"
-      = link_to "All Job Titles", job_titles_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, JobTitle
+        = link_to "Edit", edit_job_title_path(@job_title), class: "btn btn-primary btn-rounded"
+      - if can? :index, JobTitle
+        = link_to "All Job Titles", job_titles_path, class: "btn btn-primary btn-rounded"

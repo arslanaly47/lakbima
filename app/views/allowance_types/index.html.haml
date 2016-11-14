@@ -1,9 +1,10 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = link_to new_allowance_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
-        %i.fa.fa-plus{"aria-hidden" => true}
-        &nbsp;&nbsp; New Allowance Type
+      - if can? :new, AllowanceType
+        = link_to new_allowance_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Allowance Type
       .ibox.float-e-margins
         .ibox-title All Allowance Types
         .ibox-content
@@ -11,20 +12,26 @@
             %table.table.table-bordered.table-striped
               %thead
                 %tr
-                  %th #
+                  - if can? :show, AllowanceType
+                    %th #
                   %th Name
                   %th Description
                   %th Lump sum amount
-                  %th Actions
+                  - if can?(:edit, AllowanceType) || can?(:destroy, AllowanceType)
+                    %th Actions
               %tbody
                 - @allowance_types.each do |allowance_type|
                   %tr{data: { id: allowance_type.id } }
-                    %td= link_to allowance_type.id, allowance_type
+                    - if can? :show, AllowanceType
+                      %td= link_to allowance_type.id, allowance_type
                     %td= allowance_type.name
                     %td= allowance_type.description
                     %td.font-bold= number_to_currency allowance_type.lump_sum_amount, unit: allowance_type.currency_symbol
-                    %td
-                      = link_to allowance_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this allowance type from database?" }, class: "action-link" do
-                        %i.fa.fa-trash{"aria-hidden" => true}
-                      = link_to edit_allowance_type_path(allowance_type), class: "action-link" do
-                        %i.fa.fa-pencil{"aria-hidden" => true}
+                    - if can?(:edit, AllowanceType) || can?(:destroy, AllowanceType)
+                      %td
+                        - if can? :destroy, AllowanceType
+                          = link_to allowance_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this allowance type from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, AllowanceType
+                          = link_to edit_allowance_type_path(allowance_type), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

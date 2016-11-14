@@ -41,4 +41,5 @@
             .clearfix
   .row
     .col-lg-12
-      = link_to "All Leaves Application", leave_applications_path(current_user), class: "btn btn-primary btn-rounded"
+      - if can? :index, LeaveApplication
+        = link_to "All Leaves Application", leave_applications_path, class: "btn btn-primary btn-rounded"

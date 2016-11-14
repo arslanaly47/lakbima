@@ -23,5 +23,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_department_path(@department), class: "btn btn-primary btn-rounded"
-      = link_to "All Departments", departments_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, Department
+        = link_to "Edit", edit_department_path(@department), class: "btn btn-primary btn-rounded"
+      - if can? :index, Department
+        = link_to "All Departments", departments_path, class: "btn btn-primary btn-rounded"

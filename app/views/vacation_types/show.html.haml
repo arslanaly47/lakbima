@@ -18,5 +18,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_vacation_type_path(@vacation_type), class: "btn btn-primary btn-rounded"
-      = link_to "All Vacation Types", vacation_types_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, VacationType
+        = link_to "Edit", edit_vacation_type_path(@vacation_type), class: "btn btn-primary btn-rounded"
+      - if can? :index, VacationType
+        = link_to "All Vacation Types", vacation_types_path, class: "btn btn-primary btn-rounded"

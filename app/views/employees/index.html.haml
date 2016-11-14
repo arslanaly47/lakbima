@@ -1,9 +1,10 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = link_to new_employee_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
-        %i.fa.fa-plus{"aria-hidden" => true}
-        &nbsp;&nbsp; New Employee
+      - if can? :new, Employee
+        = link_to new_employee_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Employee
       .ibox.float-e-margins
         .ibox-title All Employees
         .ibox-content
@@ -11,16 +12,19 @@
             %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr 
-                  %th= sortable "id", "ID"
+                  - if can? :show, Employee
+                    %th= sortable "id", "ID"
                   %th Profile Picture
                   %th= sortable "first_name"
                   %th= sortable "last_name"
                   %th= sortable "phone_number"
-                  %th Actions
+                  - if can?(:edit, Employee) || can?(:destroy, Employee)
+                    %th Actions
               %tbody
                 - @employees.each do |employee|
                   %tr{data: { id: employee.id } }
-                    %td= link_to employee.id, employee
+                    - if can? :show, Employee
+                      %td= link_to employee.id, employee
                     - if employee.profile_image
                       %td= image_tag employee.profile_image.image.url(:thumb)
                     - else
@@ -28,8 +32,11 @@
                     %td= employee.first_name
                     %td= employee.last_name
                     %td= employee.phone_number
-                    %td
-                      = link_to employee, method: :delete, remote: true, data: { confirm: "Are you sure to delete this employee from database?" }, class: "action-link" do
-                        %i.fa.fa-trash{"aria-hidden" => true}
-                      = link_to edit_employee_path(employee), class: "action-link" do
-                        %i.fa.fa-pencil{"aria-hidden" => true}
+                    - if can?(:edit, Employee) || can?(:destroy, Employee)
+                      %td
+                        - if can? :destroy, Employee
+                          = link_to employee, method: :delete, remote: true, data: { confirm: "Are you sure to delete this employee from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, Employee
+                          = link_to edit_employee_path(employee), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

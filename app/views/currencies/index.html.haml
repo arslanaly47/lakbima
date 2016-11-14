@@ -1,9 +1,10 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = link_to new_currency_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
-        %i.fa.fa-plus{"aria-hidden" => true}
-        &nbsp;&nbsp; New Currency
+      - if can? :new, Currency
+        = link_to new_currency_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Currency
       .ibox.float-e-margins
         .ibox-title All Currencies
         .ibox-content
@@ -11,22 +12,28 @@
             %table.table.table-bordered.table-striped
               %thead
                 %tr
-                  %th #
+                  - if can? :show, Currency
+                    %th #
                   %th Name
                   %th Code
                   %th Symbol
                   %th Country
-                  %th Actions
+                  - if can?(:edit, Currency) || can?(:destroy, Currency)
+                    %th Actions
               %tbody
                 - @currencies.each do |currency|
                   %tr{data: { id: currency.id } }
-                    %td= link_to currency.id, currency
+                    - if can? :show, Currency
+                      %td= link_to currency.id, currency
                     %td= currency.name
                     %td= currency.code
                     %td= currency.symbol
                     %td= currency.country
-                    %td
-                      = link_to currency, method: :delete, remote: true, data: { confirm: "Are you sure to delete this currency from database?" }, class: "action-link" do
-                        %i.fa.fa-trash{"aria-hidden" => true}
-                      = link_to edit_currency_path(currency), class: "action-link" do
-                        %i.fa.fa-pencil{"aria-hidden" => true}
+                    - if can?(:edit, Currency) || can?(:destroy, Currency)
+                      %td
+                        - if can?(:destroy, Currency)
+                          = link_to currency, method: :delete, remote: true, data: { confirm: "Are you sure to delete this currency from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can?(:edit, Currency)
+                          = link_to edit_currency_path(currency), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

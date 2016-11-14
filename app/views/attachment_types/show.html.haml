@@ -3,7 +3,7 @@
     .col-lg-12
       .ibox.float-e-margins
         .ibox-title
-          %h2=@attachment_type.name
+          %h2= @attachment_type.name
         .ibox-content
           .col-md-2
             %p.font-bold Name
@@ -18,5 +18,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_attachment_type_path(@attachment_type), class: "btn btn-primary btn-rounded"
-      = link_to "All Attachment Types", attachment_types_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, AttachmentType
+        = link_to "Edit", edit_attachment_type_path(@attachment_type), class: "btn btn-primary btn-rounded"
+      - if can? :index, AttachmentType
+        = link_to "All Attachment Types", attachment_types_path, class: "btn btn-primary btn-rounded"

@@ -28,5 +28,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_currency_path(@currency), class: "btn btn-primary btn-rounded"
-      = link_to "All Currencies", currencies_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, Currency
+        = link_to "Edit", edit_currency_path(@currency), class: "btn btn-primary btn-rounded"
+      - if can? :index, Currency
+        = link_to "All Currencies", currencies_path, class: "btn btn-primary btn-rounded"

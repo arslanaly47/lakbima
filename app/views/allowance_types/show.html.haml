@@ -23,5 +23,7 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_allowance_type_path(@allowance_type), class: "btn btn-primary btn-rounded"
-      = link_to "All Currencies", allowance_types_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, AllowanceType
+        = link_to "Edit", edit_allowance_type_path(@allowance_type), class: "btn btn-primary btn-rounded"
+      - if can? :index, AllowanceType
+        = link_to "All Currencies", allowance_types_path, class: "btn btn-primary btn-rounded"

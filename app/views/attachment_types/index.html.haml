@@ -1,9 +1,10 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = link_to new_attachment_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
-        %i.fa.fa-plus{"aria-hidden" => true}
-        &nbsp;&nbsp; New Attachment Type
+      - if can? :new, AttachmenType
+        = link_to new_attachment_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Attachment Type
       .ibox.float-e-margins
         .ibox-title All Attachment Types
         .ibox-content
@@ -11,18 +12,24 @@
             %table.table.table-bordered.table-striped
               %thead
                 %tr
-                  %th #
+                  - if can? :show, AttachmentType
+                    %th #
                   %th Name
                   %th Description
-                  %th Actions
+                  - if can?(:edit, AttachmentType) || can?(:destroy, AttachmentType)
+                    %th Actions
               %tbody
                 - @attachment_types.each do |attachment_type|
                   %tr{data: { id: attachment_type.id } }
-                    %td= link_to attachment_type.id, attachment_type
+                    - if can? :show, AllowanceType
+                      %td= link_to attachment_type.id, attachment_type
                     %td= attachment_type.name
                     %td= attachment_type.description
-                    %td
-                      = link_to attachment_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this attachment type from database?" }, class: "action-link" do
-                        %i.fa.fa-trash{"aria-hidden" => true}
-                      = link_to edit_attachment_type_path(attachment_type), class: "action-link" do
-                        %i.fa.fa-pencil{"aria-hidden" => true}
+                    - if can?(:edit, AttachmentType) || can?(:destroy, AttachmentType)
+                      %td
+                        - if can? :destroy, AttachmentType
+                          = link_to attachment_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this attachment type from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, AttachmentType
+                          = link_to edit_attachment_type_path(attachment_type), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

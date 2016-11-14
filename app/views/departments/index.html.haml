@@ -1,9 +1,10 @@
 .wrapper.wrapper-content.animated.fadeInRight
   .row
     .col-lg-12
-      = link_to new_department_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
-        %i.fa.fa-plus{"aria-hidden" => true}
-        &nbsp;&nbsp; New Department
+      - if can? :new, Department
+        = link_to new_department_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Department
       .ibox.float-e-margins
         .ibox-title All Departments
         .ibox-content
@@ -11,18 +12,24 @@
             %table.table.table-bordered.table-striped
               %thead
                 %tr
-                  %th #
+                  - if can? :show, Department
+                    %th #
                   %th Name
                   %th Description
-                  %th Actions
+                  - if can?(:destroy, Department) || can?(:edit, Department)
+                    %th Actions
               %tbody
                 - @departments.each do |department|
                   %tr{data: { id: department.id } }
-                    %td= link_to department.id, department
+                    - if can? :show, Department
+                      %td= link_to department.id, department
                     %td= department.name
                     %td= department.description
-                    %td
-                      = link_to department, method: :delete, remote: true, data: { confirm: "Are you sure to delete this department from database?" }, class: "action-link" do
-                        %i.fa.fa-trash{"aria-hidden" => true}
-                      = link_to edit_department_path(department), class: "action-link" do
-                        %i.fa.fa-pencil{"aria-hidden" => true}
+                    - if can?(:destroy, Department) || can?(:edit, Department)
+                      %td
+                        - if can? :destroy, Department
+                          = link_to department, method: :delete, remote: true, data: { confirm: "Are you sure to delete this department from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, Department
+                          = link_to edit_department_path(department), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

@@ -18,6 +18,8 @@
           .clearfix
   .row
     .col-lg-12
-      = link_to "Edit", edit_role_path(@role), class: "btn btn-primary btn-rounded"
-      = link_to "All Roles", roles_path, class: "btn btn-primary btn-rounded"
+      - if can? :edit, Role
+        = link_to "Edit", edit_role_path(@role), class: "btn btn-primary btn-rounded"
+      - if can? :index, Role
+        = link_to "All Roles", roles_path, class: "btn btn-primary btn-rounded"
 
