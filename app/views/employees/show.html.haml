@@ -84,7 +84,7 @@
             .col-md-2
               %p.font-bold Job Title
             .col-md-10
-              %p= @employee.job_title.name
+              %p= @employee.job_title.try(:name)
           .row
             .col-md-2
               %p.font-bold Salary

@@ -18,7 +18,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.save
-      Employee.create_associated_user(params[:role_id])
+      @employee.create_associated_user(params[:role_id])
       redirect_to @employee, notice: "Employee has successfully been saved."
     else
       set_departments
