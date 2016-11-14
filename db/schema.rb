@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104220122) do
+ActiveRecord::Schema.define(version: 20161113090219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 20161104220122) do
     t.string   "phone_number"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.string   "username"
     t.string   "nationality"
     t.string   "passport_no"
     t.date     "passport_expiry"
@@ -124,7 +123,9 @@ ActiveRecord::Schema.define(version: 20161104220122) do
     t.date     "date_of_joining"
     t.integer  "job_title_id"
     t.date     "appointment_date"
+    t.integer  "user_id"
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
+    t.index ["user_id"], name: "index_employees_on_user_id", using: :btree
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -134,6 +135,39 @@ ActiveRecord::Schema.define(version: 20161104220122) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["department_id"], name: "index_job_titles_on_department_id", using: :btree
+  end
+
+  create_table "leave_applications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "subject"
+    t.text     "reason"
+    t.integer  "number_of_days"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "manager_id"
+    t.string   "action"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["manager_id"], name: "index_leave_applications_on_manager_id", using: :btree
+    t.index ["user_id"], name: "index_leave_applications_on_user_id", using: :btree
+  end
+
+  create_table "notification_users", force: :cascade do |t|
+    t.integer  "notification_id"
+    t.integer  "user_id"
+    t.boolean  "read",            default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["notification_id"], name: "index_notification_users_on_notification_id", using: :btree
+    t.index ["user_id"], name: "index_notification_users_on_user_id", using: :btree
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -167,11 +201,11 @@ ActiveRecord::Schema.define(version: 20161104220122) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -181,9 +215,11 @@ ActiveRecord::Schema.define(version: 20161104220122) do
     t.string   "username"
     t.string   "phone_number"
     t.text     "address"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "role_id"
+    t.string   "temp_password"
+    t.boolean  "temp_password_changed",  default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
@@ -214,7 +250,12 @@ ActiveRecord::Schema.define(version: 20161104220122) do
   add_foreign_key "allowances", "salaries"
   add_foreign_key "attachments", "attachment_types"
   add_foreign_key "employees", "job_titles"
+  add_foreign_key "employees", "users"
   add_foreign_key "job_titles", "departments"
+  add_foreign_key "leave_applications", "users"
+  add_foreign_key "notification_users", "notifications"
+  add_foreign_key "notification_users", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "salaries", "employees"

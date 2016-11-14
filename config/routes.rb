@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :employees, :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts, :attachment_types
+  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts, :attachment_types, :roles
 
+  resources :leave_applications, except: [:edit, :update, :destroy]
   resources :departments do
     member do
       get 'job_titles'
@@ -14,9 +15,9 @@ Rails.application.routes.draw do
         as: :attachment
     end
   end
-  resource :user, only: [:edit] do
+  resources :users, only: [:edit] do
     collection do
-      patch 'update_password'
+     patch 'update_password'
     end
   end
   root 'employees#index'
