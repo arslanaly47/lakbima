@@ -5,14 +5,21 @@
 
 $(document).on('ready nested:fieldAdded', function() {
   //toastr.success("Such a pleasure that you read it.", "Big Title");
-  $('.input-group.date').datepicker({
+  var optionsForDatePicker = {
     format: "mm/dd/yyyy",
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
     calendarWeeks: true,
     autoclose: true
-  });
+  };
+
+  $('#dateOfJoining.input-group.date').datepicker(optionsForDatePicker);
+  $('#passportExpiry.input-group.date').datepicker(optionsForDatePicker);
+  $('#visaExpiry.input-group.date').datepicker(optionsForDatePicker);
+  $('#medicalExpiry.input-group.date').datepicker(optionsForDatePicker);
+  $('#appointmentDate.input-group.date').datepicker(optionsForDatePicker);
+  $('.vacation-dates.input-group.date').datepicker(optionsForDatePicker);
 
   $("#manageEmployee").validate({
     rules: {

@@ -1,17 +1,33 @@
-$(document).on('ready nested:fieldAdded', function() {
+$(document).on('ready', function() {
 
   var oneDay         = $("#oneDay");
   var moreThanOneDay = $("#moreThanOneDay");
-  var saveButtonDiv  = $("#saveButtonDiv");
+  var dates  = $("#dates");
 
   moreThanOneDay.detach();
   $(".numberOfDays").change(function() {
     if ($(this).attr("id") == "one-day" ) {
       moreThanOneDay.detach();
-      saveButtonDiv.before(oneDay);
+      dates.append(oneDay);
     } else {
       oneDay.detach();
-      saveButtonDiv.before(moreThanOneDay);
+      dates.append(moreThanOneDay);
     }
   });
+
+  var optionsForDatePicker = {
+    format: "mm/dd/yyyy",
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    calendarWeeks: true,
+    autoclose: true,
+    startDate: new Date()
+  };
+
+  dates.bind("DOMSubtreeModified", function() {
+    $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
+  });
+
+  $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
 });

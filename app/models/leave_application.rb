@@ -4,6 +4,7 @@ class LeaveApplication < ApplicationRecord
 
   validates :start_date, :number_of_days, :subject, :reason, presence: true
   validate :end_date_should_be_after_start_date
+  validate :not_before_today_date
 
   def start_date=(val)
     date = Date.strptime(val, "%m/%d/%Y") if val.present?
@@ -20,6 +21,12 @@ class LeaveApplication < ApplicationRecord
 
     if end_date < start_date
       errors.add :end_date, "must be after the 'start date'"
+    end
+  end
+
+  def not_before_today_date
+    if (start_date && start_date < Date.today) || (end_date && end_date < Date.today)
+      errors.add :base, "dates shouldn't be in past."
     end
   end
 end

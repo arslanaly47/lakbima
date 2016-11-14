@@ -1,11 +1,11 @@
 .row.form-inline
   = f.label :vacation_type_id, 'Vacation Type'
   = f.select :vacation_type_id, options_for_select(VacationType.all.map { |v| [v.name, v.id] }, selected: f.object.vacation_type_id), {}, class: 'form-control input-sm'
-  .input-group.date
+  .input-group.date.vacation-dates
     %span.input-group-addon
       %i.fa.fa-calendar
     = f.text_field :starts_from, class: 'form-control', placeholder: 'Starts from'
-  .input-group.date
+  .input-group.date.vacation-dates
     %span.input-group-addon
       %i.fa.fa-calendar
     = f.text_field :ends_at, class: 'form-control', placeholder: 'Ends at'

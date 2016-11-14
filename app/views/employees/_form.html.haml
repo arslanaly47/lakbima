@@ -37,7 +37,7 @@
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :date_of_joining, class: 'form-control input-group date'
+      = f.text_field :date_of_joining, class: 'form-control input-group date', id: "dateOfJoining"
   .hr-line-dashed
   .form-group
     = f.label :nationality, class: 'col-sm-2 control-label'
@@ -54,7 +54,7 @@
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :passport_expiry, class: 'form-control input-group date'
+      = f.text_field :passport_expiry, class: 'form-control input-group date', id: "passportExpiry"
   .hr-line-dashed
   .form-group
     = f.label :visa_no, 'Visa No.', class: 'col-sm-2 control-label'
@@ -71,21 +71,21 @@
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :visa_expiry, class: 'form-control input-group date'
+      = f.text_field :visa_expiry, class: 'form-control input-group date', id: "visaExpiry"
   .hr-line-dashed
   .form-group
     = f.label :medical_expiry, 'Medical Expiry', class: 'col-sm-2 control-label'
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :medical_expiry, class: 'form-control input-group date'
+      = f.text_field :medical_expiry, class: 'form-control input-group date', id: "medicalExpiry"
   .hr-line-dashed
   .form-group
     = f.label :appointment_date, 'Medical appointment date', class: 'col-sm-2 control-label'
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :appointment_date, class: 'form-control input-group date'
+      = f.text_field :appointment_date, class: 'form-control input-group date', id: "appointmentDate"
   .hr-line-dashed
   .form-group
     = label_tag :department, 'Choose department', class: "col-sm-2 control-label"
