@@ -52,7 +52,7 @@ class EmployeesController < ApplicationController
   end
 
   def index
-    @employees = Employee.order(sort_column + " " + sort_direction)
+    @employees = Employee.includes(:profile_image).order(sort_column + " " + sort_direction)
   end
 
   def destroy
