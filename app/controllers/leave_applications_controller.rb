@@ -38,8 +38,8 @@ class LeaveApplicationsController < ApplicationController
   def calculate_and_set_number_of_days
     if @leave_application.end_date.nil?
       @leave_application.number_of_days = 1
-    else
-      @leave_application.number_of_days = (@leave_application.end_date - @leave_application.start_date).to_i
+    elsif !@leave_application.start_date.nil? && !@leave_application.end_date.nil?
+      @leave_application.number_of_days = (@leave_application.end_date - @leave_application.start_date).to_i + 1
     end
   end
 end
