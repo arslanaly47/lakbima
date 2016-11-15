@@ -14,11 +14,11 @@
     = label_tag :number_of_days, 'Choose the number of days', class: 'col-sm-2 control-label'
     .col-sm-3
       .radio.radio-inline
-        = radio_button_tag :number_of_days, nil, true, id: "one-day", class: "numberOfDays"
+        = radio_button_tag :number_of_days, 'one', true, id: "one-day", class: "numberOfDays"
         = label_tag "one-day", "One day"
     .col-sm-3
       .radio.radio-inline
-        = radio_button_tag :number_of_days, nil, false, id: "more-than-one-day", class: "numberOfDays"
+        = radio_button_tag :number_of_days, 'moreThanOne', (params[:number_of_days] == "moreThanOne") || false, id: "more-than-one-day", class: "numberOfDays"
         = label_tag "more-than-one-day", "More than one day"
   .hr-line-dashed
   #dates

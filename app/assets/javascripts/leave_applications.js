@@ -4,7 +4,14 @@ $(document).on('ready', function() {
   var moreThanOneDay = $("#moreThanOneDay");
   var dates  = $("#dates");
 
-  moreThanOneDay.detach();
+  if ($("#one-day").is(":checked")) {
+    moreThanOneDay.detach();
+    dates.append(oneDay);
+  } else {
+    oneDay.detach();
+    dates.append(moreThanOneDay);
+  }
+
   $(".numberOfDays").change(function() {
     if ($(this).attr("id") == "one-day" ) {
       moreThanOneDay.detach();
