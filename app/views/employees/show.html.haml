@@ -17,8 +17,13 @@
               .row
                 .col-md-5
                   %p.font-bold Temporary Password
-                .col-md-7
-                  %p= @employee.user.try(:temp_password)
+                - if @employee.user.try(:temp_password_changed?)
+                  .col-md-7
+                    %del= @employee.user.try(:temp_password)
+                    %span (Doesn't work any more.)
+                - else
+                  .col-md-7
+                    %p= @employee.user.try(:temp_password)
               .row
                 .col-md-5
                   %p.font-bold Has the user changed the temporary password?
