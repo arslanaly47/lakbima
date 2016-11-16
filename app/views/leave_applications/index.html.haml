@@ -15,7 +15,6 @@
                   - if can? :show, LeaveApplication
                     %th= sortable "id", "Leave Application ID"
                   %th= sortable "subject"
-                  %th= sortable "reason"
                   %th= sortable "number_of_days"
                   %th= sortable "start_date"
                   %th= sortable "end_date"
@@ -26,7 +25,6 @@
                     - if can? :show, LeaveApplication
                       %td.font-bold= link_to leave_application.id, leave_application
                     %td= leave_application.subject
-                    %td= leave_application.reason
                     %td= leave_application.number_of_days
                     %td= leave_application.start_date
                     - if leave_application.end_date.nil?
