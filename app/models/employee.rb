@@ -70,14 +70,14 @@ class Employee < ApplicationRecord
   end
 
   def generate_random_password
-    SecureRandom.base64(8)
+    SecureRandom.hex(8)
   end
 
   def generate_uniq_username
-    username = full_name.downcase.sub ' ', '_'
+    username = full_name.downcase.gsub ' ', '_'
     begin
       rand_username  = username + rand(111..999).to_s
-    end unless User.uniq_username? rand_username
+    end until User.uniq_username? rand_username
     rand_username
   end
 end
