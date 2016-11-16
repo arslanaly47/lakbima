@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_and_check_user!
   before_action :configure_permitted_paramters, if: :devise_controller?
 
+  helper_method :sort_direction
+
   protected
 
   # Derive the model name from the controller
@@ -29,5 +31,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
+  end
+
+  def sort_direction
+    %w(asc desc).include?(params[:direction])? params[:direction] : "asc"
   end
 end

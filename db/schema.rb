@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113090219) do
+ActiveRecord::Schema.define(version: 20161115105859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,9 +145,9 @@ ActiveRecord::Schema.define(version: 20161113090219) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "manager_id"
-    t.string   "action"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "status",         default: 0
     t.index ["manager_id"], name: "index_leave_applications_on_manager_id", using: :btree
     t.index ["user_id"], name: "index_leave_applications_on_user_id", using: :btree
   end

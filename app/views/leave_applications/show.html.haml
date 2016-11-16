@@ -38,7 +38,19 @@
                 %p.font-bold End Date
               .col-md-10
                 %p= @leave_application.end_date
-            .clearfix
+          .row
+            .col-md-2
+              %p.font-bold Status
+            .col-md-2
+              %p.p-xxs{class: "#{class_decider(@leave_application.status)}"}
+                = @leave_application.status
+          - if @leave_application.approved? or @leave_application.denied?
+            .row
+              .col-md-2
+                %p.font-bold= @leave_application.status.capitalize + " By:"
+              .col-md-2
+                %p= @leave_application.manager.try(:full_name)
+              .clearfix
   .row
     .col-lg-12
       - if can? :index, LeaveApplication

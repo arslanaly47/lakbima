@@ -9,16 +9,17 @@
         .ibox-title All Leave Applications
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, LeaveApplication
-                    %th Leave Application ID
-                  %th Subject
-                  %th Reason
-                  %th Number of Days
-                  %th Start Date
-                  %th End Date
+                    %th= sortable "id", "Leave Application ID"
+                  %th= sortable "subject"
+                  %th= sortable "reason"
+                  %th= sortable "number_of_days"
+                  %th= sortable "start_date"
+                  %th= sortable "end_date"
+                  %th= sortable "status"
               %tbody
                 - @leave_applications.each do |leave_application|
                   %tr
@@ -32,3 +33,4 @@
                       %td Undefined
                     -else
                       %td= leave_application.end_date
+                    %td{class: "#{class_decider(leave_application.status)}"}= leave_application.status

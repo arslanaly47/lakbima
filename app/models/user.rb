@@ -61,4 +61,12 @@ class User < ApplicationRecord
       where(conditions.to_h).first
     end
   end
+
+  def manager?
+    role.name == "Manager"
+  end
+
+  def employee?
+    role_name == "Employee"
+  end
 end

@@ -272,3 +272,14 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+Warden::Manager.after_set_user do |user, auth, opts|
+  scope = opts[:scope]
+  auth.cookies.signed["#{scope}.id"] = user.id
+  auth.cookies.signed["#{scope}.expires_at"] = 30.minutes.from_now
+end
+
+Warden::Manager.before_logout do |user, auth, opts|
+  scope = opts[:scope]
+  auth.cookies.signed["#{scope}.id"] = nil
+  auth.cookies.signed["#{scope}.expires_at"] = nil
+end

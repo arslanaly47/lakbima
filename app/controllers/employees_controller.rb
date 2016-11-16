@@ -1,9 +1,8 @@
 class EmployeesController < ApplicationController
-  load_and_authorize_resource
-
-  helper_method :sort_column, :sort_direction
+  load_and_authorize_resource except: [:index]
 
   before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment]
+  helper_method :sort_column
 
   def new
     @employee = Employee.new
@@ -114,9 +113,5 @@ class EmployeesController < ApplicationController
 
   def sort_column
     Employee.column_names.include?(params[:sort])? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w(asc desc).include?(params[:direction])? params[:direction] : "asc"
   end
 end

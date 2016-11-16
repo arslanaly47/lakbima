@@ -4,7 +4,9 @@ class LeaveApplication < ApplicationRecord
 
   validates :start_date, :number_of_days, :subject, :reason, presence: true
   validate :end_date_should_be_after_start_date
-  validate :not_before_today_date
+  validate :not_before_today_date, on: :create
+
+  enum status: [:pending, :approved, :denied]
 
   def start_date=(val)
     date = Date.strptime(val, "%m/%d/%Y") if val.present?
