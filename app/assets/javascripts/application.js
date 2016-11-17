@@ -35,7 +35,5 @@ $(document).ready(function () {
     "hideMethod": "fadeOut"
   };
 
-  Pace.options = {
-    ajax: false
-  }
+  Pace.options.ajax.trackWebSockets = false;
 });
