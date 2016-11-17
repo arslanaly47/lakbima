@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116080035) do
+ActiveRecord::Schema.define(version: 20161117185249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,17 +139,18 @@ ActiveRecord::Schema.define(version: 20161116080035) do
 
   create_table "leave_applications", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "subject"
     t.text     "reason"
     t.integer  "number_of_days"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "manager_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "status",         default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "status",           default: 0
+    t.integer  "vacation_type_id"
     t.index ["manager_id"], name: "index_leave_applications_on_manager_id", using: :btree
     t.index ["user_id"], name: "index_leave_applications_on_user_id", using: :btree
+    t.index ["vacation_type_id"], name: "index_leave_applications_on_vacation_type_id", using: :btree
   end
 
   create_table "notification_users", force: :cascade do |t|
@@ -255,6 +256,7 @@ ActiveRecord::Schema.define(version: 20161116080035) do
   add_foreign_key "employees", "users"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "leave_applications", "users"
+  add_foreign_key "leave_applications", "vacation_types"
   add_foreign_key "notification_users", "notifications"
   add_foreign_key "notification_users", "users"
   add_foreign_key "notifications", "leave_applications"

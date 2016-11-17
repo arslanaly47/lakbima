@@ -3,13 +3,14 @@
     .col-lg-12
       .ibox.float-e-margins
         .ibox-title
-          %h2=@leave_application.subject
+          %h2=@leave_application.vacation_type.try(:name)
         .ibox-content
           .row
             .col-md-2
-              %p.font-bold Subject
+              %p.font-bold Vacation Type
             .col-md-10
-              %p= @leave_application.subject
+              %span.badge.badge-info
+                = @leave_application.vacation_type.try(:name)
           .row
             .col-md-2
               %p.font-bold Reason

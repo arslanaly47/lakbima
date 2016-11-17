@@ -1,10 +1,12 @@
 class LeaveApplication < ApplicationRecord
   belongs_to :user
   belongs_to :manager, class_name: "User"
+  belongs_to :vacation_type
 
   has_one :notification
 
-  validates :start_date, :number_of_days, :subject, :reason, presence: true
+  validates :start_date, :number_of_days, :reason, presence: true
+  validates_associated :vacation_type
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
 

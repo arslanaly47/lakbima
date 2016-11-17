@@ -1,9 +1,9 @@
 = form_for leave_application, html: { class: "form-horizontal" } do |f|
   = render "shared/errors", resource: leave_application
   .form-group
-    = f.label :subject, class: 'col-sm-2 control-label'
+    = f.label :vacation_type_id, 'Choose type', class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :subject, class: 'form-control'
+      = f.select :vacation_type_id, options_for_select(VacationType.all.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
   .hr-line-dashed
   .form-group
     = f.label :reason, class: 'col-sm-2 control-label'

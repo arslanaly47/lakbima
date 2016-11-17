@@ -14,7 +14,7 @@
                 %tr
                   - if can? :show, LeaveApplication
                     %th= sortable "id", "Leave Application ID"
-                  %th= sortable "subject"
+                  %th= sortable "vacation_type_id", "Vacation Type"
                   %th= sortable "number_of_days"
                   %th= sortable "start_date"
                   %th= sortable "end_date"
@@ -24,7 +24,9 @@
                   %tr
                     - if can? :show, LeaveApplication
                       %td.font-bold= link_to leave_application.id, leave_application
-                    %td= leave_application.subject
+                    %td
+                      %span.badge.badge-info
+                        = leave_application.vacation_type.try(:name)
                     %td= leave_application.number_of_days
                     %td= leave_application.start_date
                     - if leave_application.end_date.nil?

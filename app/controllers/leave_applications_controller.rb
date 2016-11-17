@@ -38,7 +38,7 @@ class LeaveApplicationsController < ApplicationController
   private
 
   def leave_application_params
-    params.require(:leave_application).permit(:subject, :reason, :start_date, :end_date)
+    params.require(:leave_application).permit(:vacation_type_id, :reason, :start_date, :end_date)
   end
 
   def set_leave_application
