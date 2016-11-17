@@ -2,9 +2,13 @@ class LeaveApplication < ApplicationRecord
   belongs_to :user
   belongs_to :manager, class_name: "User"
 
+  has_one :notification
+
   validates :start_date, :number_of_days, :subject, :reason, presence: true
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
+
+  after_create :create_associated_notification
 
   enum status: [:pending, :approved, :denied]
 
@@ -30,5 +34,10 @@ class LeaveApplication < ApplicationRecord
     if (start_date && start_date < Date.today) || (end_date && end_date < Date.today)
       errors.add :base, "dates shouldn't be in past."
     end
+  end
+
+  def create_associated_notification
+    content = "applied for a #{number_of_days} day leave."
+    Notification.create(content: content, generator: user, leave_application: self)
   end
 end

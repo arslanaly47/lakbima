@@ -25,18 +25,16 @@ $(document).on('ready nested:fieldAdded', function() {
     rules: {
       "employee[first_name]": {
         minlength: 3,
-        maxlength: 100
+        maxlength: 100,
+        required: true
       },
       "employee[last_name]": {
         minlength: 3,
-        maxlength: 100
+        maxlength: 100,
+        required: true
       },
-      "employee[username]": {
-        minlength: 3,
-        maxlength: 20
-      },
-      "employee[mobile_no]": {
-
+      "role_id": {
+        required: true
       }
 
     }

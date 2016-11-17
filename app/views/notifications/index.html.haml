@@ -1,0 +1,13 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title.font-bold All Notifications
+        .ibox-content
+          - @notifications.each do |notification|
+            .notification
+              = notification.generator.full_name + " " + notification.content
+              .pull-right
+                = link_to "Approve", approve_leave_application_path(notification.leave_application, notification_id: notification.id), class: "btn btn-primary btn-rounded btn-sm", method: :post, remote: true
+                = link_to "Deny", deny_leave_application_path(notification.leave_application, notification_id: notification.id),    class: "btn btn-danger btn-rounded btn-sm", method: :post, remote: true
+              %hr
