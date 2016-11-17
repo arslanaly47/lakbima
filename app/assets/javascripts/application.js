@@ -34,4 +34,8 @@ $(document).ready(function () {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   };
+
+  Pace.options = {
+    ajax: false
+  }
 });
