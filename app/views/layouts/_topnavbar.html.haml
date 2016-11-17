@@ -26,6 +26,6 @@
                 %strong.text-info
                   = link_to "View All Notifications", notifications_path
       %li
-        = link_to destroy_user_session_path, :method => :delete do
+        = link_to destroy_user_session_path, method: :delete do
           %i.fa.fa-sign-out
           Log out
