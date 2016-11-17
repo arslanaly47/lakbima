@@ -12,7 +12,7 @@ class LeaveApplicationsController < ApplicationController
     @leave_application = current_user.leave_applications.new(leave_application_params)
     calculate_and_set_number_of_days
     if @leave_application.save
-      ActionCable.server.broadcast 'activity_channel', content: @leave_application.reason
+      # ActionCable.server.broadcast 'activity_channel', content: @leave_application.reason
       redirect_to @leave_application, notice: "Leave application has successfully been sent."
     else
       render :new
