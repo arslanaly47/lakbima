@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
   resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts, :attachment_types, :roles
 
-  resources :leave_applications, except: [:edit, :update, :destroy]
+  resources :leave_applications, except: [:edit, :update, :destroy] do
+    member do
+      post 'approve'
+      post 'deny'
+    end
+  end
   resources :departments do
     member do
       get 'job_titles'
@@ -21,5 +26,6 @@ Rails.application.routes.draw do
      patch 'update_password'
     end
   end
+  resources :notifications, only: [:index]
   root 'employees#index'
 end

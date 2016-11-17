@@ -13,17 +13,18 @@
             %span.label.label-primary
               = current_user.unread_notifications_count
         %ul.dropdown-menu.dropdown-messages
-          - if current_user.notifications.blank?
+          - if current_user.received_notifications.blank?
             .text-center.font-bold
               You're all caught up!
             %li.divider
           - else
-            - current_user.notifications.each do |notification|
+            - current_user.received_notifications.limit(3).each do |notification|
               = render 'layouts/notification', notification: notification
           %li
             .text-center.link-block
               %a{href: "#"}
-                %strong.text-info View All Notifications
+                %strong.text-info
+                  = link_to "View All Notifications", notifications_path
       %li
         = link_to destroy_user_session_path, :method => :delete do
           %i.fa.fa-sign-out

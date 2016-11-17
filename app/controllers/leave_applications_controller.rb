@@ -1,7 +1,7 @@
 class LeaveApplicationsController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_leave_application, only: [:edit, :update, :show, :destroy, :job_titles]
+  before_action :set_leave_application, only: [:edit, :update, :show, :destroy, :job_titles, :approve, :deny]
   helper_method :sort_column
 
   def new
@@ -26,6 +26,14 @@ class LeaveApplicationsController < ApplicationController
     @leave_applications = current_user.leave_applications.order(sort_column + " " + sort_direction)
   end
 
+  def approve
+    @leave_application.approved!
+    @leave_application.update_attribute :manager_id, current_user.id
+    current_user.mark_notification params[:notification_id], true
+  end
+
+  def deny
+  end
 
   private
 
@@ -34,7 +42,11 @@ class LeaveApplicationsController < ApplicationController
   end
 
   def set_leave_application
-    @leave_application = current_user.leave_applications.find params[:id]
+    if current_user.employee?
+      @leave_application = current_user.leave_applications.find params[:id]
+    elsif current_user.manager?
+      @leave_application = LeaveApplication.find params[:id]
+    end
   end
 
   def calculate_and_set_number_of_days

@@ -14,16 +14,21 @@ class User < ApplicationRecord
   has_many :read_notification_users,   -> { read },   class_name: "NotificationUser"
   has_many :unread_notification_users, -> { unread }, class_name: "NotificationUser"
 
-  has_many :notifications,        through: :notification_users
-  has_many :unread_notifications, through: :unread_notification_users,
-                                  class_name: "Notification",
-                                  source: :notification
-  has_many :read_notifications,   through: :notification_users,
-                                  class_name: "Notification",
-                                  source: :notification
+  has_many :received_notifications, through: :notification_users,
+                                    class_name: "Notification",
+                                    source: :notification
+  has_many :unread_notifications,   through: :unread_notification_users,
+                                    class_name: "Notification",
+                                    source: :notification
+  has_many :read_notifications,     through: :notification_users,
+                                    class_name: "Notification",
+                                    source: :notification
   has_many :leave_applications
   validates :role, :username, presence: true
   validates :username, uniqueness: true
+
+  scope :managers,  -> { where(role: Role.find_by(name: "Manager")) }
+  scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
   delegate :profile_image, to: :employee
 
@@ -67,6 +72,11 @@ class User < ApplicationRecord
   end
 
   def employee?
-    role_name == "Employee"
+    role.name == "Employee"
+  end
+
+  def mark_notification(notification_id, read=true)
+    notification_user = self.notification_users.find_by(notification_id: notification_id)
+    notification_user.update_attribute(:read, true)
   end
 end
