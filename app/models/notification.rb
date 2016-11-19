@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  belongs_to :generator, class_name: 'User', foreign_key: :user_id
+  belongs_to :generator, class_name: "User", foreign_key: :user_id
   belongs_to :leave_application
   has_many :notification_users
   has_many :receivers, through: :notification_users, class_name: "User", source: :user
@@ -14,7 +14,11 @@ class Notification < ApplicationRecord
     if self.generator.employee?
       User.managers.each { |manager| self.receivers << manager }
     elsif self.generator.manager?
-      self.users << self.generator # TODO: modify it later on
+      self.receivers << self.generator
     end
+  end
+
+  def leave_application_id
+    leave_application.id
   end
 end

@@ -29,10 +29,13 @@ class LeaveApplicationsController < ApplicationController
   def approve
     @leave_application.approved!
     @leave_application.update_attribute :manager_id, current_user.id
-    current_user.mark_notification params[:notification_id], true
+    current_user.mark_notification @leave_application.notification.id
   end
 
   def deny
+    @leave_application.denied!
+    @leave_application.update_attribute :manager_id, current_user.id
+    current_user.mark_notification @leave_application.notification.id
   end
 
   private

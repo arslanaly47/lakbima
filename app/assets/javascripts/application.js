@@ -19,6 +19,11 @@
 //= require jquery_nested_form
 //= require blueimp-gallery-all
 //= require toastr/toastr.min.js
+//= require ladda/spin.min.js
+//= require ladda/ladda.min.js
+//= require ladda/ladda.jquery.min.js
+//= require rickshaw/vendor/d3.v3.js
+//= require rickshaw/rickshaw.min.js
 //= require_self
 //= require_tree .
 

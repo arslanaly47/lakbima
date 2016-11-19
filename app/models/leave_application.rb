@@ -1,5 +1,5 @@
 class LeaveApplication < ApplicationRecord
-  belongs_to :user
+  belongs_to :applicant, class_name: "User"
   belongs_to :manager, class_name: "User"
   belongs_to :vacation_type
 

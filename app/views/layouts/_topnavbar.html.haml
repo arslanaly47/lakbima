@@ -10,7 +10,7 @@
         %a.dropdown-toggle.count-info{data: { toggle: "dropdown" }, href: "#"}
           %i.fa.fa-bell
           - if current_user.has_notifications_to_read?
-            %span.label.label-primary
+            %span.label.label-primary#notificationCount
               = current_user.unread_notifications_count
         %ul.dropdown-menu.dropdown-messages
           - if current_user.received_notifications.blank?
