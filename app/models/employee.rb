@@ -74,7 +74,7 @@ class Employee < ApplicationRecord
   end
 
   def generate_uniq_username
-    username = full_name.downcase.gsub ' ', '_'
+    username = first_name.downcase.gsub ' ', '_'
     begin
       rand_username  = username + rand(111..999).to_s
     end until User.uniq_username? rand_username
