@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     if @user.update(user_params.merge temp_password_changed: true)
       bypass_sign_in @user
-      redirect_to root_path
+      redirect_to root_path, notice: "Password has successfully been reset."
     else
       render :edit
     end
@@ -21,9 +21,9 @@ class UsersController < ApplicationController
   end
 
   def update_profile
-    @user = User.find(current_user.id) 
+    @user = User.find(current_user.id)
     if @user.update(user_params)
-      redirect_to root_path
+      redirect_to root_path, notice: "Your profile has successfully been updated."
     else
       render :edit
     end
