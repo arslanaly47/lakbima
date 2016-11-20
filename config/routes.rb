@@ -23,9 +23,11 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:edit] do
     collection do
-     patch 'update_password'
+      patch 'update_password'
     end
   end
   resources :notifications, only: [:index]
+  get 'profile' => 'users#profile'
+  patch 'update_profile' => 'users#update_profile'
   root 'employees#index'
 end

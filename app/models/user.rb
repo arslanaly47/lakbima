@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   delegate :profile_image, to: :employee
 
+  accepts_nested_attributes_for :employee
+
   def full_name
     [first_name, last_name]*' '
   end
