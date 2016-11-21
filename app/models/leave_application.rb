@@ -1,5 +1,5 @@
 class LeaveApplication < ApplicationRecord
-  belongs_to :applicant, class_name: "User"
+  belongs_to :applicant, class_name: "User", foreign_key: :user_id
   belongs_to :manager, class_name: "User"
   belongs_to :vacation_type
 
@@ -9,8 +9,6 @@ class LeaveApplication < ApplicationRecord
   validates_associated :vacation_type
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
-
-  after_create :create_associated_notification
 
   enum status: [:pending, :approved, :denied]
 
@@ -38,8 +36,8 @@ class LeaveApplication < ApplicationRecord
     end
   end
 
-  def create_associated_notification
+  def create_associated_notification(current_user)
     content = "applied for a #{number_of_days} day leave."
-    Notification.create(content: content, generator: user, leave_application: self)
+    Notification.create(content: content, generator: current_user, leave_application: self)
   end
 end

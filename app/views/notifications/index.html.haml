@@ -8,7 +8,8 @@
             - @notifications.each do |notification|
               %span
                 = link_to notification.generator.full_name, notification.generator.employee
-              = " " + notification.content
+              = link_to notification.leave_application do
+                %u= " " + notification.content
               %br
               %small.text-muted
                 = time_ago_in_words(notification.created_at) + " ago at "

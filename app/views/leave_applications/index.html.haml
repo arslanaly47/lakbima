@@ -14,16 +14,23 @@
                 %tr
                   - if can? :show, LeaveApplication
                     %th= sortable "id", "Leave Application ID"
+                  - if current_user.manager?
+                    %th Applicant
                   %th= sortable "vacation_type_id", "Vacation Type"
                   %th= sortable "number_of_days"
                   %th= sortable "start_date"
                   %th= sortable "end_date"
-                  %th= sortable "status"
+                  - unless current_user.manager?
+                    %th= sortable "status"
+                  - if current_user.manager?
+                    %th Actions
               %tbody
                 - @leave_applications.each do |leave_application|
                   %tr
                     - if can? :show, LeaveApplication
                       %td.font-bold= link_to leave_application.id, leave_application
+                    - if current_user.manager?
+                      %td= leave_application.applicant.full_name
                     %td
                       %span.badge.badge-info
                         = leave_application.vacation_type.try(:name)
@@ -33,4 +40,15 @@
                       %td.text-center -
                     -else
                       %td= leave_application.end_date
-                    %td{class: "#{class_decider(leave_application.status)}"}= leave_application.status
+                    - unless current_user.manager?
+                      %td{class: "#{class_decider(leave_application.status)}"}= leave_application.status
+                    - if current_user.manager?
+                      %td
+                        - if leave_application.pending?
+                          = link_to "Approve", "", class: "btn btn-sm btn-primary leave-approve", data: { style: "zoom-in", leave_application_id: leave_application.id }
+                          = link_to "Deny", "", class: "btn btn-sm btn-danger leave-deny", data: { style: "zoom-in", leave_application_id: leave_application.id }
+                        - else
+                          - if leave_application.approved?
+                            %span.label.label-primary.animted.fadeInDown Approved
+                          - else
+                            %span.label.label-danger.animted.fadeInDown Denied

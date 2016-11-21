@@ -12,6 +12,7 @@ class LeaveApplicationsController < ApplicationController
     @leave_application = current_user.leave_applications.new(leave_application_params)
     calculate_and_set_number_of_days
     if @leave_application.save
+      @leave_application.create_associated_notification(current_user)
       # ActionCable.server.broadcast 'activity_channel', content: @leave_application.reason
       redirect_to @leave_application, notice: "Leave application has successfully been sent."
     else
@@ -23,19 +24,31 @@ class LeaveApplicationsController < ApplicationController
   end
 
   def index
-    @leave_applications = current_user.leave_applications.order(sort_column + " " + sort_direction)
+    if current_user.manager?
+      @leave_application = LeaveApplication.all.order(sort_column + " " + sort_direction)
+    else
+      @leave_applications = current_user.leave_applications.order(sort_column + " " + sort_direction)
+    end
   end
 
   def approve
     @leave_application.approved!
     @leave_application.update_attribute :manager_id, current_user.id
-    current_user.mark_notification @leave_application.notification.id
+    if current_user.mark_notification(@leave_application.notification.id)
+      render json: { read: true }
+    else
+      render json: { read: false }
+    end
   end
 
   def deny
     @leave_application.denied!
     @leave_application.update_attribute :manager_id, current_user.id
-    current_user.mark_notification @leave_application.notification.id
+    if current_user.mark_notification(@leave_application.notification.id)
+      render json: { read: true }
+    else
+      render json: { read: false }
+    end
   end
 
   private

@@ -25,12 +25,14 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: url,
-      success: function() {
+      success: function(data) {
         $this.ladda('stop');
         $this.siblings('.leave-deny').remove();
         $this.before("<span class='label label-primary animated fadeInDown'>Approved</span>");
         $this.remove();
-        updateNotificationCount();
+        if (data.read) {
+          updateNotificationCount();
+        }
       }
     });
   });
@@ -46,12 +48,14 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: url,
-      success: function() {
+      success: function(data) {
         $this.ladda('stop');
         $this.siblings('.leave-approve').remove();
         $this.before("<span class='label label-danger animated fadeInDown'>Denied</span>");
         $this.remove();
-        updateNotificationCount();
+        if (data.read) {
+          updateNotificationCount();
+        }
       }
     });
   });

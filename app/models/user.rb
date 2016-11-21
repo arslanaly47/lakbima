@@ -79,6 +79,11 @@ class User < ApplicationRecord
 
   def mark_notification(notification_id, read=true)
     notification_user = self.notification_users.find_by(notification_id: notification_id)
-    notification_user.update_attribute(:read, true)
+    if notification_user
+      notification_user.update_attribute(:read, true)
+      true
+    else
+      false
+    end
   end
 end
