@@ -13,12 +13,12 @@
             %span.label.label-primary#notificationCount
               = current_user.unread_notifications_count
         %ul.dropdown-menu.dropdown-messages
-          - if current_user.received_notifications.blank?
+          - if current_user.unread_notifications.blank?
             .text-center.font-bold
               You're all caught up!
             %li.divider
           - else
-            - current_user.received_notifications.limit(3).each do |notification|
+            - current_user.unread_notifications.limit(3).each do |notification|
               = render 'layouts/notification', notification: notification
           %li
             .text-center.link-block

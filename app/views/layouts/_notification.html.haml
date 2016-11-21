@@ -4,9 +4,10 @@
       .pull-left.p-xxs
         = image_tag "rails.png", alt: "image", class: "img-circle"
       .media-body.p-xxs
-        %strong
-          = notification.generator.try(:full_name)
-        = notification.content
+        = link_to notification.leave_application, class: "notification-link" do
+          %strong
+            = notification.generator.try(:full_name)
+          = notification.content
         %br
         %small.text-muted
           = time_ago_in_words(notification.created_at) + " ago at "

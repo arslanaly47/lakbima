@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var hostname = window.location.origin;
+
   function updateNotificationCount() {
     var currentNotificationCount = parseInt($("#notificationCount").text());
     updatedCount = currentNotificationCount - 1;
@@ -20,7 +22,7 @@ $(document).ready(function() {
     $this.ladda('start');
     var leaveApplicationId = $(this).data('leave-application-id');
 
-    var url = "leave_applications/" + leaveApplicationId.toString() + "/approve";
+    var url = hostname + "/leave_applications/" + leaveApplicationId.toString() + "/approve";
 
     $.ajax({
       type: "POST",
@@ -43,7 +45,7 @@ $(document).ready(function() {
     $this.ladda('start');
     var leaveApplicationId = $(this).data('leave-application-id');
 
-    var url = "leave_applications/" + leaveApplicationId.toString() + "/deny";
+    var url = hostname + "/leave_applications/" + leaveApplicationId.toString() + "/deny";
 
     $.ajax({
       type: "POST",
