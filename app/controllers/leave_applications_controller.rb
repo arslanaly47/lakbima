@@ -25,7 +25,7 @@ class LeaveApplicationsController < ApplicationController
 
   def index
     if current_user.manager?
-      @leave_application = LeaveApplication.all.order(sort_column + " " + sort_direction)
+      @leave_applications = LeaveApplication.all.order(sort_column + " " + sort_direction)
     else
       @leave_applications = current_user.leave_applications.order(sort_column + " " + sort_direction)
     end
