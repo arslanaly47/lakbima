@@ -10,6 +10,8 @@ class Notification < ApplicationRecord
 
   alias_method :sender, :generator
 
+  enum notification_type: [:applicant, :action]
+
   def associate_it_with_concerned_people
     if self.generator.employee?
       User.managers.each { |manager| self.receivers << manager }
@@ -20,5 +22,9 @@ class Notification < ApplicationRecord
 
   def leave_application_id
     leave_application.id
+  end
+
+  def generator
+    leave_application.applicant
   end
 end

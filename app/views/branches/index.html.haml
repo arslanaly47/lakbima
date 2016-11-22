@@ -1,0 +1,37 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, Branch
+        = link_to new_branch_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Branch
+      .ibox.float-e-margins
+        .ibox-title All Branches
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, Branch
+                    %th ID
+                  %th Name
+                  %th Address
+                  %th Description
+                  - if can?(:edit, Branch) || can?(:destroy, Branch)
+                    %th Actions
+              %tbody
+                - @branches.each do |branch|
+                  %tr{data: { id: branch.id } }
+                    - if can? :show, Branch
+                      %td.font-bold= link_to branch.id, branch
+                    %td= branch.name
+                    %td= branch.address
+                    %td= branch.description
+                    - if can?(:edit, Branch) || can?(:destroy, Branch)
+                      %td
+                        - if can? :delete, Branch
+                          = link_to branch, method: :delete, remote: true, data: { confirm: "Are you sure to delete this branch from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, Branch
+                          = link_to edit_branch_path(branch), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

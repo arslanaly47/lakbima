@@ -74,3 +74,8 @@
                 = link_to roles_path do
                   %i.fa.fa-user-circle-o
                   %span.nav-label Roles
+            - if can? :index, Branch
+              %li{class: "#{'active' if controller_name == 'branches'}"}
+                = link_to branches_path do
+                  %i.fa.fa-building
+                  %span.nav-label Manage Branches

@@ -1,9 +1,11 @@
 class LeaveApplication < ApplicationRecord
+
+  has_one :applicant_notification, -> { applicant }, class_name: "Notification"
+  has_one :action_notification,    -> { action }, class_name: "Notification"
+
   belongs_to :applicant, class_name: "User", foreign_key: :user_id
   belongs_to :manager, class_name: "User"
   belongs_to :vacation_type
-
-  has_one :notification
 
   validates :start_date, :number_of_days, :reason, presence: true
   validates_associated :vacation_type
@@ -36,8 +38,16 @@ class LeaveApplication < ApplicationRecord
     end
   end
 
-  def create_associated_notification(current_user)
-    content = "applied for a #{number_of_days} day leave."
-    Notification.create(content: content, generator: current_user, leave_application: self)
+  def create_associated_notification(current_user, type)
+    if type == "applicant"
+      content = "applied for a #{number_of_days} day leave."
+    elsif type == "action"
+      if self.approved?
+        content = "Your leave application has been approved."
+      else
+        content = "Your leave application has been denied."
+      end
+    end
+    Notification.create(content: content, leave_application: self, notification_type: type)
   end
 end

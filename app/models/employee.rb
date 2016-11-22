@@ -6,6 +6,7 @@ class Employee < ApplicationRecord
   has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
   belongs_to :job_title
   belongs_to :user
+  belongs_to :branch
 
   validates_associated :job_title
   validates :first_name, :last_name, presence: true

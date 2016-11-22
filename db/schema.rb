@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117185249) do
+ActiveRecord::Schema.define(version: 20161122112730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,14 @@ ActiveRecord::Schema.define(version: 20161117185249) do
     t.index ["attachment_type_id"], name: "index_attachments_on_attachment_type_id", using: :btree
   end
 
+  create_table "branches", force: :cascade do |t|
+    t.string   "name"
+    t.text     "address"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "currencies", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -124,6 +132,8 @@ ActiveRecord::Schema.define(version: 20161117185249) do
     t.integer  "job_title_id"
     t.date     "appointment_date"
     t.integer  "user_id"
+    t.integer  "branch_id"
+    t.index ["branch_id"], name: "index_employees_on_branch_id", using: :btree
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
     t.index ["user_id"], name: "index_employees_on_user_id", using: :btree
   end
@@ -164,13 +174,12 @@ ActiveRecord::Schema.define(version: 20161117185249) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer  "user_id"
     t.string   "content"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "leave_application_id"
+    t.integer  "notification_type"
     t.index ["leave_application_id"], name: "index_notifications_on_leave_application_id", using: :btree
-    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -260,7 +269,6 @@ ActiveRecord::Schema.define(version: 20161117185249) do
   add_foreign_key "notification_users", "notifications"
   add_foreign_key "notification_users", "users"
   add_foreign_key "notifications", "leave_applications"
-  add_foreign_key "notifications", "users"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "salaries", "employees"
