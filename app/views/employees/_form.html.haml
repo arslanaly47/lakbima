@@ -35,7 +35,7 @@
   .form-group
     = f.label :branch_id, "Choose Branch", class: "col-sm-2 control-label"
     .col-sm-10
-      = f.select :branch_id, options_for_select(Branch.all.map { |b| [b.name, b.id] }, selected: employee.branch_id), class: "form-control"
+      = f.select :branch_id, options_for_select(Branch.all.map { |b| [b.name, b.id] }, selected: employee.branch_id), {}, class: "form-control"
   .hr-line-dashed
   .form-group
     = f.label :date_of_joining, 'Date of joining', class: 'col-sm-2 control-label'
