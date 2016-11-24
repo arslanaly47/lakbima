@@ -6,21 +6,36 @@
         .ibox-content
           .notification
             - @notifications.each do |notification|
-              %span
-                = link_to notification.generator.full_name, notification.generator.employee
-              = link_to notification.leave_application do
-                %u= " " + notification.content
-              %br
-              %small.text-muted
-                = time_ago_in_words(notification.created_at) + " ago at "
-                = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
-              .pull-right
-                - if notification.leave_application.approved? || notification.leave_application.denied?
-                  - if notification.leave_application.approved?
-                    %span.label.label-primary Approved
+              - if notification.applicant?
+                %span
+                  = link_to notification.generator.try(:full_name), notification.generator.try(:employee) || "javascript:void(0)"
+                = link_to notification.leave_application do
+                  %u= " " + notification.content
+                %br
+                %small.text-muted
+                  = time_ago_in_words(notification.created_at) + " ago at "
+                  = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
+                .pull-right
+                  - if notification.leave_application.approved? || notification.leave_application.denied?
+                    - if notification.leave_application.approved?
+                      %span.label.label-primary Approved
+                    - else
+                      %span.label.label-danger Denied
                   - else
-                    %span.label.label-danger Denied
-                - else
-                  = link_to "Approve", "", class: "btn btn-sm btn-primary leave-approve", data: { style: "zoom-in", leave_application_id: notification.leave_application_id }
-                  = link_to "Deny", "", class: "btn btn-sm btn-danger leave-deny", data: { style: "zoom-in", leave_application_id: notification.leave_application_id }
+                    = link_to "Approve", "", class: "btn btn-sm btn-primary leave-approve", data: { style: "zoom-in", leave_application_id: notification.leave_application_id, notification_id: notification.id }
+                    = link_to "Deny", "", class: "btn btn-sm btn-danger leave-deny", data: { style: "zoom-in", leave_application_id: notification.leave_application_id, notification_id: notification.id }
+              - elsif notification.action?
+                = notification.content + " by "
+                %span
+                  = link_to notification.generator.try(:full_name), notification.generator.employee || "javascript:void(0)"
+                = " for #{pluralize(notification.leave_application.number_of_days, "day")}."
+                %br
+                %small.text-muted
+                  = time_ago_in_words(notification.created_at) + " ago at "
+                  = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
+                .pull-right
+                  - if notification.read_by?(current_user)
+                    %span.label Read
+                  - else
+                    = link_to "Mark it as read", "", class: "btn btn-sm btn-primary mark-as-read", data: { style: "zoom-in", notification_id: notification.id }
               %hr

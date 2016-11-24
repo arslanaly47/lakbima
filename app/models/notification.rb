@@ -1,22 +1,21 @@
 class Notification < ApplicationRecord
-  belongs_to :generator, class_name: "User", foreign_key: :user_id
   belongs_to :leave_application
   has_many :notification_users
   has_many :receivers, through: :notification_users, class_name: "User", source: :user
+
+  validates :leave_application, :notification_type, presence: true
 
   default_scope { order('created_at DESC') }
 
   after_create :associate_it_with_concerned_people
 
-  alias_method :sender, :generator
-
   enum notification_type: [:applicant, :action]
 
   def associate_it_with_concerned_people
-    if self.generator.employee?
+    if applicant?
       User.managers.each { |manager| self.receivers << manager }
-    elsif self.generator.manager?
-      self.receivers << self.generator
+    elsif action?
+      self.receivers << leave_application.applicant
     end
   end
 
@@ -25,6 +24,14 @@ class Notification < ApplicationRecord
   end
 
   def generator
-    leave_application.applicant
+    if applicant?
+      leave_application.applicant
+    elsif action?
+      leave_application.manager
+    end
+  end
+
+  def read_by?(user)
+    notification_users.where(user: user, read: true).exists?
   end
 end

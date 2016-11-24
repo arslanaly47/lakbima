@@ -13,14 +13,21 @@ $(document).ready(function() {
     }
   }
 
+  function removeNotification(notificationId) {
+    $("#notification" + notificationId).remove();
+    $("#divider" + notificationId).remove();
+  }
+
   var leaveApprove = $(".leave-approve").ladda();
   var leaveDeny    = $(".leave-deny").ladda();
+  var markAsRead   = $(".mark-as-read").ladda();
 
   leaveApprove.click(function(event) {
     event.preventDefault();
     var $this = $(this);
     $this.ladda('start');
     var leaveApplicationId = $(this).data('leave-application-id');
+    var notificationId     = $(this).data('notification-id');
 
     var url = hostname + "/leave_applications/" + leaveApplicationId.toString() + "/approve";
 
@@ -34,6 +41,7 @@ $(document).ready(function() {
         $this.remove();
         if (data.read) {
           updateNotificationCount();
+          removeNotification(notificationId);
         }
       }
     });
@@ -44,6 +52,7 @@ $(document).ready(function() {
     var $this = $(this);
     $this.ladda('start');
     var leaveApplicationId = $(this).data('leave-application-id');
+    var notificationId     = $(this).data('notification-id');
 
     var url = hostname + "/leave_applications/" + leaveApplicationId.toString() + "/deny";
 
@@ -57,6 +66,30 @@ $(document).ready(function() {
         $this.remove();
         if (data.read) {
           updateNotificationCount();
+          removeNotification(notificationId);
+        }
+      }
+    });
+  });
+
+  markAsRead.click(function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    $this.ladda('start');
+    var notificationId = $(this).data('notification-id');
+
+    var url = hostname + "/notifications/" + notificationId.toString() + "/mark_as_read";
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      success: function(data) {
+        $this.ladda('stop');
+        $this.before("<span class='label animated fadeInDown'>Read</span>");
+        $this.remove();
+        if (data.read) {
+          updateNotificationCount();
+          removeNotification(notificationId);
         }
       }
     });

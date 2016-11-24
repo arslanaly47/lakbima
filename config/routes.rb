@@ -26,7 +26,11 @@ Rails.application.routes.draw do
       patch 'update_password'
     end
   end
-  resources :notifications, only: [:index]
+  resources :notifications, only: [:index] do
+    member do
+      post 'mark_as_read'
+    end
+  end
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
   root 'employees#index'

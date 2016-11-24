@@ -1,15 +1,34 @@
 = link_to '#', style: "padding: 0px;" do
-  %li
+  %li{id: "notification#{notification.id}"}
     .dropdown-messages-box
-      .pull-left.p-xxs
-        = image_tag "rails.png", alt: "image", class: "img-circle"
-      .media-body.p-xxs
-        = link_to notification.leave_application, class: "notification-link" do
-          %strong
-            = notification.generator.try(:full_name)
-          = notification.content
-        %br
-        %small.text-muted
-          = time_ago_in_words(notification.created_at) + " ago at "
-          = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
-  %li.divider
+      - if notification.applicant?
+        .pull-left.p-xxs
+          - if notification.generator.profile_image
+            = image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
+          - else
+            = image_tag "no-user-image.gif", class: "img-circle"
+        .media-body.p-xxs
+          = link_to notification.leave_application, class: "notification-link" do
+            %strong
+              = notification.generator.try(:full_name)
+            = notification.content
+          %br
+          %small.text-muted
+            = time_ago_in_words(notification.created_at) + " ago at "
+            = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
+      - elsif notification.action?
+        .pull-left.p-xxs
+          - if notification.generator.profile_image
+            = image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
+          - else
+            = image_tag "no-user-image.gif", class: "img-circle"
+        .media-body.p-xxs
+          = link_to notifications_path, class: "notification-link" do
+            = notification.content + " by "
+            %strong
+              = notification.generator.try(:full_name) + "."
+          %br
+          %small.text-muted
+            = time_ago_in_words(notification.created_at) + " ago at "
+            = notification.created_at.strftime("%l:%M %p - %d.%m.%Y")
+  %li.divider{id: "divider#{notification.id}"}

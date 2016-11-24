@@ -9,6 +9,8 @@ class LeaveApplication < ApplicationRecord
 
   validates :start_date, :number_of_days, :reason, presence: true
   validates_associated :vacation_type
+  validates_associated :applicant # Manager is assigned when a leave application is approved
+                                  # or rejected.
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
 
@@ -38,14 +40,14 @@ class LeaveApplication < ApplicationRecord
     end
   end
 
-  def create_associated_notification(current_user, type)
+  def create_associated_notification(type)
     if type == "applicant"
       content = "applied for a #{number_of_days} day leave."
     elsif type == "action"
       if self.approved?
-        content = "Your leave application has been approved."
+        content = "Your leave application has been approved"
       else
-        content = "Your leave application has been denied."
+        content = "Your leave application has been denied"
       end
     end
     Notification.create(content: content, leave_application: self, notification_type: type)
