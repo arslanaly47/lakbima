@@ -4,7 +4,7 @@ class Attachment < ApplicationRecord
 
   has_attached_file :image, styles: {
                               medium: "300x300>",
-                              thumb: "100x100>"
+                              thumb: "70x70>"
                             }
   validates_associated :attachment_type
   validates_attachment_size :image, in: 0..20.megabytes
