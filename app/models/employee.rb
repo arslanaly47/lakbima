@@ -8,7 +8,8 @@ class Employee < ApplicationRecord
   belongs_to :user
   belongs_to :branch
 
-  validates_associated :job_title, :user
+  validates_associated :job_title
+  validates_associated :user
   validates :first_name, :last_name, presence: true
   validate :attachment_types_should_be_unique
 
