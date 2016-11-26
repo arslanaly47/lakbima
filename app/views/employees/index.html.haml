@@ -18,6 +18,10 @@
                   %th= sortable "first_name"
                   %th= sortable "last_name"
                   %th= sortable "phone_number"
+                  %th= sortable "visa_expiry"
+                  %th= sortable "medical_expiry"
+                  %th= sortable "passport_expiry"
+                  %th= sortable "branch_id", "Branch Name"
                   - if can?(:edit, Employee) || can?(:destroy, Employee)
                     %th Actions
               %tbody
@@ -32,6 +36,10 @@
                     %td= employee.first_name
                     %td= employee.last_name
                     %td= employee.phone_number
+                    %td= employee.visa_expiry
+                    %td= employee.medical_expiry
+                    %td= employee.passport_expiry
+                    %td= employee.branch.try(:name)
                     - if can?(:edit, Employee) || can?(:destroy, Employee)
                       %td
                         - if can? :destroy, Employee

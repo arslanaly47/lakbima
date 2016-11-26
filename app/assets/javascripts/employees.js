@@ -36,8 +36,16 @@ $(document).on('ready nested:fieldAdded', function() {
       },
       "role_id": {
         required: true
+      },
+      "employee[job_title_id]": {
+        required: true
+      },
+      "employee[branch_id]": {
+        required: true
+      },
+      "employee[nationality]": {
+        required: true
       }
-
     }
   });
 
