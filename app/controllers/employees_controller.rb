@@ -37,7 +37,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.update_attributes(employee_params)    
+    if @employee.update_attributes(employee_params) && @employee.user.update_attribute(:username, params[:employee][:user][:username])
       redirect_to @employee, notice: "Employee has successfully been updated."
     else
       set_departments

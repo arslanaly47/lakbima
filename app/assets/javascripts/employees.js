@@ -4,6 +4,7 @@
 //= require slick/slick.min.js
 
 $(document).on('ready nested:fieldAdded', function() {
+  var hostname = window.location.origin;
   //toastr.success("Such a pleasure that you read it.", "Big Title");
   var optionsForDatePicker = {
     format: "mm/dd/yyyy",
@@ -56,6 +57,34 @@ $(document).on('ready nested:fieldAdded', function() {
         var helpBlock = $("<span id='departmentHelpBlock' class='help-block m-b-none'>Job titles couldn't be fetched. There is something wrong with the internent.</span>");
         $this.after(helpBlock);
         parentFormGroup.addClass('has-error');
+      }
+    });
+  });
+
+  $("#employeeUsername").on('input properychange paste', function() {
+    var $this = $(this);
+    var currentText = $(this).val() || "";
+
+    var url = hostname + "/users/check_uniqueness/";
+    var data = { username: currentText };
+
+    $.ajax({
+      url: url,
+      type: "GET",
+      data: data,
+      success: function(data) {
+        if(data.result) {
+          $("#usernameHelpBlock").remove();
+          $this.parent().parent().removeClass('has-error');
+          $this.removeClass('invalid');
+        } else {
+          if (!$("#usernameHelpBlock").length) {
+            var helpBlock = $("<span id='usernameHelpBlock' class='help-block m-b-none'>This username has already been taken.</span>");
+            $this.after(helpBlock);
+          }
+          $this.parent().parent().addClass('has-error');
+          $this.addClass('invalid');
+        }
       }
     });
   });

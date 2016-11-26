@@ -29,6 +29,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def check_uniqueness
+    if params[:username].empty?
+      render json: { result: false }
+    else
+      result = User.uniq_username?(params[:username])
+      render json: { result: result }
+    end
+  end
+
   private
 
   def user_params

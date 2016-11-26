@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit] do
     collection do
       patch 'update_password'
+      get   'check_uniqueness'
     end
   end
   resources :notifications, only: [:index] do

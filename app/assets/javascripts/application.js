@@ -41,4 +41,5 @@ $(document).ready(function () {
   };
 
   Pace.options.ajax.trackWebSockets = false;
+  Pace.options.ajax                 = false;
 });

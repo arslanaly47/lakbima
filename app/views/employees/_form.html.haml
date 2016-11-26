@@ -11,6 +11,13 @@
     .col-sm-10
       = f.text_field :last_name, class: 'form-control'
   .hr-line-dashed
+  - if action_name == 'edit'
+    = f.fields_for employee.user do |user_field|
+      .form-group
+        = user_field.label :username, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = user_field.text_field :username, class: 'form-control', id: "employeeUsername"
+      .hr-line-dashed
   .form-group
     = f.label :email, class: 'col-sm-2 control-label'
     .col-sm-10

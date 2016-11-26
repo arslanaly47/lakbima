@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
   belongs_to :user
   belongs_to :branch
 
-  validates_associated :job_title
+  validates_associated :job_title, :user
   validates :first_name, :last_name, presence: true
   validate :attachment_types_should_be_unique
 
@@ -29,7 +29,6 @@ class Employee < ApplicationRecord
                                 reject_if: proc { |attributes|
                                   attributes['image'].blank?
                                 }
-
 
   delegate :department, to: :job_title, allow_nil: true
   delegate :applicable_allowances, to: :salary, allow_nil: true
