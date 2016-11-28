@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_one :employee
+  has_one :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
   has_many :notification_users
   has_many :read_notification_users,   -> { read },   class_name: "NotificationUser"
   has_many :unread_notification_users, -> { unread }, class_name: "NotificationUser"
@@ -24,6 +25,8 @@ class User < ApplicationRecord
                                     class_name: "Notification",
                                     source: :notification
   has_many :leave_applications
+  has_many :journal_entry_sessions
+
   validates :role, :username, presence: true
   validates :username, uniqueness: true
 
@@ -85,5 +88,9 @@ class User < ApplicationRecord
     else
       false
     end
+  end
+
+  def has_active_jounral_entry_session?
+    journal_entry_sessions.any? &:active?
   end
 end
