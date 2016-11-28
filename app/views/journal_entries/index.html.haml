@@ -24,7 +24,7 @@
                 - @journal_entries.each do |journal_entry|
                   %tr{data: { id: journal_entry.id } }
                     %td.font-bold= link_to journal_entry.id, [@journal_entry_session, journal_entry]
-                    %td= journal_entry.happened_at
+                    %td= journal_entry.happened_at.strftime("%b %m, %Y")
                     %td= journal_entry.amount
                     %td= journal_entry.from_account.try(:name)
                     %td= journal_entry.to_account.try(:name)
