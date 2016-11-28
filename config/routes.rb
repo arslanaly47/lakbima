@@ -32,7 +32,9 @@ Rails.application.routes.draw do
       post 'mark_as_read'
     end
   end
+  resources :journal_entry_sessions, only: [:create] do
+    resources :journal_entries, only: [:index, :create, :update, :destroy, :show]
+  end
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
-  root 'employees#index'
 end

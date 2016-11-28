@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122112730) do
+ActiveRecord::Schema.define(version: 20161126193334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,28 @@ ActiveRecord::Schema.define(version: 20161122112730) do
     t.index ["department_id"], name: "index_job_titles_on_department_id", using: :btree
   end
 
+  create_table "journal_entries", force: :cascade do |t|
+    t.integer  "journal_entry_session_id"
+    t.date     "happened_at"
+    t.decimal  "amount",                   precision: 8, scale: 2
+    t.text     "description"
+    t.integer  "from_account_id"
+    t.integer  "to_account_id"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.index ["from_account_id"], name: "index_journal_entries_on_from_account_id", using: :btree
+    t.index ["journal_entry_session_id"], name: "index_journal_entries_on_journal_entry_session_id", using: :btree
+    t.index ["to_account_id"], name: "index_journal_entries_on_to_account_id", using: :btree
+  end
+
+  create_table "journal_entry_sessions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "closed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journal_entry_sessions_on_user_id", using: :btree
+  end
+
   create_table "leave_applications", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "reason"
@@ -264,6 +286,8 @@ ActiveRecord::Schema.define(version: 20161122112730) do
   add_foreign_key "employees", "job_titles"
   add_foreign_key "employees", "users"
   add_foreign_key "job_titles", "departments"
+  add_foreign_key "journal_entries", "journal_entry_sessions"
+  add_foreign_key "journal_entry_sessions", "users"
   add_foreign_key "leave_applications", "users"
   add_foreign_key "leave_applications", "vacation_types"
   add_foreign_key "notification_users", "notifications"

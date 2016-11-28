@@ -1,0 +1,14 @@
+.row.m-t-sm
+  .col-lg-12
+    .jumbotron
+      %h1
+        Welcome
+        %span.font-bold= current_user.full_name + "!"
+      %p Here, you can manage different tasks related to Lakbima Restaurant.
+      %p
+        - if current_user.has_active_jounral_entry_session?
+          You already have an active Journal Entry Session.
+          = link_to "Click here", journal_entry_session_journal_entries_path(current_user.active_journal_entry_session), class: "btn btn-primary"
+          to add Journal Entries to the session.
+        - else
+          = link_to "Generate a new Jounrel Entry Session", journal_entry_sessions_path, method: :post, class: "btn btn-primary btn-lg"

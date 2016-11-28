@@ -1,0 +1,2 @@
+module GeneralEntryHelper
+end

@@ -1,0 +1,8 @@
+<% if @journal_entry.valid? %>
+  $("#journalEntryTableBody").append("<%= j render "journal_entries/journal_entry", journal_entry_session: @journal_entry_session, journal_entry: @journal_entry %>");
+  $("#newJournalEntry").modal('hide');
+  $("#jounralEntryTableBody").find("tr:last").addClass("animated fadeInDown");
+  $(".wrapper-content").prepend("<%= j render "shared/flash_messages" %>");
+<% else %>
+  $("#journalEntryForm").prepend("<%= j render "shared/errors", resource: @journal_entry %>");
+<% end %>

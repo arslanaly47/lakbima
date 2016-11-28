@@ -17,6 +17,11 @@
               = link_to "Logout", destroy_user_session_path, method: :delete
         .logo-element
           LK
+      - if can? :create, JournalEntrySession
+        %li{class: "#{'active' if controller_name == 'general_entry_sessions'}"}
+          = link_to root_path do
+            %i.fa.fa-calendar-check-o
+            %span.nav-label Add General Entries
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do

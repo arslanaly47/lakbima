@@ -1,0 +1,33 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .label.label-primary.pull-left.m-t-lg.m-b-sm.session-id
+        = "Session's ID: #{@journal_entry_session.id}"
+      = link_to "Close session", "#", class: "btn btn-danger btn-round m-sm pull-right"
+      %button.btn.btn-primary.btn-rounded.m-sm.pull-right{type: "button", data: { toggle: "modal", target: "#newJournalEntry" }}
+        %i.fa.fa-plus{"aria-hidden" => true}
+        &nbsp;&nbsp; New Jounral Entry
+      .ibox.float-e-margins
+        .ibox-title All Journal Entries for this current session
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th Journal Entry ID
+                  %th Happend At
+                  %th Amount
+                  %th From Account
+                  %th To Account
+                  %th Actions
+              %tbody#journalEntryTableBody
+                - @journal_entries.each do |journal_entry|
+                  %tr{data: { id: journal_entry.id } }
+                    %td.font-bold= link_to journal_entry.id, [@journal_entry_session, journal_entry]
+                    %td= journal_entry.happened_at
+                    %td= journal_entry.amount
+                    %td= journal_entry.from_account.try(:name)
+                    %td= journal_entry.to_account.try(:name)
+                    %td Nothing here yet!
+
+= render 'form', journal_entry_session: @journal_entry_session, journal_entry: @journal_entry
