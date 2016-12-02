@@ -3,6 +3,15 @@
   $("#newJournalEntry").modal('hide');
   $("#jounralEntryTableBody").find("tr:last").addClass("animated fadeInDown");
   $(".wrapper-content").prepend("<%= j render "shared/flash_messages" %>");
+  $("#journalEntryFormModals").append("<%= j render "form", journal_entry_session: @journal_entry_session, journal_entry: @journal_entry %>");
+  var optionsForDatePicker = {
+    format: "mm/dd/yyyy",
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true
+  };
+  $('.journal-entry-happened-at .input-group.date').datepicker(optionsForDatePicker);
 <% else %>
   $("#journalEntryForm").prepend("<%= j render "shared/errors", resource: @journal_entry %>");
 <% end %>

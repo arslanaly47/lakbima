@@ -1,19 +1,22 @@
-.modal.inmodal.fade#newJournalEntry{tabindex: "-1", role: "dialog", "aria-hidden" => "true"}
+.modal.inmodal.fade{tabindex: "-1", role: "dialog", "aria-hidden" => "true", id: journal_entry.new_record? ? "newJournalEntry" : "journalEntry#{journal_entry.id}"}
   .modal-dialog
     .modal-content
       .modal-header
         %button.close{type: "button", data: { dismiss: "modal" }}
           %span{"aria-hidden" => "true"} &times;
           %span.sr-only Close
-        %h4 Create a new Journal Entry
+        - if journal_entry.new_record?
+          %h4 Create a new Journal Entry
+        - else
+          %h4 Update the Journal Entry
       .modal-body
-        = form_for [journal_entry_session, journal_entry], html: { class: "form-horizontal", id: "journalEntryForm" } do |f|
-          .form-group
+        = form_for [journal_entry_session, journal_entry], html: { class: "form-horizontal", id: "journalEntryForm#{journal_entry.id}" } do |f|
+          .form-group.journal-entry-happened-at
             = f.label :happened_at, 'Happened At', class: 'control-label'
             .input-group.date.m-r-md
               %span.input-group-addon
                 %i.fa.fa-calendar
-              = f.text_field :happened_at, class: 'form-control input-group date', id: "journalEntryHappenedAt"
+              = f.text_field :happened_at, class: "form-control"
           .form-group
             = f.label :amount, class: 'control-label'
             = f.number_field :amount, class: 'form-control'
@@ -28,4 +31,7 @@
             = f.select :to_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.to_account_id), { prompt: "Please choose to account." }, class: "form-control"
           .modal-footer.journal-entry-footer
             = link_to "Close", accounts_path, class: "btn btn-white", data: { dismiss: "modal" }
-            = link_to "Save", "#", class: "btn btn-primary", id: "saveJournalEntry", data: { journal_entry_session_id: journal_entry_session.id, style: "zoom-in" }
+            - if journal_entry.new_record?
+              = link_to "Save", "#", class: "btn btn-primary", id: "saveJournalEntry", data: { journal_entry_session_id: journal_entry_session.id, style: "zoom-in" }
+            - else
+              = link_to "Update", "#", class: "btn btn-primary update-journal-entry", data: { journal_entry_session_id: journal_entry_session.id, journal_entry_id: journal_entry.id, style: "zoom-in" }

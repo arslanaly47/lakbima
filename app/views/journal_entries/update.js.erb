@@ -1,0 +1,7 @@
+<% if @journal_entry.valid? %>
+  $("tr[data-id=<%= @journal_entry.id %>]").replaceWith("<%= j render "journal_entries/journal_entry", journal_entry_session: @journal_entry_session, journal_entry: @journal_entry %>");
+  $("#journalEntry<%= @journal_entry.id %>").modal('hide');
+  $(".wrapper-content").prepend("<%= j render "shared/flash_messages" %>");
+<% else %>
+  $("#journalEntryForm<%= @journal_entry.id %>").prepend("<%= j render "shared/errors", resource: @journal_entry %>");
+<% end %>

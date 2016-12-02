@@ -11,7 +11,6 @@ $(document).on('ready nested:fieldAdded', function() {
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
-    calendarWeeks: true,
     autoclose: true
   };
 
@@ -21,7 +20,7 @@ $(document).on('ready nested:fieldAdded', function() {
   $('#medicalExpiry.input-group.date').datepicker(optionsForDatePicker);
   $('#appointmentDate.input-group.date').datepicker(optionsForDatePicker);
   $('.vacation-dates.input-group.date').datepicker(optionsForDatePicker);
-  $('#journalEntryHappenedAt.input-group.date').datepicker(optionsForDatePicker);
+  $('.journal-entry-happened-at .input-group.date').datepicker(optionsForDatePicker);
 
   $("#manageEmployee").validate({
     rules: {

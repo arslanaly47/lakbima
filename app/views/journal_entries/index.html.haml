@@ -4,7 +4,7 @@
       .label.label-primary.pull-left.m-t-lg.m-b-sm.session-id
         = "Session's ID: #{@journal_entry_session.id}"
       = link_to "Close session", "#", class: "btn btn-danger btn-round m-sm pull-right"
-      %button.btn.btn-primary.btn-rounded.m-sm.pull-right{type: "button", data: { toggle: "modal", target: "#newJournalEntry" }}
+      = link_to "#", class: "btn btn-primary btn-rounded m-sm pull-right", data: { toggle: "modal", target: "#newJournalEntry" } do
         %i.fa.fa-plus{"aria-hidden" => true}
         &nbsp;&nbsp; New Jounral Entry
       .ibox.float-e-margins
@@ -24,10 +24,20 @@
                 - @journal_entries.each do |journal_entry|
                   %tr{data: { id: journal_entry.id } }
                     %td.font-bold= link_to journal_entry.id, [@journal_entry_session, journal_entry]
-                    %td= journal_entry.happened_at.strftime("%b %m, %Y")
+                    %td= journal_entry.happened_at.strftime("%b %d, %Y")
                     %td= journal_entry.amount
                     %td= journal_entry.from_account.try(:name)
                     %td= journal_entry.to_account.try(:name)
-                    %td Nothing here yet!
+                    - if can?(:edit, JournalEntry) || can?(:destroy, JournalEntry)
+                      %td
+                        - if can? :destroy, JournalEntry
+                          = link_to [@journal_entry_session, journal_entry], method: :delete, remote: true, data: { confirm: "Are you sure to delete this journal entry from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, JournalEntry
+                          = link_to "#", class: "action-link", data: { toggle: "modal", target: "#journalEntry#{journal_entry.id}" } do
+                            %i.fa.fa-pencil{"aria-hidden" => true}
 
-= render 'form', journal_entry_session: @journal_entry_session, journal_entry: @journal_entry
+#journalEntryFormModals
+  = render 'form', journal_entry_session: @journal_entry_session, journal_entry: @journal_entry
+  - @journal_entries.each do |journal_entry|
+    = render 'form', journal_entry_session: @journal_entry_session, journal_entry: journal_entry

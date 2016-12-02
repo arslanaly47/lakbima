@@ -1,6 +1,6 @@
 class JournalEntriesController < ApplicationController
 
-  before_action :set_journal_entry_session, only: [:index, :show, :create]
+  before_action :set_journal_entry_session, only: [:index, :show, :create, :update]
 
   def index
     @journal_entries = @journal_entry_session.journal_entries
@@ -14,6 +14,15 @@ class JournalEntriesController < ApplicationController
     @journal_entry = @journal_entry_session.journal_entries.create(journal_entry_params)
     respond_to do |format|
       flash.now[:notice] = "The journal entry has successfully been created, and added to this session."
+      format.js
+    end
+  end
+
+  def update
+    @journal_entry = @journal_entry_session.journal_entries.find(params[:id])
+    @journal_entry && @journal_entry.update_attributes(journal_entry_params)
+    respond_to do |format|
+      flash.now[:notice] = "The journal entry has successfully been updated."
       format.js
     end
   end

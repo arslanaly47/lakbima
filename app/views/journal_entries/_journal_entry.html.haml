@@ -1,7 +1,11 @@
 %tr.animated.fadeInDown{data: { id: journal_entry.id } }
   %td.font-bold= link_to journal_entry.id, [@journal_entry_session, journal_entry]
-  %td= journal_entry.happened_at
+  %td= journal_entry.happened_at.strftime("%b %d, %Y")
   %td= journal_entry.amount
   %td= journal_entry.from_account.try(:name)
   %td= journal_entry.to_account.try(:name)
-  %td Nothing here yet!
+  %td
+    = link_to [@journal_entry_session, journal_entry], method: :delete, remote: true, data: { confirm: "Are you sure to delete this journal entry from database?" }, class: "action-link" do
+      %i.fa.fa-trash{"aria-hidden" => true}
+    = link_to "#", class: "action-link", data: { toggle: "modal", target: "#journalEntry#{journal_entry.id}" } do
+      %i.fa.fa-pencil{"aria-hidden" => true}
