@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get :build_options
     end
   end
+  delete 'journal_entry_sessions/:id/close' => 'journal_entry_sessions#close', as: :close_journal_entry_session
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
 end

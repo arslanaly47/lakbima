@@ -10,4 +10,8 @@ class JournalEntrySession < ApplicationRecord
   def active?
     !closed_at
   end
+
+  def close!
+    update_attribute :closed_at, Time.now
+  end
 end

@@ -3,7 +3,7 @@
     .col-lg-12
       .label.label-primary.pull-left.m-t-lg.m-b-sm.session-id
         = "Session's ID: #{@journal_entry_session.id}"
-      = link_to "Close session", "#", class: "btn btn-danger btn-round m-sm pull-right"
+      = link_to "Close session", close_journal_entry_session_path(@journal_entry_session), method: :delete, class: "btn btn-danger btn-round m-sm pull-right", data: { confirm: "Are you sure you would like to close this session?" }
       = link_to "#", class: "btn btn-primary btn-rounded m-sm pull-right", data: { toggle: "modal", target: "#newJournalEntry" } do
         %i.fa.fa-plus{"aria-hidden" => true}
         &nbsp;&nbsp; New Jounral Entry
