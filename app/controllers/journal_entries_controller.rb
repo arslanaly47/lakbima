@@ -1,6 +1,6 @@
 class JournalEntriesController < ApplicationController
 
-  before_action :set_journal_entry_session, only: [:index, :show, :create, :update]
+  before_action :set_journal_entry_session, only: [:index, :show, :create, :update, :destroy]
   helper_method :sort_column
 
   def index
@@ -28,12 +28,21 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def destroy
+    @journal_entry = @journal_entry_session.journal_entries.find(params[:id])
+    @journal_entry && @journal_entry.destroy
+    respond_to do |format|
+      flash.now[:notice] = "The journal entry has been deleted."
+      format.js
+    end
+  end
+
   def build_options
     account = Account.find_by_id(params[:id])
     remaining_accounts = (Account.all - [account]).map { |a| [a.id, a.name] }
     remaining_options = "<option value>Please choose TO account.</option>"
-    remaining_accounts.each do |account|
-      remaining_options << "<option value=\"#{account[0]}\">#{account[1]}</option>"
+    remaining_accounts.each do |remaining_account|
+      remaining_options << "<option value=\"#{remaining_account[0]}\">#{remaining_account[1]}</option>"
     end
     render json: { options: remaining_options }
   end
