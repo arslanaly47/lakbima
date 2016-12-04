@@ -1,0 +1,2 @@
+module JournalEntryHelper
+end

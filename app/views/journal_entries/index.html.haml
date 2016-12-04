@@ -11,14 +11,14 @@
         .ibox-title All Journal Entries for this current session
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
-                  %th Journal Entry ID
-                  %th Happend At
-                  %th Amount
-                  %th From Account
-                  %th To Account
+                  %th= sortable "id", "Journal Entry ID"
+                  %th= sortable "happened_at", "Happend At"
+                  %th= sortable "amount"
+                  %th= sortable "from_account_id", "From Account"
+                  %th= sortable "to_account_id", "To Account"
                   %th Actions
               %tbody#journalEntryTableBody
                 - @journal_entries.each do |journal_entry|

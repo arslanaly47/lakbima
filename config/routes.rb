@@ -35,6 +35,11 @@ Rails.application.routes.draw do
   resources :journal_entry_sessions, only: [:create] do
     resources :journal_entries, only: [:index, :create, :update, :destroy, :show]
   end
+  resources :journal_entries do
+    collection do
+      get :build_options
+    end
+  end
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
 end

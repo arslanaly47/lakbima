@@ -90,7 +90,7 @@ class User < ApplicationRecord
     end
   end
 
-  def has_active_jounral_entry_session?
+  def has_active_journal_entry_session?
     journal_entry_sessions.any? &:active?
   end
 end

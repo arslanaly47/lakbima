@@ -1,9 +1,10 @@
 class JournalEntriesController < ApplicationController
 
   before_action :set_journal_entry_session, only: [:index, :show, :create, :update]
+  helper_method :sort_column
 
   def index
-    @journal_entries = @journal_entry_session.journal_entries
+    @journal_entries = @journal_entry_session.journal_entries.order(sort_column + " " + sort_direction)
     @journal_entry = JournalEntry.new
   end
 
@@ -27,6 +28,16 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def build_options
+    account = Account.find_by_id(params[:id])
+    remaining_accounts = (Account.all - [account]).map { |a| [a.id, a.name] }
+    remaining_options = "<option value>Please choose TO account.</option>"
+    remaining_accounts.each do |account|
+      remaining_options << "<option value=\"#{account[0]}\">#{account[1]}</option>"
+    end
+    render json: { options: remaining_options }
+  end
+
   private
 
   def journal_entry_params
@@ -35,5 +46,9 @@ class JournalEntriesController < ApplicationController
 
   def set_journal_entry_session
     @journal_entry_session = JournalEntrySession.find(params[:journal_entry_session_id])
+  end
+
+  def sort_column
+    JournalEntry.column_names.include?(params[:sort])? params[:sort] : "id"
   end
 end

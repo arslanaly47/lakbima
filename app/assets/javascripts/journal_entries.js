@@ -21,6 +21,23 @@ $(document).ready(function() {
     });
   };
 
+  var enableChangeInDropdown = function() {
+    var $this = $(this);
+
+    var journalEntryToAccount = $this.parent().next().find('.journal-entry-to-account')
+    journalEntryToAccount.attr('disabled', 'disabled');
+
+    $.ajax({
+      url: "/journal_entries/build_options",
+      data: { id: $this.val() },
+      success: function(data) {
+        journalEntryToAccount.removeAttr('disabled');
+        journalEntryToAccount.empty();
+        journalEntryToAccount.append(data.options);
+      }
+    });
+  };
+
   $("#saveJournalEntry").on('click', function() {
     var $this = $(this);
     $this.ladda();
@@ -35,11 +52,16 @@ $(document).ready(function() {
       data: data,
       success: function() {
         $this.ladda('stop');
-        $("#journalEntryForm")[0].reset();
         $(".update-journal-entry").on('click', updateJournalEntry);
+        $(".journal-entry-from-account").change(enableChangeInDropdown);
       }
     });
   });
 
   $(".update-journal-entry").on('click', updateJournalEntry);
+  $("#journalEntryTableBody").bind("DOMSubtreeModified", function() {
+    $("#journalEntryForm")[0].reset();
+  });
+
+  $(".journal-entry-from-account").change(enableChangeInDropdown);
 });

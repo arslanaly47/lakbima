@@ -25,10 +25,13 @@
             = f.text_area :description, class: 'form-control'
           .form-group
             = f.label :from_account_id, 'From Account', class: 'control-label'
-            = f.select :from_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.from_account_id), { prompt: "Please choose form account." }, class: "form-control"
+            = f.select :from_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.from_account_id), { prompt: "Please choose FROM account." }, class: "form-control journal-entry-from-account", data: { journal_entry_id: journal_entry.try(:id) }
           .form-group
             = f.label :to_account_id, 'To Account', class: 'control-label'
-            = f.select :to_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.to_account_id), { prompt: "Please choose to account." }, class: "form-control"
+            - if journal_entry.new_record?
+              = f.select :to_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
+            - else
+              = f.select :to_account_id, options_for_select((Account.available_accounts_for(journal_entry.id)), selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
           .modal-footer.journal-entry-footer
             = link_to "Close", accounts_path, class: "btn btn-white", data: { dismiss: "modal" }
             - if journal_entry.new_record?

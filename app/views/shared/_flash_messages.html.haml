@@ -9,3 +9,16 @@
     %button.close{"aria-hidden" => true, data: { dismiss: "alert" }, type: "button"}
       ×
     = flash[:notice]
+
+:javascript
+  $(document).ready(function() {
+    setTimeout(function() {
+      $(".alert").slideUp({
+        duration: 1000,
+        easing: "linear",
+        complete: function() {
+          $(this).remove();
+        }
+      });
+    }, 2000);
+  });

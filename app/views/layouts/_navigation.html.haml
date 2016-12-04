@@ -18,10 +18,15 @@
         .logo-element
           LK
       - if can? :create, JournalEntrySession
-        %li{class: "#{'active' if controller_name == 'general_entry_sessions'}"}
-          = link_to root_path do
-            %i.fa.fa-calendar-check-o
-            %span.nav-label Add Journal Entries
+        %li{class: "#{'active' if controller_name == 'journal_entry_sessions' || controller_name == 'journal_entries'}"}
+          - if current_user.has_active_journal_entry_session?
+            = link_to journal_entry_session_journal_entries_path(current_user.active_journal_entry_session) do
+              %i.fa.fa-calendar-check-o
+              %span.nav-label Add Journal Entries
+          - else
+            = link_to root_path do
+              %i.fa.fa-calendar-check-o
+              %span.nav-label Add Journal Entries
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do
