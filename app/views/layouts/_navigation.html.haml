@@ -17,26 +17,34 @@
               = link_to "Logout", destroy_user_session_path, method: :delete
         .logo-element
           LK
-      - if can? :create, JournalEntrySession
-        %li{class: "#{'active' if controller_name == 'journal_entry_sessions' || controller_name == 'journal_entries'}"}
-          - if current_user.has_active_journal_entry_session?
-            = link_to journal_entry_session_journal_entries_path(current_user.active_journal_entry_session) do
-              %i.fa.fa-calendar-check-o
-              %span.nav-label Add Journal Entries
-          - else
-            = link_to root_path do
-              %i.fa.fa-calendar-check-o
-              %span.nav-label Add Journal Entries
+      - if can?(:index, JournalEntrySession) || can?(:index, JournalEntry)
+        %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts).include? controller_name}"}
+          = link_to '#' do
+            %i.fa.fa-area-chart
+            %span.nav-label Finace
+            %span.fa.arrow
+          %ul.nav.nav-second-level
+            - if can? :index, Account
+              %li{class: "#{'active' if controller_name == 'accounts' }"}
+                = link_to accounts_path do
+                  %i.fa.fa-book
+                  %span.nav-label Manage Accounts
+            - if can? :create, JournalEntrySession
+              %li{class: "#{'active' if controller_name == 'journal_entry_sessions' || controller_name == 'journal_entries'}"}
+                - if current_user.has_active_journal_entry_session?
+                  = link_to journal_entry_session_journal_entries_path(current_user.active_journal_entry_session) do
+                    %i.fa.fa-calendar-check-o
+                    %span.nav-label Add Journal Entries
+                - else
+                  = link_to root_path do
+                    %i.fa.fa-calendar-check-o
+                    %span.nav-label Add Journal Entries
+
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do
             %i.fa.fa-bed
             %span.nav-label Leave Applications
-      - if can? :index, Account
-        %li{class: "#{'active' if controller_name == 'accounts' }"}
-          = link_to accounts_path do
-            %i.fa.fa-book
-            %span.nav-label Manage Accounts
       - if can? :index, Employee
         %li{class: "#{'active' if controller_name == 'employees' }"}
           = link_to employees_path do
