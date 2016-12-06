@@ -21,7 +21,7 @@
         %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts).include? controller_name}"}
           = link_to '#' do
             %i.fa.fa-area-chart
-            %span.nav-label Finace
+            %span.nav-label Finance
             %span.fa.arrow
           %ul.nav.nav-second-level
             - if can? :index, Account
