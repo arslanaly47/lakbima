@@ -4,7 +4,7 @@ class RemoveAccountTypeIdFromAccountSubTypes < ActiveRecord::Migration[5.0]
     remove_column :account_sub_types, :account_type_id
   end
   def down
-    add_column :account_sub_types, :account_type_id, :integer  
+    add_column :account_sub_types, :account_type_id, :integer
     add_index :account_sub_types, :account_type_id
   end
 end
