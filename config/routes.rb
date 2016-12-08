@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   end
   delete 'journal_entry_sessions/:id/close' => 'journal_entry_sessions#close', as: :close_journal_entry_session
   resources :account_main_types, only: [:show, :edit, :update, :index]
+  resources :account_sub_types
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
 end

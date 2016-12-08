@@ -1,0 +1,20 @@
+= form_for account_sub_type, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: account_sub_type
+  .form-group
+    = f.label :account_main_type_id, "Account Header", class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :account_main_type_id, AccountMainType.all.map { |a| [a.name, a.id] }, { selected: account_sub_type.account_main_type_id, prompt: "Please account header for this type."}, { class: "form-control" }
+  .hr-line-dashed
+  .form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :description, class: 'form-control'
+  .form-group
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"
+      = link_to "Cancel", account_sub_types_path, class: "btn btn-primary"
