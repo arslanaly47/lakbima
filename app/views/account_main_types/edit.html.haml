@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :index, AccountMainType
+        = link_to "All Account Headers", account_main_types_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Edit an Account Header
+        .ibox-content
+          = render 'form', account_main_type: @account_main_type

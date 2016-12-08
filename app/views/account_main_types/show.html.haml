@@ -1,0 +1,29 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@account_main_type.name
+        .ibox-content
+          .col-md-2
+            %p.font-bold Account Header ID
+          .col-md-10
+            %p.font-bold= @account_main_type.id
+          %br
+          .col-md-2
+            %p.font-bold Name
+          .col-md-10
+            %p= @account_main_type.name
+          %br
+          .col-md-2
+            %p.font-bold Description
+          .col-md-10
+            %p= @account_main_type.description
+          %br
+          .clearfix
+  .row
+    .col-lg-12
+      - if can? :edit, AccountMainType
+        = link_to "Edit", edit_account_main_type_path(@account_main_type), class: "btn btn-primary btn-rounded"
+      - if can? :index, AccountMainType
+        = link_to "All Account Headers", account_main_types_path, class: "btn btn-primary btn-rounded"

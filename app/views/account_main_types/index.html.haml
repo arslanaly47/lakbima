@@ -1,0 +1,28 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title Account Headers
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, AccountMainType
+                    %th Account Header ID
+                  %th Name
+                  %th Description
+                  - if can?(:edit, AccountMainType)
+                    %th Actions
+              %tbody
+                - @account_main_types.each do |account_main_type|
+                  %tr{data: { id: account_main_type.id } }
+                    - if can? :show, AccountMainType
+                      %td.font-bold= link_to account_main_type.id, account_main_type
+                    %td= account_main_type.name
+                    %td= account_main_type.description
+                    - if can?(:edit, AccountMainType)
+                      %td
+                        - if can? :edit, AccountMainType
+                          = link_to edit_account_main_type_path(account_main_type), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

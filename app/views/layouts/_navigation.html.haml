@@ -18,17 +18,22 @@
         .logo-element
           LK
       - if can?(:index, JournalEntrySession) || can?(:index, JournalEntry)
-        %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts).include? controller_name}"}
+        %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts account_main_types).include? controller_name}"}
           = link_to '#' do
             %i.fa.fa-area-chart
             %span.nav-label Finance
             %span.fa.arrow
           %ul.nav.nav-second-level
+            - if can? :index, AccountMainType
+              %li{class: "#{'active' if controller_name == 'account_main_types' }"}
+                = link_to account_main_types_path do
+                  %i.fa.fa-book
+                  %span.nav-label Header Accounts
             - if can? :index, Account
               %li{class: "#{'active' if controller_name == 'accounts' }"}
                 = link_to accounts_path do
                   %i.fa.fa-book
-                  %span.nav-label Manage Accounts
+                  %span.nav-label Chart of Accounts
             - if can? :create, JournalEntrySession
               %li{class: "#{'active' if controller_name == 'journal_entry_sessions' || controller_name == 'journal_entries'}"}
                 - if current_user.has_active_journal_entry_session?
