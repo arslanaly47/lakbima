@@ -10,40 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126193334) do
+ActiveRecord::Schema.define(version: 20161206215313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "account_main_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "description"
   end
 
   create_table "account_sub_types", force: :cascade do |t|
     t.string   "name"
-    t.integer  "account_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["account_type_id"], name: "index_account_sub_types_on_account_type_id", using: :btree
-  end
-
-  create_table "account_types", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "account_main_type_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.index ["account_main_type_id"], name: "index_account_types_on_account_main_type_id", using: :btree
+    t.integer  "account_main_type_id"
+    t.text     "description"
+    t.index ["account_main_type_id"], name: "index_account_sub_types_on_account_main_type_id", using: :btree
   end
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "account_id"
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "account_sub_type_id"
     t.index ["account_id"], name: "index_accounts_on_account_id", using: :btree
+    t.index ["account_sub_type_id"], name: "index_accounts_on_account_sub_type_id", using: :btree
   end
 
   create_table "allowance_types", force: :cascade do |t|
@@ -277,8 +273,8 @@ ActiveRecord::Schema.define(version: 20161126193334) do
     t.index ["vacation_type_id"], name: "index_vacations_on_vacation_type_id", using: :btree
   end
 
-  add_foreign_key "account_sub_types", "account_types"
-  add_foreign_key "account_types", "account_main_types"
+  add_foreign_key "account_sub_types", "account_main_types"
+  add_foreign_key "accounts", "account_sub_types"
   add_foreign_key "allowance_types", "currencies"
   add_foreign_key "allowances", "allowance_types"
   add_foreign_key "allowances", "salaries"
