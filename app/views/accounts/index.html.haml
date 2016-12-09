@@ -13,7 +13,7 @@
               %thead
                 %tr
                   - if can? :show, Account
-                    %th Account ID
+                    %th ID
                   %th Name
                   %th Description
                   - if can?(:edit, Account) || can?(:destroy, Account)
@@ -22,7 +22,7 @@
                 - @accounts.each do |account|
                   %tr{data: { id: account.id } }
                     - if can? :show, Account
-                      %td.font-bold= link_to account.account_id, account
+                      %td.font-bold= link_to account.id, account
                     %td= account.name
                     %td= account.description
                     - if can?(:edit, Account) || can?(:destroy, Account)

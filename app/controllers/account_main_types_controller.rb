@@ -1,7 +1,7 @@
 class AccountMainTypesController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_account_main_type, only: [:edit, :update, :show]
+  before_action :set_account_main_type, only: [:edit, :update, :show, :account_sub_types]
 
   def edit
   end
@@ -19,6 +19,13 @@ class AccountMainTypesController < ApplicationController
 
   def index
     @account_main_types = AccountMainType.all
+  end
+
+  def account_sub_types
+    @account_sub_types = @account_main_type.account_sub_types
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

@@ -1,7 +1,8 @@
 class Account < ApplicationRecord
-  validates :account_id, :name, :description, presence: true
+  belongs_to :account_sub_type
+  has_one :account_main_type, through: :account_sub_type
 
-  default_scope { order('account_id ASC') }
+  validates :account_sub_type_id, :name, :description, presence: true
 
   def self.available_accounts_for(journal_entry_id)
     journal_entry = JournalEntry.find(journal_entry_id)

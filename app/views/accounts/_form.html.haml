@@ -1,9 +1,14 @@
 = form_for account, html: { class: "form-horizontal", id: "accountsForm" } do |f|
   = render "shared/errors", resource: account
   .form-group
-    = f.label :account_id, 'Account ID', class: 'col-sm-2 control-label'
+    = label_tag :account_header, "Account Header", class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :account_id, class: 'form-control'
+      = select_tag :account_header, options_for_select(AccountMainType.all.map { |a| [a.name, a.id] }), class: "form-control", id: "accountHeaderSelectTag"
+  .hr-line-dashed
+  .form-group
+    = f.label :acount_sub_type_id, "Sub Category", class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :account_sub_type_id, AccountSubType.all.map { |a| [a.name, a.id] }, {}, class: "form-control", id: "accountSubTypeSelectTag"
   .hr-line-dashed
   .form-group
     = f.label :name, class: 'col-sm-2 control-label'
