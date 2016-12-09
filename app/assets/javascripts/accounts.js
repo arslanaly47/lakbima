@@ -1,6 +1,9 @@
 $(document).ready(function() {
   $("#accountsForm").validate({
     rules: {
+      "account_header": {
+        required: true
+      },
       "account[name]": {
         required: true,
         minlength: 5,

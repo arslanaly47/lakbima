@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
 
   def update
     if @account.update_attributes(account_params)
-      redirect_to @department, notice: "Account has successfully been updated."
+      redirect_to @account, notice: "Account has successfully been updated."
     else
       render :edit
     end
@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.all
+    @accounts = Account.includes(:account_sub_type).all
   end
 
   def destroy

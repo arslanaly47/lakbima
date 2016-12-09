@@ -6,6 +6,18 @@
           %h2=@account.name
         .ibox-content
           .col-md-2
+            %p.font-bold Account Header
+          .col-md-10
+            %p
+              %span.label.label-primary= @account.account_main_type.try(:name)
+          %br
+          .col-md-2
+            %p.font-bold Account Sub Type
+          .col-md-10
+            %p
+              %span.label.label-primary= @account.account_sub_type.try(:name)
+          %br
+          .col-md-2
             %p.font-bold Name
           .col-md-10
             %p= @account.name

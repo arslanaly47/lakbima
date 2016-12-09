@@ -6,7 +6,9 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Account
       .ibox.float-e-margins
-        .ibox-title Chart of Accounts
+        .ibox-title
+          Chart of Accounts
+          %div{style: "width:10px;height:10px;background-color:#EC644B"}
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped
@@ -15,15 +17,18 @@
                   - if can? :show, Account
                     %th ID
                   %th Name
+                  %th Sub Category
                   %th Description
                   - if can?(:edit, Account) || can?(:destroy, Account)
                     %th Actions
               %tbody
                 - @accounts.each do |account|
-                  %tr{data: { id: account.id } }
+                  %tr{data: { id: account.id }, class: class_for_account(account.account_main_type.try(:id)) }
                     - if can? :show, Account
                       %td.font-bold= link_to account.id, account
                     %td= account.name
+                    %td
+                      .label.label-plain= account.account_sub_type.try(:name)
                     %td= account.description
                     - if can?(:edit, Account) || can?(:destroy, Account)
                       %td
