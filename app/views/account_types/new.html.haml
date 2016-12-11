@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :index, AccountType
+        = link_to "All Accounts", account_types_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Create a new Account List
+        .ibox-content
+          = render 'form', account_type: @account_type

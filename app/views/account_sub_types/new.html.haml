@@ -2,9 +2,9 @@
   .row
     .col-lg-12
       - if can? :index, AccountSubType
-        = link_to "All Accounts", account_sub_types_path, class: "btn btn-primary btn-rounded m-sm"
+        = link_to "All Account Sub Headers", account_sub_types_path, class: "btn btn-primary btn-rounded m-sm"
       .ibox.float-e-margins
         .ibox-title
-          %h5 Create a new Account Sub Type
+          %h5 Create a new Account Sub Header
         .ibox-content
           = render 'form', account_sub_type: @account_sub_type

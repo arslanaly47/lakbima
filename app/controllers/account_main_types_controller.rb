@@ -21,8 +21,9 @@ class AccountMainTypesController < ApplicationController
     @account_main_types = AccountMainType.all
   end
 
-  def account_sub_types
+  def account_sub_headers
     @account_sub_types = @account_main_type.account_sub_types
+    @account_types = @account_sub_types.first.account_types
     respond_to do |format|
       format.js
     end

@@ -4,9 +4,9 @@
       - if can? :new, AccountSubType
         = link_to new_account_sub_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
           %i.fa.fa-plus{"aria-hidden" => true}
-          &nbsp;&nbsp; New Account Sub Type
+          &nbsp;&nbsp; New Account Sub Header
       .ibox.float-e-margins
-        .ibox-title All Account Sub Types
+        .ibox-title All Account Sub Headers
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped
@@ -31,7 +31,7 @@
                     - if can?(:edit, AccountSubType) || can?(:destroy, AccountSubType)
                       %td
                         - if can? :delete, AccountSubType
-                          = link_to account_sub_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this account sub type from database?" }, class: "action-link" do
+                          = link_to account_sub_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this account sub header from database?" }, class: "action-link" do
                             %i.fa.fa-trash{"aria-hidden" => true}
                         - if can? :edit, AccountSubType
                           = link_to edit_account_sub_type_path(account_sub_type), class: "action-link" do

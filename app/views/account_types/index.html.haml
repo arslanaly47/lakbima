@@ -1,0 +1,38 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, AccountType
+        = link_to new_account_type_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Account List
+      .ibox.float-e-margins
+        .ibox-title All Account Lists
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, AccountType
+                    %th ID
+                  %th Sub Header
+                  %th Name
+                  %th Description
+                  - if can?(:edit, AccountType) || can?(:destroy, AccountType)
+                    %th Actions
+              %tbody
+                - @account_types.each do |account_type|
+                  %tr{data: { id: account_type.id } }
+                    - if can? :show, AccountType
+                      %td.font-bold= link_to account_type.id, account_type
+                    %td
+                      %span.label.label-primary= account_type.account_sub_type.try(:name)
+                    %td= account_type.name
+                    %td= account_type.description
+                    - if can?(:edit, AccountType) || can?(:destroy, AccountType)
+                      %td
+                        - if can? :delete, AccountType
+                          = link_to account_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this account list from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, AccountType
+                          = link_to edit_account_type_path(account_type), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

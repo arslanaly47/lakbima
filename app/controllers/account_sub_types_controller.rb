@@ -1,7 +1,7 @@
 class AccountSubTypesController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_account_sub_type, only: [:edit, :update, :show, :destroy]
+  before_action :set_account_sub_type, only: [:edit, :update, :show, :destroy, :account_lists]
 
   def new
     @account_sub_type = AccountSubType.new
@@ -42,6 +42,12 @@ class AccountSubTypesController < ApplicationController
     end
   end
 
+  def account_lists
+    @account_lists = @account_sub_type.account_types
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
 
