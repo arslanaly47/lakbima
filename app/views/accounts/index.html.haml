@@ -14,15 +14,18 @@
                 %tr
                   - if can? :show, Account
                     %th ID
+                  %th Account List
                   %th Name
                   %th Description
                   - if can?(:edit, Account) || can?(:destroy, Account)
                     %th Actions
               %tbody
                 - @accounts.each do |account|
-                  %tr{data: { id: account.id } }
+                  %tr{data: { id: account.id }, class: class_for_account(account.account_main_type.try(:id)) }
                     - if can? :show, Account
                       %td.font-bold= link_to account.id, account
+                    %td
+                      %span.label.label-primary= account.account_type.try(:name)
                     %td= account.name
                     %td= account.description
                     - if can?(:edit, Account) || can?(:destroy, Account)

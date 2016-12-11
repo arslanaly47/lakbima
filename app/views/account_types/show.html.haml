@@ -1,0 +1,30 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@account_type.name
+        .ibox-content
+          .col-md-2
+            %p.font-bold Sub Header
+          .col-md-10
+            %p
+              %span.label.label-primary= @account_type.account_sub_type.try(:name)
+          %br
+          .col-md-2
+            %p.font-bold Name
+          .col-md-10
+            %p= @account_type.name
+          %br
+          .col-md-2
+            %p.font-bold Description
+          .col-md-10
+            %p= @account_type.description
+          %br
+          .clearfix
+  .row
+    .col-lg-12
+      - if can? :edit, AccountType
+        = link_to "Edit", edit_account_type_path(@account_type), class: "btn btn-primary btn-rounded"
+      - if can? :index, Account
+        = link_to "All Account Sub Types", account_types_path, class: "btn btn-primary btn-rounded"

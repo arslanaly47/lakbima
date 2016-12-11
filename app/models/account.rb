@@ -1,9 +1,9 @@
 class Account < ApplicationRecord
   belongs_to :account_type
+  has_one :account_sub_type, through: :account_type
   has_one :account_main_type, through: :account_sub_type
-  has_one :account_sub_type, through: :account_main_type
 
-  validates :account_type, :name, :description, presence: true
+  validates :account_type_id, :name, :description, presence: true
 
   def self.available_accounts_for(journal_entry_id)
     journal_entry = JournalEntry.find(journal_entry_id)

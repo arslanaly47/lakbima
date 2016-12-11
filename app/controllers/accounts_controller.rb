@@ -17,11 +17,13 @@ class AccountsController < ApplicationController
   end
 
   def edit
+    @account_sub_type = @account.account_sub_type
+    @account_main_type = @account.account_main_type
   end
 
   def update
     if @account.update_attributes(account_params)
-      redirect_to @department, notice: "Account has successfully been updated."
+      redirect_to @account, notice: "Account has successfully been updated."
     else
       render :edit
     end
@@ -46,7 +48,7 @@ class AccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:account_sub_type_id, :name, :description)
+    params.require(:account).permit(:account_type_id, :name, :description)
   end
 
   def set_account

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :accounts, :attachment_types, :roles, :branches
+  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts
 
   resources :leave_applications, except: [:edit, :update, :destroy] do
     member do
@@ -43,10 +43,15 @@ Rails.application.routes.draw do
   delete 'journal_entry_sessions/:id/close' => 'journal_entry_sessions#close', as: :close_journal_entry_session
   resources :account_main_types, path: "account_headers", only: [:show, :edit, :update, :index] do
     member do
-      get 'account_sub_types'
+      get 'account_sub_headers'
     end
   end
-  resources :account_sub_types
+  resources :account_sub_types, path: "account_sub_headers" do
+    member do
+      get 'account_lists'
+    end
+  end
+  resources :account_types, path: "account_lists"
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
 end
