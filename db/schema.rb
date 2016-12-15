@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210034132) do
+ActiveRecord::Schema.define(version: 20161215125658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 20161210034132) do
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "account_type_id"
+    t.decimal  "balance",         precision: 8, scale: 2
     t.index ["account_type_id"], name: "index_accounts_on_account_type_id", using: :btree
   end
 
@@ -114,6 +115,27 @@ ActiveRecord::Schema.define(version: 20161210034132) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "dynamic_menus", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "dynamic_menus_from_account_types", id: false, force: :cascade do |t|
+    t.integer "dynamic_menu_id"
+    t.integer "account_type_id"
+    t.index ["account_type_id"], name: "index_dynamic_menus_from_account_types_on_account_type_id", using: :btree
+    t.index ["dynamic_menu_id"], name: "index_dynamic_menus_from_account_types_on_dynamic_menu_id", using: :btree
+  end
+
+  create_table "dynamic_menus_to_account_types", force: :cascade do |t|
+    t.integer "dynamic_menu_id"
+    t.integer "account_type_id"
+    t.index ["account_type_id"], name: "index_dynamic_menus_to_account_types_on_account_type_id", using: :btree
+    t.index ["dynamic_menu_id"], name: "index_dynamic_menus_to_account_types_on_dynamic_menu_id", using: :btree
   end
 
   create_table "employees", force: :cascade do |t|
@@ -286,6 +308,10 @@ ActiveRecord::Schema.define(version: 20161210034132) do
   add_foreign_key "allowances", "allowance_types"
   add_foreign_key "allowances", "salaries"
   add_foreign_key "attachments", "attachment_types"
+  add_foreign_key "dynamic_menus_from_account_types", "account_types"
+  add_foreign_key "dynamic_menus_from_account_types", "dynamic_menus"
+  add_foreign_key "dynamic_menus_to_account_types", "account_types"
+  add_foreign_key "dynamic_menus_to_account_types", "dynamic_menus"
   add_foreign_key "employees", "job_titles"
   add_foreign_key "employees", "users"
   add_foreign_key "job_titles", "departments"

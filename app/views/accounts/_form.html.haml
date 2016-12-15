@@ -30,6 +30,11 @@
     = f.label :description, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.text_area :description, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :balance, "Opening Balance", class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :balance, class: 'form-control', step: 0.5
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save", class: "btn btn-primary"
