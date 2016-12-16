@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts
+  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts, :dynamic_menus
 
   resources :leave_applications, except: [:edit, :update, :destroy] do
     member do

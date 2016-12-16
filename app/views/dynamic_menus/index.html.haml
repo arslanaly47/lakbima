@@ -1,0 +1,35 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, DynamicMenu
+        = link_to new_dynamic_menu_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Dynamic Menu
+      .ibox.float-e-margins
+        .ibox-title All Dynamic Menus
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, DynamicMenu
+                    %th ID
+                  %th Name
+                  %th Description
+                  - if can?(:edit, DynamicMenu) || can?(:destroy, DynamicMenu)
+                    %th Actions
+              %tbody
+                - @dynamic_menus.each do |dynamic_menu|
+                  %tr{data: { id: dynamic_menu.id } }
+                    - if can? :show, DynamicMenu
+                      %td.font-bold= link_to dynamic_menu.id, dynamic_menu
+                    %td= dynamic_menu.name
+                    %td= dynamic_menu.description
+                    - if can?(:edit, DynamicMenu) || can?(:destroy, DynamicMenu)
+                      %td
+                        - if can? :delete, DynamicMenu
+                          = link_to dynamic_menu, method: :delete, remote: true, data: { confirm: "Are you sure to delete this dynamic menu from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, DynamicMenu
+                          = link_to edit_dynamic_menu_path(dynamic_menu), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

@@ -54,12 +54,22 @@
                   = link_to root_path do
                     %i.fa.fa-calendar-check-o
                     %span.nav-label Add Journal Entries
+            - if can? :index, DynamicMenu
+              %li{class: "#{'active' if controller_name == 'dynamic_menus' }"}
+                = link_to dynamic_menus_path do
+                  %i.fa.fa-book
+                  %span.nav-label Dynamic Menus
 
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do
             %i.fa.fa-bed
             %span.nav-label Leave Applications
+      - if can? :index, LeaveApplication
+        %li{class: "#{'active' if controller_name == 'leave_applications'}"}
+          = link_to leave_applications_path do
+            %i.fa.fa-bed
+            %span.nav-label Transactions
       - if can? :index, Employee
         %li{class: "#{'active' if controller_name == 'employees' }"}
           = link_to employees_path do
