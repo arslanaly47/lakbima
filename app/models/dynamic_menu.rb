@@ -4,7 +4,7 @@ class DynamicMenu < ApplicationRecord
   has_many :dynamic_menus_to_account_types, inverse_of: :dynamic_menu, dependent: :destroy
   has_many :to_account_types,   through: :dynamic_menus_to_account_types,   source: :account_type
 
-  validates :name, :description, presence: true
+  validates :name, :description, :from_account_type_ids, :to_account_type_ids, presence: true
   validate :from_account_types_should_not_be_same_as_to_account_types
   accepts_nested_attributes_for :from_account_types
   accepts_nested_attributes_for :to_account_types

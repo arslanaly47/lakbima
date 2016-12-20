@@ -26,6 +26,7 @@ class DynamicMenusController < ApplicationController
     if @dynamic_menu.update_attributes(dynamic_menu_params)
       redirect_to @dynamic_menu, notice: "Account Type has successfully been updated."
     else
+      @to_account_types = @dynamic_menu.selectable_to_account_types
       render :edit
     end
   end

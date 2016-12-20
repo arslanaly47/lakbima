@@ -13,4 +13,21 @@ $(document).ready(function() {
       }
     });
   });
+
+  $("#manageDynamicMenus").validate({
+    rules: {
+      "dynamic_menu[name]": {
+        required: true
+      },
+      "dynamic_menu[description]": {
+        required: true
+      },
+      "dynamic_menu[from_account_type_ids]": {
+        required: true
+      },
+      "dynamic_menu[to_account_type_ids]": {
+        required: true
+      }
+    }
+  });
 });
