@@ -18,7 +18,7 @@
         .logo-element
           LK
       - if can?(:index, JournalEntrySession) || can?(:index, JournalEntry)
-        %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts account_main_types account_sub_types account_types).include? controller_name}"}
+        %li{class: "#{'active' if %w(journal_entry_sessions journal_entries accounts account_main_types account_sub_types account_types dynamic_menus).include? controller_name}"}
           = link_to '#' do
             %i.fa.fa-area-chart
             %span.nav-label Finance
@@ -57,7 +57,7 @@
             - if can? :index, DynamicMenu
               %li{class: "#{'active' if controller_name == 'dynamic_menus' }"}
                 = link_to dynamic_menus_path do
-                  %i.fa.fa-book
+                  %i.fa.fa-snowflake-o
                   %span.nav-label Dynamic Menus
 
       - if can? :index, LeaveApplication

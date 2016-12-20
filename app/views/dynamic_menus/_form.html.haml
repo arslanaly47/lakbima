@@ -11,16 +11,16 @@
       = f.text_area :description, class: 'form-control'
   .hr-line-dashed
   .form-group
-    = label_tag "dynamic_menu[from_account_type_ids]", "From Account Lists", class: "col-sm-2 control-label"
+    = f.label :from_account_type_ids, 'Choose FROM lists', class: 'col-sm-2 control-label'
     .col-sm-10
-      = select_tag "dynamic_menu[from_account_type_ids]", options_for_select(AccountType.all.map { |a| [a.name, a.id] }), class: "form-control", multiple: true
+      = f.select :from_account_type_ids, options_for_select(AccountType.pluck(:name, :id), selected: dynamic_menu.from_account_type_ids), {}, class: "form-control", multiple: true, id: "fromAccountTypeSelect"
       %span.help-block.m-b-none
         Note: You can also choose more than one Account List in the section.
   .hr-line-dashed
   .form-group
-    = label_tag "dynamic_menu[to_account_type_ids]", "To Account Lists", class: "col-sm-2 control-label"
+    = f.label :to_account_type_ids, 'Choose TO lists', class: 'col-sm-2 control-label'
     .col-sm-10
-      = select_tag "dynamic_menu[to_account_type_ids]", options_for_select(AccountType.all.map { |a| [a.name, a.id] }), class: "form-control", multiple: true
+      = f.select :to_account_type_ids, options_for_select(@to_account_types.pluck(:name, :id), selected: dynamic_menu.to_account_type_ids), {}, class: "form-control", multiple: true, id: "toAccountTypeSelect"
       %span.help-block.m-b-none
         Note: You can also choose more than one Account List in the section.
   .hr-line-dashed

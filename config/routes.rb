@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts, :dynamic_menus
+  resources :job_titles, :currencies, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts
 
   resources :leave_applications, except: [:edit, :update, :destroy] do
     member do
@@ -54,4 +54,9 @@ Rails.application.routes.draw do
   resources :account_types, path: "account_lists"
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
+  resources :dynamic_menus do
+    collection do
+      get 'to_account_type_ids/:from_account_type_ids' => 'dynamic_menus#to_account_type_ids'
+    end
+  end
 end

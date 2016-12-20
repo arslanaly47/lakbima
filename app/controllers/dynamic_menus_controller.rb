@@ -5,6 +5,8 @@ class DynamicMenusController < ApplicationController
 
   def new
     @dynamic_menu = DynamicMenu.new
+    @dynamic_menu.dynamic_menus_from_account_types.build
+    @to_account_types = AccountType.all
   end
 
   def create
@@ -17,11 +19,12 @@ class DynamicMenusController < ApplicationController
   end
 
   def edit
+    @to_account_types = @dynamic_menu.selectable_to_account_types
   end
 
   def update
     if @dynamic_menu.update_attributes(dynamic_menu_params)
-      redirect_to @account_type, notice: "Account Type has successfully been updated."
+      redirect_to @dynamic_menu, notice: "Account Type has successfully been updated."
     else
       render :edit
     end
@@ -40,6 +43,17 @@ class DynamicMenusController < ApplicationController
       flash.now[:notice] = "Dynamic Menu: #{@dynamic_menu.name} has been deleted."
       format.js
     end
+  end
+
+  def to_account_type_ids
+    from_account_type_ids = params[:from_account_type_ids].split(',')
+    remaining_account_type_ids = AccountType.pluck(:id) - from_account_type_ids.map(&:to_i)
+    ids_and_names = AccountType.find(remaining_account_type_ids).pluck(:id, :name)
+    options = ""
+    ids_and_names.each do |remaining_account_type|
+      options << "<option value=\"#{remaining_account_type[0]}\">#{remaining_account_type[1]}</option>"
+    end
+    render json: { options: options }
   end
 
 

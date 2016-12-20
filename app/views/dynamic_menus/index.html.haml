@@ -16,6 +16,8 @@
                     %th ID
                   %th Name
                   %th Description
+                  %th From lists
+                  %th To lists
                   - if can?(:edit, DynamicMenu) || can?(:destroy, DynamicMenu)
                     %th Actions
               %tbody
@@ -25,6 +27,12 @@
                       %td.font-bold= link_to dynamic_menu.id, dynamic_menu
                     %td= dynamic_menu.name
                     %td= dynamic_menu.description
+                    %td
+                      - dynamic_menu.from_account_types.each do |account_type|
+                        %span.label.label-primary.m-t-xs.account-lists= account_type.try(:name)
+                    %td
+                      - dynamic_menu.to_account_types.each do |account_type|
+                        %span.label.label-primary.m-t-xs.account-lists= account_type.try(:name)
                     - if can?(:edit, DynamicMenu) || can?(:destroy, DynamicMenu)
                       %td
                         - if can? :delete, DynamicMenu
