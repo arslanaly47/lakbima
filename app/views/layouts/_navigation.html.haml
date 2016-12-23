@@ -60,14 +60,14 @@
                   %i.fa.fa-snowflake-o
                   %span.nav-label Dynamic Menus
 
-        %li{class: "active"}
+        %li{class: "#{'active' if controller_name == 'transactions'}"}
           = link_to '#' do
             %i.fa.fa-database
             %span.nav-label Transactions
             %span.fa.arrow
           %ul.nav.nav-second-level
             - DynamicMenu.all.each do |dynamic_menu|
-              %li{class: ""}
+              %li{class: "#{'active' if dynamic_menu.id == params[:dynamic_menu_id].to_i}"}
                 = link_to new_dynamic_menu_transaction_path(dynamic_menu) do
                   %i.fa.fa-bank
                   %span.nav-label= dynamic_menu.name
