@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   load_and_authorize_resource
 
   before_action :set_dynamic_menu, only: [:new, :create, :edit, :update, :show, :destroy, :index]
-  before_action :set_transaction, only: [:create, :edit, :update, :destroy, :show]
+  before_action :set_transaction, only: [:create, :edit, :update, :show, :destroy]
 
   def new
     @transaction = @dynamic_menu.transactions.new
