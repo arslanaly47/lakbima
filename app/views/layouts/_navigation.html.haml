@@ -23,43 +23,28 @@
             %i.fa.fa-area-chart
             %span.nav-label Finance
             %span.fa.arrow
-          %ul.nav.nav-second-level
+          %ul.nav.nav-second-level.collapse
             - if can? :index, AccountMainType
               %li{class: "#{'active' if controller_name == 'account_main_types' }"}
-                = link_to account_main_types_path do
-                  %i.fa.fa-globe
-                  %span.nav-label Header Accounts
+                = link_to "Header Accounts", account_main_types_path
             - if can? :index, AccountSubType
               %li{class: "#{'active' if controller_name == 'account_sub_types' }"}
-                = link_to account_sub_types_path do
-                  %i.fa.fa-folder-open-o
-                  %span.nav-label Sub Headers
+                = link_to "Sub Headers", account_sub_types_path
             - if can? :index, AccountType
               %li{class: "#{'active' if controller_name == 'account_types' }"}
-                = link_to account_types_path do
-                  %i.fa.fa-cube
-                  %span.nav-label Account Lists
+                = link_to "Account Lists", account_types_path
             - if can? :index, Account
               %li{class: "#{'active' if controller_name == 'accounts' }"}
-                = link_to accounts_path do
-                  %i.fa.fa-book
-                  %span.nav-label Chart of Accounts
+                = link_to "Chart of Accounts", accounts_path
             - if can? :create, JournalEntrySession
               %li{class: "#{'active' if controller_name == 'journal_entry_sessions' || controller_name == 'journal_entries'}"}
                 - if current_user.has_active_journal_entry_session?
-                  = link_to journal_entry_session_journal_entries_path(current_user.active_journal_entry_session) do
-                    %i.fa.fa-calendar-check-o
-                    %span.nav-label Add Journal Entries
+                  = link_to "Add Journal Entries", journal_entry_session_journal_entries_path(current_user.active_journal_entry_session)
                 - else
-                  = link_to root_path do
-                    %i.fa.fa-calendar-check-o
-                    %span.nav-label Add Journal Entries
+                  = link_to "Add Journal Entries", root_path
             - if can? :index, DynamicMenu
               %li{class: "#{'active' if controller_name == 'dynamic_menus' }"}
-                = link_to dynamic_menus_path do
-                  %i.fa.fa-snowflake-o
-                  %span.nav-label Dynamic Menus
-
+                = link_to "Dynamic Menus", dynamic_menus_path
         %li{class: "#{'active' if controller_name == 'transactions'}"}
           = link_to '#' do
             %i.fa.fa-database
@@ -68,9 +53,7 @@
           %ul.nav.nav-second-level
             - DynamicMenu.all.each do |dynamic_menu|
               %li{class: "#{'active' if dynamic_menu.id == params[:dynamic_menu_id].to_i}"}
-                = link_to new_dynamic_menu_transaction_path(dynamic_menu) do
-                  %i.fa.fa-bank
-                  %span.nav-label= dynamic_menu.name
+                = link_to dynamic_menu.name, new_dynamic_menu_transaction_path(dynamic_menu)
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do
@@ -90,41 +73,25 @@
           %ul.nav.nav-second-level
             - if can? :index, Department
               %li{class: "#{'active' if controller_name == 'departments'}"}
-                = link_to departments_path do
-                  %i.fa.fa-bank
-                  %span.nav-label Departments
+                = link_to "Departments", departments_path
             - if can? :index, JobTitle
               %li{class: "#{'active' if controller_name == 'job_titles'}"}
-                = link_to job_titles_path do
-                  %i.fa.fa-briefcase
-                  %span.nav-label Manage Job Titles
+                = link_to "Manage Job Titles", job_titles_path
             - if can? :index, Currency
               %li{class: "#{'active' if controller_name == 'currencies'}"}
-                = link_to currencies_path do
-                  %i.fa.fa-money
-                  %span.nav-label Currencies
+                = link_to "Currencies", currencies_path
             - if can? :index, AllowanceType
               %li{class: "#{'active' if controller_name == 'allowance_types'}"}
-                = link_to allowance_types_path do
-                  %i.fa.fa-bar-chart-o
-                  %span.nav-label Allowance Types
+                = link_to "Allowance Types", allowance_types_path
             - if can? :index, VacationType
               %li{class: "#{'active' if controller_name == 'vacation_types'}"}
-                = link_to vacation_types_path do
-                  %i.fa.fa-plane
-                  %span.nav-label Vacation Types
+                = link_to "Vacation Types", vacation_types_path
             - if can? :index, AttachmentType
               %li{class: "#{'active' if controller_name == 'attachment_types'}"}
-                = link_to attachment_types_path do
-                  %i.fa.fa-paperclip
-                  %span.nav-label Attachment Types
+                = link_to "Attachment Types", attachment_types_path
             - if can? :index, Role
               %li{class: "#{'active' if controller_name == 'roles'}"}
-                = link_to roles_path do
-                  %i.fa.fa-user-circle-o
-                  %span.nav-label Roles
+                = link_to "Roles", roles_path
             - if can? :index, Branch
               %li{class: "#{'active' if controller_name == 'branches'}"}
-                = link_to branches_path do
-                  %i.fa.fa-building
-                  %span.nav-label Manage Branches
+                = link_to "Manage Branches", branches_path
