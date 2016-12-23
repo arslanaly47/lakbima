@@ -76,11 +76,6 @@
           = link_to leave_applications_path do
             %i.fa.fa-bed
             %span.nav-label Leave Applications
-      - if can? :index, LeaveApplication
-        %li{class: "#{'active' if controller_name == 'leave_applications'}"}
-          = link_to leave_applications_path do
-            %i.fa.fa-bed
-            %span.nav-label Transactions
       - if can? :index, Employee
         %li{class: "#{'active' if controller_name == 'employees' }"}
           = link_to employees_path do
