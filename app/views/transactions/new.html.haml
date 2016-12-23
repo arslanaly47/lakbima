@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :index, Transaction
+        = link_to "See all the transactions in this category", dynamic_menu_transactions_path(@dynamic_menu), class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Create a new Transaction
+        .ibox-content
+          = render 'form', dynamic_menu: @dynamic_menu, transaction: @transaction

@@ -58,5 +58,6 @@ Rails.application.routes.draw do
     collection do
       get 'to_account_type_ids/:from_account_type_ids' => 'dynamic_menus#to_account_type_ids'
     end
+    resources :transactions
   end
 end

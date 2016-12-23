@@ -60,6 +60,17 @@
                   %i.fa.fa-snowflake-o
                   %span.nav-label Dynamic Menus
 
+        %li{class: "active"}
+          = link_to '#' do
+            %i.fa.fa-database
+            %span.nav-label Transactions
+            %span.fa.arrow
+          %ul.nav.nav-second-level
+            - DynamicMenu.all.each do |dynamic_menu|
+              %li{class: ""}
+                = link_to new_dynamic_menu_transaction_path(dynamic_menu) do
+                  %i.fa.fa-bank
+                  %span.nav-label= dynamic_menu.name
       - if can? :index, LeaveApplication
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do

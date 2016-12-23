@@ -14,6 +14,7 @@ class DynamicMenusController < ApplicationController
     if @dynamic_menu.save
       redirect_to @dynamic_menu, notice: "Dynamic Menu has successfully been saved."
     else
+      @to_account_types = AccountType.all
       render :new
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215125658) do
+ActiveRecord::Schema.define(version: 20161220111122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,17 @@ ActiveRecord::Schema.define(version: 20161215125658) do
     t.index ["employee_id"], name: "index_salaries_on_employee_id", using: :btree
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "from_account_id"
+    t.integer  "to_account_id"
+    t.integer  "dynamic_menu_id"
+    t.decimal  "amount",          precision: 8, scale: 2
+    t.date     "happened_at"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.index ["dynamic_menu_id"], name: "index_transactions_on_dynamic_menu_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",     default: "",    null: false
@@ -325,6 +336,7 @@ ActiveRecord::Schema.define(version: 20161215125658) do
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "salaries", "employees"
+  add_foreign_key "transactions", "dynamic_menus"
   add_foreign_key "users", "roles"
   add_foreign_key "vacations", "employees"
   add_foreign_key "vacations", "vacation_types"

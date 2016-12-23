@@ -1,0 +1,41 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, Transaction
+        = link_to new_dynamic_menu_transaction_path(@dynamic_menu, @transaction), class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Transaction
+      .ibox.float-e-margins
+        .ibox-title All Transactions
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, Transaction
+                    %th ID
+                  %th From Account
+                  %th To Account
+                  %th Amount
+                  %th Date
+                  - if can?(:edit, Transaction) || can?(:destroy, Transaction)
+                    %th Actions
+              %tbody
+                - @transactions.each do |transaction|
+                  %tr{data: { id: transaction.id } }
+                    - if can? :show, Transaction
+                      %td.font-bold= link_to transaction.id, [@dynamic_menu, transaction]
+                    %td
+                      %span.label.label-primary= transaction.from_account.try(:name)
+                    %td
+                      %span.label.label-primary= transaction.to_account.try(:name)
+                    %td= transaction.amount.to_s
+                    %td= transaction.happened_at
+                    - if can?(:edit, Transaction) || can?(:destroy, Transaction)
+                      %td
+                        - if can? :delete, Transaction
+                          = link_to [@dynamic_menu, transaction], method: :delete, remote: true, data: { confirm: "Are you sure to delete this transaction from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, Transaction
+                          = link_to edit_dynamic_menu_transaction_path(@dynamic_menu, transaction), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

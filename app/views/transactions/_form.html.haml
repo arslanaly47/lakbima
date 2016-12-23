@@ -1,0 +1,27 @@
+= form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "manageTransactions" } do |f|
+  = render "shared/errors", resource: transaction
+  .form-group
+    = f.label :from_account_id, "From", class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :from_account_id,  grouped_options_for_select(dynamic_menu.from_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Choose the from account" }, class: "form-control"
+  .hr-line-dashed
+  .form-group
+    = f.label :to_account_id, "To", class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :to_account_id,  grouped_options_for_select(dynamic_menu.to_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Choose the to account" }, class: "form-control"
+  .hr-line-dashed
+  .form-group
+    = f.label :amount, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :amount, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = f.label :happened_at, class: 'col-sm-2 control-label'
+    .col-sm-4.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :happened_at, class: 'form-control', id: "transactionHappenedAt"
+  .form-group
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"
+      = link_to "Cancel", account_types_path, class: "btn btn-primary"
