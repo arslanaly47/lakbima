@@ -16,11 +16,12 @@
       = f.number_field :amount, class: 'form-control'
   .hr-line-dashed
   .form-group
-    = f.label :happened_at, class: 'col-sm-2 control-label'
+    = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'
     .col-sm-4.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
-      = f.text_field :happened_at, class: 'form-control', id: "transactionHappenedAt"
+      = f.text_field :happened_at, class: 'form-control input-group date', id: "transactionHappenedAt"
+  .hr-line-dashed
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save", class: "btn btn-primary"

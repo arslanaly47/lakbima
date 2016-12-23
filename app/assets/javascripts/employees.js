@@ -21,7 +21,7 @@ $(document).on('ready nested:fieldAdded', function() {
   $('#appointmentDate.input-group.date').datepicker(optionsForDatePicker);
   $('.vacation-dates.input-group.date').datepicker(optionsForDatePicker);
   $('.journal-entry-happened-at .input-group.date').datepicker(optionsForDatePicker);
-  $('#transactionHappenedAt').datepicker(optionsForDatePicker);
+  $('#transactionHappenedAt.input-group.date').datepicker(optionsForDatePicker);
 
   $("#manageEmployee").validate({
     rules: {
