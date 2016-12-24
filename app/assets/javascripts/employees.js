@@ -14,6 +14,10 @@ $(document).on('ready nested:fieldAdded', function() {
     autoclose: true
   };
 
+  var optionsForTransactionDate = $.extend(optionsForDatePicker, {
+    todayHighlight: true
+  });
+
   $('#dateOfJoining.input-group.date').datepicker(optionsForDatePicker);
   $('#passportExpiry.input-group.date').datepicker(optionsForDatePicker);
   $('#visaExpiry.input-group.date').datepicker(optionsForDatePicker);
@@ -21,7 +25,7 @@ $(document).on('ready nested:fieldAdded', function() {
   $('#appointmentDate.input-group.date').datepicker(optionsForDatePicker);
   $('.vacation-dates.input-group.date').datepicker(optionsForDatePicker);
   $('.journal-entry-happened-at .input-group.date').datepicker(optionsForDatePicker);
-  $('#transactionHappenedAt.input-group.date').datepicker(optionsForDatePicker);
+  $('#transactionHappenedAt.input-group.date').datepicker(optionsForTransactionDate);
 
   $("#manageEmployee").validate({
     rules: {
