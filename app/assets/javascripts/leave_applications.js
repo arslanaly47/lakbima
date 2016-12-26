@@ -2,7 +2,7 @@ $(document).on('ready', function() {
 
   var oneDay         = $("#oneDay");
   var moreThanOneDay = $("#moreThanOneDay");
-  var dates  = $("#dates");
+  var dates          = $("#dates");
 
   if ($("#one-day").is(":checked")) {
     moreThanOneDay.detach();
