@@ -3,7 +3,7 @@
   .form-group
     = f.label :account_main_type_id, "Account Header", class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.select :account_main_type_id, AccountMainType.all.map { |a| [a.name, a.id] }, { selected: account_sub_type.account_main_type_id, prompt: "Please account header for this type."}, { class: "form-control" }
+      = f.select :account_main_type_id, AccountMainType.pluck(:name, :id), { selected: account_sub_type.account_main_type_id, prompt: "Please account header for this type."}, { class: "form-control" }
   .hr-line-dashed
   .form-group
     = f.label :name, class: 'col-sm-2 control-label'

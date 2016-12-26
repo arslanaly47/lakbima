@@ -3,12 +3,12 @@
   .form-group
     = label_tag :account_header, "Account Header", class: "col-sm-2 control-label"
     .col-sm-10
-      = select_tag :account_header, options_for_select(AccountMainType.all.map { |a| [a.name, a.id] }, selected: account_type.account_main_type.try(:id)), class: "form-control", id: "accountHeaderSelectTag", prompt: "Please choose account header."
+      = select_tag :account_header, options_for_select(AccountMainType.pluck(:name, :id), selected: account_type.account_main_type.try(:id)), class: "form-control", id: "accountHeaderSelectTag", prompt: "Please choose account header."
   .hr-line-dashed
   .form-group
     = f.label :acount_sub_type_id, "Sub Category", class: "col-sm-2 control-label"
     .col-sm-10
-      = f.select :account_sub_type_id, AccountSubType.all.map { |a| [a.name, a.id] }, { prompt: "Please choose account sub header." }, class: "form-control", id: "accountSubTypeSelectTag"
+      = f.select :account_sub_type_id, AccountSubType.pluck(:name, :id), { prompt: "Please choose account sub header." }, class: "form-control", id: "accountSubTypeSelectTag"
   .hr-line-dashed
   .form-group
     = f.label :name, class: 'col-sm-2 control-label'

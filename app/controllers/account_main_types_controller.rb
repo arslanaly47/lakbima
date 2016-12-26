@@ -22,8 +22,8 @@ class AccountMainTypesController < ApplicationController
   end
 
   def account_sub_headers
-    @account_sub_types = @account_main_type.account_sub_types
-    @account_types = @account_sub_types.first.account_types
+    @account_sub_type_names_and_ids = @account_main_type.account_sub_types.pluck(:name, :id)
+    @account_type_names_and_ids = @account_sub_types.first.account_types.pluck(:name, :id)
     respond_to do |format|
       format.js
     end

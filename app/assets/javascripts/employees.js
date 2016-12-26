@@ -4,6 +4,7 @@
 //= require slick/slick.min.js
 
 $(document).on('ready nested:fieldAdded', function() {
+
   var hostname = window.location.origin;
   //toastr.success("Such a pleasure that you read it.", "Big Title");
   var optionsForDatePicker = {

@@ -1,2 +1,2 @@
-$("#accountSubTypeSelectTag").html("<%= j options_for_select(@account_sub_types.map { |a| [a.name, a.id] }) %>");
-$("#accountTypeSelectTag").html("<%= j options_for_select(@account_types.map { |a| [a.name, a.id] }) %>");
+$("#accountSubTypeSelectTag").html("<%= j options_for_select(@account_sub_type_names_and_ids) %>");
+$("#accountTypeSelectTag").html("<%= j options_for_select(@account_type_names_and_ids) %>");

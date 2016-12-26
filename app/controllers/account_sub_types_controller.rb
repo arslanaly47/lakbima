@@ -43,7 +43,7 @@ class AccountSubTypesController < ApplicationController
   end
 
   def account_lists
-    @account_lists = @account_sub_type.account_types
+    @account_list_names_and_ids = @account_sub_type.account_types.map(:name, :id)
     respond_to do |format|
       format.js
     end

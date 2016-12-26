@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   var hostname = window.location.origin;
 
   $("#fromAccountTypeSelect").change(function() {

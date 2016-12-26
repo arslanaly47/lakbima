@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   $("#accountsForm").validate({
     rules: {
       "account_header": {
