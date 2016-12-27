@@ -5,28 +5,39 @@
         .ibox-title
           %h2= "Transaction in #{@dynamic_menu.name}"
         .ibox-content
-          .col-md-2
-            %p.font-bold From Account
-          .col-md-10
-            %p
-              %span.label.label-primary= @transaction.from_account.name
-          %br
-          .col-md-2
-            %p.font-bold To Account
-          .col-md-10
-            %p
-              %span.label.label-primary= @transaction.to_account.name
-          %br
-          .col-md-2
-            %p.font-bold Amount
-          .col-md-10
-            %p= @transaction.amount
-          %br
-          .col-md-2
-            %p.font-bold Date
-          .col-md-10
-            %p= @transaction.happened_at.strftime("%b %d, %Y")
-          %br
+          .row
+            .col-md-2
+              %p.font-bold Entered By
+            .col-md-10
+              %p= @transaction.user.try(:full_name)
+          .row
+            .col-md-2
+              %p.font-bold Description
+            .col-md-10
+              %p= @transaction.description
+          .row
+            .col-md-2
+              %p.font-bold From Account
+            .col-md-10
+              %p
+                %span.label.label-primary= @transaction.from_account.name
+          .row
+            .col-md-2
+              %p.font-bold To Account
+            .col-md-10
+              %p
+                %span.label.label-primary= @transaction.to_account.name
+          .row
+            .col-md-2
+              %p.font-bold Amount
+            .col-md-10
+              %p= @transaction.amount
+          .row
+            .col-md-2
+              %p.font-bold Date
+            .col-md-10
+              %p= @transaction.happened_at.strftime("%b %d, %Y")
+          .row
           .clearfix
   .row
     .col-lg-12
