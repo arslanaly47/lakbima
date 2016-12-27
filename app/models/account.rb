@@ -10,4 +10,8 @@ class Account < ApplicationRecord
     available_ids = Account.pluck(:id) - [journal_entry.from_account_id]
     Account.find(available_ids).pluck(:name, :id)
   end
+
+  def total_balance
+    (opening_balance || 0.0) + (transactional_balance || 0.0)
+  end
 end

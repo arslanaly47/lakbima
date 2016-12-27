@@ -8,6 +8,8 @@ class Transaction < ApplicationRecord
   validate :from_account_id_should_be_valid
   validate :from_account_id_should_be_valid
 
+  after_create :update_associated_accounts
+
   def from_account_id_can_not_be_same_as_to_account
     return if from_account_id.nil? || to_account_id.nil?
 
@@ -31,5 +33,12 @@ class Transaction < ApplicationRecord
   def happened_at=(val)
     date = Date.strptime(val, "%m/%d/%Y") if val.present?
     write_attribute :happened_at, date
+  end
+
+  def update_associated_accounts
+    from_account.transactional_balance -= amount
+    from_account.save
+    to_account.transactional_balance += amount
+    to_account.save
   end
 end
