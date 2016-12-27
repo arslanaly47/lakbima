@@ -19,6 +19,8 @@
                   %th Account List
                   %th Name
                   %th Description
+                  %th Opening Balance
+                  %th Total Balance
                   - if can?(:edit, Account) || can?(:destroy, Account)
                     %th Actions
               %tbody
@@ -31,7 +33,9 @@
                     %td
                       %span.label.label-primary= account.account_type.try(:name)
                     %td= account.name
-                    %td= account.description
+                    %td= truncate(account.description)
+                    %td= account.opening_balance.to_s
+                    %td= account.total_balance.to_s
                     - if can?(:edit, Account) || can?(:destroy, Account)
                       %td
                         - if can? :delete, Account

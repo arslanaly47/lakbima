@@ -22,6 +22,7 @@ class TransactionsController < ApplicationController
   end
 
   def update
+    @transaction.user = current_user
     if @transaction.update_attributes(transaction_params)
       redirect_to [@dynamic_menu, @transaction], notice: "Transaction has successfully been updated."
     else
@@ -33,7 +34,7 @@ class TransactionsController < ApplicationController
   end
 
   def index
-    @transaction = @dynamic_menu.transactions
+    @transactions = @dynamic_menu.transactions
   end
 
   def destroy
