@@ -1,6 +1,11 @@
 = form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "manageTransactions" } do |f|
   = render "shared/errors", resource: transaction
   .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :description, class: 'form-control'
+  .hr-line-dashed
+  .form-group
     = f.label :from_account_id, "From", class: "col-sm-2 control-label"
     .col-sm-10
       = f.select :from_account_id,  grouped_options_for_select(dynamic_menu.from_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Select an account" }, class: "form-control"

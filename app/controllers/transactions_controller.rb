@@ -10,6 +10,7 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = @dynamic_menu.transactions.build(transaction_params)
+    @transaction.user = current_user
     if @transaction.save
       redirect_to [@dynamic_menu, @transaction], notice: "Transaction has successfully been saved."
     else
@@ -47,7 +48,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:from_account_id, :to_account_id, :amount, :happened_at)
+    params.require(:transaction).permit(:from_account_id, :to_account_id, :amount, :happened_at, :description)
   end
 
   def set_dynamic_menu

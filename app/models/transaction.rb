@@ -2,8 +2,9 @@ class Transaction < ApplicationRecord
   belongs_to :from_account, class_name: "Account"
   belongs_to :to_account,   class_name: "Account"
   belongs_to :dynamic_menu
+  belongs_to :user
 
-  validates :from_account, :to_account, :amount, :happened_at, presence: true
+  validates :from_account, :to_account, :amount, :happened_at, :user, presence: true
   validate  :from_account_id_can_not_be_same_as_to_account
   validate :from_account_id_should_be_valid
   validate :from_account_id_should_be_valid
