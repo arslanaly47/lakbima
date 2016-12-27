@@ -22,6 +22,7 @@ class TransactionsController < ApplicationController
   end
 
   def update
+    @transcaction.user = current_user
     if @transaction.update_attributes(transaction_params)
       redirect_to [@dynamic_menu, @transaction], notice: "Transaction has successfully been updated."
     else
