@@ -34,7 +34,7 @@ class TransactionsController < ApplicationController
   end
 
   def index
-    @transaction = @dynamic_menu.transactions
+    @transactions = @dynamic_menu.transactions
   end
 
   def destroy
