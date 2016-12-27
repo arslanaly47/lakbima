@@ -1,11 +1,11 @@
 .row.form-inline
   = f.label :attachment_type_id, 'Attachment Type'
   - if f.object.attachment_type_id.is_a? Integer
-    = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }, selected: f.object.attachment_type_id), {}, class: 'form-control input-sm', disabled: true
+    = f.select :attachment_type_id, options_for_select(AttachmentType.pluck(:name, :id), selected: f.object.attachment_type_id), {}, class: 'form-control input-sm', disabled: true
   - elsif @attachment_type_ids.blank?
-    = f.select :attachment_type_id, options_for_select(AttachmentType.all.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
+    = f.select :attachment_type_id, options_for_select(AttachmentType.pluck(:name, :id)), {}, class: 'form-control input-sm'
   - else
-    = f.select :attachment_type_id, options_for_select(@attachment_type_ids.map { |v| [v.name, v.id] }), {}, class: 'form-control input-sm'
+    = f.select :attachment_type_id, options_for_select(@attachment_type_names_and_ids), {}, class: 'form-control input-sm'
   - if f.object.image?
     .fileinput.fileinput-exists{ data: { provides: "fileinput" } }
       %span.btn.btn-default.btn-file

@@ -108,7 +108,7 @@ class EmployeesController < ApplicationController
 
   def set_attachment_types
     unallocated_ids = @employee.unallocted_attachment_type_ids
-    @attachment_type_ids = AttachmentType.find unallocated_ids
+    @attachment_type_names_and_ids = AttachmentType.find(unallocated_ids).pluck(:name, :id)
   end
 
   def sort_column
