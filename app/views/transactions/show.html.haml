@@ -38,6 +38,11 @@
             .col-md-10
               %p= @transaction.happened_at.strftime("%b %d, %Y")
           .row
+            .col-md-2
+              %p.font-bold Attachments
+            .col-md-10
+              - @transaction.attachments.each do |attachment|
+                = image_tag attachment.image.url(:thumb), class: "m-r-sm"
           .clearfix
   .row
     .col-lg-12
