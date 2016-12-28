@@ -6,6 +6,7 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = @dynamic_menu.transactions.new
+    @transaction.attachments.build
   end
 
   def create
@@ -19,6 +20,7 @@ class TransactionsController < ApplicationController
   end
 
   def edit
+    @transaction.attachments.build
   end
 
   def update
@@ -49,7 +51,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:from_account_id, :to_account_id, :amount, :happened_at, :description)
+    params.require(:transaction).permit(:from_account_id, :to_account_id, :amount, :happened_at, :description, attachments_attributes: [:id, :image, :_destroy])
   end
 
   def set_dynamic_menu

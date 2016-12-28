@@ -1,4 +1,4 @@
-= form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "manageTransactions" } do |f|
+= nested_form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "manageTransactions" } do |f|
   = render "shared/errors", resource: transaction
   .form-group
     = f.label :description, class: 'col-sm-2 control-label'
@@ -19,6 +19,15 @@
     = f.label :amount, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.number_field :amount, class: 'form-control'
+  .hr-line-dashed
+  .form-group
+    = label_tag :attachments, "Attachments", class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.fields_for :attachments do |attachment_field|
+        = render 'attachment', f: attachment_field
+      = f.link_to_add :attachments, class: 'btn btn-primary m-t-xs' do
+        %i.fa.fa-plus-circle
+        %span.bold Add a new attachment
   .hr-line-dashed
   .form-group
     = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'

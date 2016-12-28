@@ -1,0 +1,17 @@
+.row.form-inline.transaction-attachment
+  - if f.object.image?
+    .fileinput.fileinput-exists{ data: { provides: "fileinput" } }
+      %span.btn.btn-default.btn-file
+        %span.fileinput-new Select File
+        %span.fileinput-exists Change
+        = f.file_field :image, class: 'form-control'
+      %span.fileinput-filename= f.object.image_file_name
+    = image_tag f.object.image.url(:thumb), class: 'm-l-sm'
+  - else
+    .fileinput.fileinput-new{ data: { provides: "fileinput" } }
+      %span.btn.btn-default.btn-file
+        %span.fileinput-new Select File
+        %span.fileinput-exists Change
+        = f.file_field :image, class: 'form-control'
+      %span.fileinput-filename
+  = f.link_to_remove 'Remove', class: 'btn btn-outline btn-danger btn-xs m-l-sm'

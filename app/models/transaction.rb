@@ -3,12 +3,18 @@ class Transaction < ApplicationRecord
   belongs_to :to_account,   class_name: "Account"
   belongs_to :dynamic_menu
   belongs_to :user
+  has_many :attachments, as: :attachable
 
   validates :from_account, :to_account, :amount, :happened_at, :user, presence: true
   validate  :from_account_id_can_not_be_same_as_to_account
   validate :from_account_id_should_be_valid
   validate :from_account_id_should_be_valid
 
+  accepts_nested_attributes_for :attachments,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes|
+                                  attributes['image'].blank?
+                                }
   after_create :update_associated_accounts
 
   def from_account_id_can_not_be_same_as_to_account
