@@ -28,3 +28,9 @@
   font-size: 12px !important;
   width: auto !important;
 }
+#transactionHappenedAt {
+	width: 50%;
+}
+#transaction_amount{
+	width: 59%;
+}
