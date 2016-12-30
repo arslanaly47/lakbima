@@ -4,9 +4,9 @@
   .input-group.date
     %span.input-group-addon
       %i.fa.fa-calendar
-    = f.text_field :starts_from, class: 'form-control', placeholder: 'Starts from'
+    = f.text_field :starts_from, class: 'form-control allowance-start input-group date', placeholder: 'Starts from'
   .input-group.date
     %span.input-group-addon
       %i.fa.fa-calendar
-    = f.text_field :ends_at, class: 'form-control', placeholder: 'Ends at'
+    = f.text_field :ends_at, class: 'form-control allowance-end input-group date', placeholder: 'Ends at'
   = f.link_to_remove 'Remove', class: 'btn btn-outline btn-danger btn-xs m-l-sm m-t-sm'
