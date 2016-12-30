@@ -17,7 +17,7 @@
   .hr-line-dashed
   .form-group
     = f.label :amount, class: 'col-sm-2 control-label'
-    .col-sm-10
+    .col-sm-2.transaction-amount-field
       = f.number_field :amount, class: 'form-control'
   .hr-line-dashed
   .form-group
@@ -31,7 +31,7 @@
   .hr-line-dashed
   .form-group
     = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'
-    .col-sm-4.input-group.date.m-r-md
+    .col-sm-2.input-group.date.m-r-md
       %span.input-group-addon
         %i.fa.fa-calendar
       = f.text_field :happened_at, class: 'form-control input-group date', id: "transactionHappenedAt"
