@@ -1,6 +1,18 @@
 = nested_form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "manageTransactions" } do |f|
   = render "shared/errors", resource: transaction
   .form-group
+    = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'
+    .col-sm-2.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :happened_at, class: 'form-control input-group date', id: "transactionHappenedAt"
+  .hr-line-dashed
+  .form-group
+    = f.label :amount, class: 'col-sm-2 control-label'
+    .col-sm-2.transaction-amount-field
+      = f.number_field :amount, class: 'form-control'
+  .hr-line-dashed
+  .form-group
     = f.label :description, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.text_area :description, class: 'form-control'
@@ -16,11 +28,6 @@
       = f.select :to_account_id,  grouped_options_for_select(dynamic_menu.to_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Select an account" }, class: "form-control"
   .hr-line-dashed
   .form-group
-    = f.label :amount, class: 'col-sm-2 control-label'
-    .col-sm-2.transaction-amount-field
-      = f.number_field :amount, class: 'form-control'
-  .hr-line-dashed
-  .form-group
     = label_tag :attachments, "Attachments", class: 'col-sm-2 control-label'
     .col-sm-10
       = f.fields_for :attachments do |attachment_field|
@@ -28,13 +35,6 @@
       = f.link_to_add :attachments, class: 'btn btn-primary m-t-xs' do
         %i.fa.fa-plus-circle
         %span.bold Add a new attachment
-  .hr-line-dashed
-  .form-group
-    = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'
-    .col-sm-2.input-group.date.m-r-md
-      %span.input-group-addon
-        %i.fa.fa-calendar
-      = f.text_field :happened_at, class: 'form-control input-group date', id: "transactionHappenedAt"
   .hr-line-dashed
   .form-group
     .col-sm-4.col-sm-offset-2
