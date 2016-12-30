@@ -24,6 +24,7 @@ class JobTitlesController < ApplicationController
     if @job_title.update_attributes(job_title_params)    
       redirect_to @job_title, notice: "Job title has successfully been updated."
     else
+      set_departments
       render :edit
     end
   end
@@ -38,7 +39,7 @@ class JobTitlesController < ApplicationController
   def destroy
     @job_title && @job_title.destroy    
     respond_to do |format|
-      flash.now[:notice] = "Job title: #{@job_title.name} has been deleted." 
+      flash.now[:notice] = "Job Title: #{@job_title.name} has been deleted."
       format.js
     end
   end
