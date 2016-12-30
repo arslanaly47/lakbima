@@ -1,6 +1,0 @@
-- if resource.errors.any?
-  .alert.alert-danger.alert-dismissable
-    %button.close{"aria-hidden" => true, data: { dismiss: "alert" }} ×
-    %h2= "#{pluralize(resource.errors.count, "error")} prohibited this #{resource.class.name.downcase} from being saved:"
-    - resource.errors.full_messages.each do |message|
-      %p= message

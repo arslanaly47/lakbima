@@ -1,0 +1,8 @@
+<script>
+  $(document).ready(function() {
+    <% if resource.errors.any? %>
+      var fullMessages = <%= raw resource.errors.full_messages %>;
+      toastr.error(fullMessages.join("<br>"));
+    <% end %>
+  });
+</script>

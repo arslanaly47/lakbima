@@ -14,6 +14,11 @@
       = render 'layouts/navigation'
       #page-wrapper.gray-bg
         = render 'layouts/topnavbar'
-        = render 'shared/flash_messages'
         = yield
         = render 'layouts/footer'
+:javascript
+  $(document).ready(function() {
+  if ("#{flash && flash[:notice]}") {
+  toastr.success("#{flash[:notice]}");
+  }
+  });
