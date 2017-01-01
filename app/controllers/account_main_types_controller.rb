@@ -22,10 +22,17 @@ class AccountMainTypesController < ApplicationController
   end
 
   def account_sub_headers
-    @account_sub_type_names_and_ids = @account_main_type.account_sub_types.pluck(:name, :id)
-    @account_type_names_and_ids = @account_main_type.account_sub_types.first.account_types.pluck(:name, :id)
+    status = ''
+    @account_sub_types = @account_main_type.account_sub_types
+    if @account_sub_types.blank?
+      status = :not_found
+    else
+      @account_sub_type_names_and_ids = @account_main_type.account_sub_types.pluck(:name, :id)
+      @account_sub_type_names_and_ids.unshift ["Please choose an account sub header.", ""]
+      status = :ok
+    end
     respond_to do |format|
-      format.js
+      format.js { render status: status }
     end
   end
 
