@@ -1,6 +1,7 @@
 class CurrenciesController < ApplicationController
   load_and_authorize_resource
   before_action :set_currency, only: [:edit, :update, :show, :destroy]
+  helper_method :sort_column
 
   def new
     @currency = Currency.new
@@ -30,7 +31,7 @@ class CurrenciesController < ApplicationController
   end
 
   def index
-    @currencies = Currency.all
+    @currencies = Currency.order(sort_column + " " + sort_direction)
   end
 
   def destroy
@@ -49,5 +50,9 @@ class CurrenciesController < ApplicationController
 
   def set_currency
     @currency = Currency.find(params[:id]) 
+  end
+
+  def sort_column
+    Currency.column_names.include?(params[:sort])? params[:sort] : "id"
   end
 end

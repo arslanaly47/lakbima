@@ -9,15 +9,15 @@
         .ibox-title All Currencies
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, Currency
-                    %th #
-                  %th Name
-                  %th Code
-                  %th Symbol
-                  %th Country
+                    %th= sortable "id", "#"
+                  %th= sortable "name"
+                  %th= sortable "code"
+                  %th= sortable "symbol"
+                  %th= sortable "country"
                   - if can?(:edit, Currency) || can?(:destroy, Currency)
                     %th Actions
               %tbody
