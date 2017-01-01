@@ -29,6 +29,15 @@ $(document).on('ready nested:fieldAdded', function() {
   $('#transactionHappenedAt.input-group.date').datepicker(optionsForTransactionDate);
   $('.allowance-start.input-group.date').datepicker(optionsForDatePicker);
   $('.allowance-end.input-group.date').datepicker(optionsForDatePicker);
+  
+  $.validator.addMethod(
+    "australianDate",
+    function(value, element) {
+      return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+    },
+    "Please enter a valid date"
+  );
+
 
   $("#manageEmployee").validate({
     rules: {
@@ -53,6 +62,21 @@ $(document).on('ready nested:fieldAdded', function() {
       },
       "employee[nationality]": {
         required: true
+      },
+      "employee[date_of_joining]": {
+        australianDate : true
+      },
+      "employee[passport_expiry]": {
+        australianDate : true
+      },
+      "employee[visa_expiry]": {
+        australianDate : true
+      },
+      "employee[medical_expiry]": {
+        australianDate : true
+      },
+      "employee[appointment_date]": {
+        australianDate : true
       }
     }
   });
