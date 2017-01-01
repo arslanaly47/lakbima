@@ -31,3 +31,14 @@
 .transaction-amount-field {
   padding-right: 0px !important;
 }
+.date-error {
+  margin-left: 18%;
+}
+.attachment-type {
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: -3px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  margin-bottom: 7px;
+}
