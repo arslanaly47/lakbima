@@ -43,9 +43,15 @@ class AccountSubTypesController < ApplicationController
   end
 
   def account_lists
-    @account_list_names_and_ids = @account_sub_type.account_types.pluck(:name, :id)
+    status = ''
+    if @account_sub_type.account_types.blank?
+      status = :not_found
+    else
+      @account_list_names_and_ids = @account_sub_type.account_types.pluck(:name, :id)
+      status = :ok
+    end
     respond_to do |format|
-      format.js
+      format.js { render status: status }
     end
   end
 
