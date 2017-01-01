@@ -2,6 +2,7 @@ class DepartmentsController < ApplicationController
   load_and_authorize_resource except: [:job_titles]
 
   before_action :set_department, only: [:edit, :update, :show, :destroy, :job_titles]
+  helper_method :sort_column
 
   def new
     @department = Department.new
@@ -31,7 +32,7 @@ class DepartmentsController < ApplicationController
   end
 
   def index
-    @departments = Department.all
+    @departments = Department.order(sort_column + " " + sort_direction)
   end
 
   def destroy
@@ -57,5 +58,9 @@ class DepartmentsController < ApplicationController
 
   def set_department
     @department = Department.find(params[:id]) 
+  end
+
+  def sort_column
+    Department.column_names.include?(params[:sort])? params[:sort] : "id"
   end
 end

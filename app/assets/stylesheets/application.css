@@ -28,12 +28,15 @@
   font-size: 12px !important;
   width: auto !important;
 }
+
 .transaction-amount-field {
   padding-right: 0px !important;
 }
+
 .date-error {
   margin-left: 18%;
 }
+
 .attachment-type {
   display: inline-block;
   vertical-align: middle;

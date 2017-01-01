@@ -9,13 +9,13 @@
         .ibox-title All Departments
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, Department
-                    %th #
-                  %th Name
-                  %th Description
+                    %th= sortable "id", "ID"
+                  %th= sortable "name"
+                  %th= sortable "description"
                   - if can?(:destroy, Department) || can?(:edit, Department)
                     %th Actions
               %tbody
