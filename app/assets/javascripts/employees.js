@@ -27,6 +27,8 @@ $(document).on('ready nested:fieldAdded', function() {
   $('.vacation-dates.input-group.date').datepicker(optionsForDatePicker);
   $('.journal-entry-happened-at .input-group.date').datepicker(optionsForDatePicker);
   $('#transactionHappenedAt.input-group.date').datepicker(optionsForTransactionDate);
+  $('.allowance-start.input-group.date').datepicker(optionsForDatePicker);
+  $('.allowance-end.input-group.date').datepicker(optionsForDatePicker);
 
   $("#manageEmployee").validate({
     rules: {
