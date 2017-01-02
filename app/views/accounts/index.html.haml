@@ -10,17 +10,17 @@
           Chart of Accounts
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, Account
-                    %th ID
-                  %th Sub Header
-                  %th Account List
-                  %th Name
-                  %th Description
-                  %th Opening Balance
-                  %th Total Balance
+                    %th= sortable "id", "ID"
+                  %th= sortable "account_sub_type", "Sub Header"
+                  %th= sortable "account_type", "Account List"
+                  %th= sortable "name", "Name"
+                  %th= sortable "description", "Description"
+                  %th= sortable "opening_balance", "Opening Balance"
+                  %th= sortable "total_balance", "Total Balance"
                   - if can?(:edit, Account) || can?(:destroy, Account)
                     %th Actions
               %tbody
