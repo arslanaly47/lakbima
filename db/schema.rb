@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227132757) do
+ActiveRecord::Schema.define(version: 20170102030522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20161227132757) do
     t.string   "email"
     t.text     "address"
     t.string   "phone_number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "nationality"
     t.string   "passport_no"
     t.date     "passport_expiry"
@@ -159,8 +159,10 @@ ActiveRecord::Schema.define(version: 20161227132757) do
     t.date     "appointment_date"
     t.integer  "user_id"
     t.integer  "branch_id"
+    t.boolean  "terminated",       default: false
     t.index ["branch_id"], name: "index_employees_on_branch_id", using: :btree
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
+    t.index ["terminated"], name: "index_employees_on_terminated", using: :btree
     t.index ["user_id"], name: "index_employees_on_user_id", using: :btree
   end
 
