@@ -88,6 +88,10 @@ class Employee < ApplicationRecord
     terminated
   end
 
+  def unterminated?
+    !terminated? 
+  end
+
   def terminate!
     update_attribute :terminated, true
   end

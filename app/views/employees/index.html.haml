@@ -6,7 +6,13 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Employee
       .ibox.float-e-margins
-        .ibox-title All Employees
+        .ibox-title
+          = radio_button_tag :employee, "All Employees", true, id: "allEmployees", class: "employee-display"
+          = label_tag :allEmployees, "All Employees"
+          = radio_button_tag :employee, "Terminated", false, id: "terminatedEmployees", class: "employee-display"
+          = label_tag :terminatedEmployees, "Terminated Employees"
+          = radio_button_tag :employee, "Unterminated", false, id: "unterminatedEmployees", class: "employee-display"
+          = label_tag  :unterminatedEmployees, "Unterminated Employees"
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty.employeeTable
@@ -26,7 +32,7 @@
                     %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id }, class: "#{'terminated-employee' if employee.terminated?}" }
+                  %tr{data: { id: employee.id }, class: "employee #{'terminated-employee' if employee.terminated?} #{'unterminated-employee' if employee.unterminated?}" }
                     - if can? :show, Employee
                       %td= link_to employee.id, employee
                     - if employee.profile_image

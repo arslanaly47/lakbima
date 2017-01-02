@@ -193,6 +193,33 @@ $(document).on('ready nested:fieldAdded', function() {
     unterminateButton.click(unterminateAnEmployee);
   }
 
+  function showAllEmployees() {
+    $('.employee').show();
+  }
+
+  function showTerminatedEmployees() {
+    $('.unterminated-employee').hide();
+    $('.terminated-employee').show();
+  }
+
+  function showUnterminatedEmployees() {
+    $('.terminated-employee').hide();
+    $('.unterminated-employee').show();
+  }
+
+  $(".employee-display").change(function() {
+    if($(this).val() == "All Employees") {
+      showAllEmployees();
+      return;
+    }
+    if($(this).val() == "Terminated") {
+      showTerminatedEmployees();
+    }
+    if($(this).val() == "Unterminated") {
+      showUnterminatedEmployees();
+    }
+  });
+
 });
 
 $(document).on('ready', function() {
