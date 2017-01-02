@@ -26,7 +26,7 @@
                     %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id } }
+                  %tr{data: { id: employee.id }, class: "#{'terminated-employee' if employee.terminated?}" }
                     - if can? :show, Employee
                       %td= link_to employee.id, employee
                     - if employee.profile_image
