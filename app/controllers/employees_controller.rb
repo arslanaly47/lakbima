@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource except: [:index]
 
-  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment]
+  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment, :terminate]
   helper_method :sort_column
 
   def new
@@ -70,6 +70,16 @@ class EmployeesController < ApplicationController
         url_based_filename: true, disposition: "attachment"
     else
     end
+  end
+
+  def terminate
+    @employee.terminate!
+    render json: { success: true }
+  end
+
+  def unterminate
+    @employee.unterminate!
+    render json: { success: true }
   end
 
   private

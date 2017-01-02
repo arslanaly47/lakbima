@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     member do
       get 'download_attachment/:attachment_id' => 'employees#download_attachment',
         as: :attachment
+      post 'terminate' => 'employees#terminate'
+      post 'unterminate' => 'employees#unterminate'
     end
   end
   resources :users, only: [:edit] do

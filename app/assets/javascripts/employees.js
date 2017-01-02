@@ -128,6 +128,71 @@ $(document).on('ready nested:fieldAdded', function() {
       }
     });
   });
+
+  var terminateAnEmployee = function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    $this.ladda('start');
+    var employeeID = $this.data('employee-id');
+
+    var url = hostname + "/employees/" + employeeID.toString() + "/terminate";
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      success: function(data) {
+        $this.ladda('stop');
+        if (data.success) {
+          $this.text('Unterminate');
+          $this.data('confirm', "Are you sure you want to unterminate this employee?");
+          $this.removeClass('btn-danger');
+          $this.removeClass('terminate-employee');
+          $this.addClass('btn-primary');
+          $this.addClass('unterminate-employee');
+          $this.unbind('click');
+          $this.bind('click', unterminateAnEmployee);
+        }
+      }
+    });
+  };
+
+  var unterminateAnEmployee = function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    $this.ladda('start');
+    var employeeID = $this.data('employee-id');
+
+    var url = hostname + "/employees/" + employeeID.toString() + "/unterminate";
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      success: function(data) {
+        $this.ladda('stop');
+        if (data.success) {
+          $this.text('Terminate');
+          $this.data('confirm', "Are you sure you want to terminate this employee?");
+          $this.removeClass('btn-primary');
+          $this.removeClass('unterminate-employee');
+          $this.addClass('btn-danger');
+          $this.addClass('terminate-employee');
+          $this.unbind('click');
+          $this.bind('click', terminateAnEmployee);
+        }
+      }
+    });
+  };
+
+  var terminateButton, unterminateButton;
+
+  if ($(".terminate-employee").length) {
+    terminateButton = $(".terminate-employee").ladda();
+    terminateButton.click(terminateAnEmployee);
+  } else {
+    unterminateButton = $(".unterminate-employee").ladda();
+    unterminateButton.click(unterminateAnEmployee);
+  }
+
 });
 
 $(document).on('ready', function() {

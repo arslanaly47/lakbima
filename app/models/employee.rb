@@ -35,6 +35,9 @@ class Employee < ApplicationRecord
   delegate :expired_allowances, to: :salary, allow_nil: true
   delegate :allowances, to: :salary, allow_nil: true
 
+  scope :terminated,   -> { where(terminated: true) }
+  scope :unterminated, -> { where(terminated: false) }
+
   def full_name
     [first_name, last_name]*" "
   end
@@ -79,5 +82,17 @@ class Employee < ApplicationRecord
       rand_username  = username + rand(111..999).to_s
     end until User.uniq_username? rand_username
     rand_username
+  end
+
+  def terminated?
+    terminated
+  end
+
+  def terminate!
+    update_attribute :terminated, true
+  end
+
+  def unterminate!
+    update_attribute :terminated, false
   end
 end
