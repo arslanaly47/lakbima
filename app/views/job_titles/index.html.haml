@@ -9,18 +9,18 @@
         .ibox-title All Job Titles
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, JobTitle
-                    %th #
-                  %th Name
-                  %th Description
-                  %th Department
+                    %th= sortable "id", "#"
+                  %th= sortable "name"
+                  %th= sortable "description"
+                  %th= sortable "department"
                   - if can?(:edit, JobTitle) || can?(:destroy, JobTitle)
                     %th Actions
               %tbody
-                - @job_title.each do |job_title|
+                - @job_titles.each do |job_title|
                   %tr{data: { id: job_title.id } }
                     - if can? :show, JobTitle
                       %td= link_to job_title.id, job_title

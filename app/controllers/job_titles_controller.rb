@@ -3,6 +3,7 @@ class JobTitlesController < ApplicationController
 
   before_action :set_job_title, only: [:edit, :update, :show, :destroy]
   before_action :set_departments, only: [:new, :edit]
+  helper_method :sort_column
 
   def new
     @job_title = JobTitle.new
@@ -33,7 +34,7 @@ class JobTitlesController < ApplicationController
   end
 
   def index
-    @job_title = JobTitle.all
+    @job_tiles = JobTitle.order(sort_column + " " + sort_direction)
   end
 
   def destroy
@@ -56,5 +57,9 @@ class JobTitlesController < ApplicationController
 
   def set_departments
     @departments = Department.all
+  end
+
+  def sort_column
+    JobTitle.column_names.include?(params[:sort])? params[:sort] : "id"
   end
 end
