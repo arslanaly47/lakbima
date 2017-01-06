@@ -33,7 +33,7 @@ class User < ApplicationRecord
   scope :managers,  -> { where(role: Role.find_by(name: "Manager")) }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
-  delegate :profile_image, to: :employee
+  delegate :profile_image, to: :employee, allow_nil: true
 
   accepts_nested_attributes_for :employee
 
