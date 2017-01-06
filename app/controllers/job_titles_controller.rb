@@ -34,7 +34,7 @@ class JobTitlesController < ApplicationController
   end
 
   def index
-    @job_tiles = JobTitle.order(sort_column + " " + sort_direction)
+    @job_titles = JobTitle.includes(:department).order(sort_column + " " + sort_direction)
   end
 
   def destroy
