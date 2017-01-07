@@ -45,3 +45,6 @@
   padding-bottom: 5px;
   margin-bottom: 7px;
 }
+textarea {
+  max-width: 100%;
+}
