@@ -16,7 +16,7 @@
                     %th= sortable "id", "#"
                   %th= sortable "name"
                   %th= sortable "description"
-                  %th= sortable "department"
+                  %th= sortable "department_id", "Department"
                   - if can?(:edit, JobTitle) || can?(:destroy, JobTitle)
                     %th Actions
               %tbody

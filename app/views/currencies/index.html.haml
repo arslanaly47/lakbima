@@ -2,6 +2,7 @@
   .row
     .col-lg-12
       - if can? :new, Currency
+        = link_to "Choose a default currency", default_currencies_path, class: "btn btn-primary btn-rounded pull-right m-sm"
         = link_to new_currency_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Currency
@@ -18,6 +19,7 @@
                   %th= sortable "code"
                   %th= sortable "symbol"
                   %th= sortable "country"
+                  %th= sortable "default"
                   - if can?(:edit, Currency) || can?(:destroy, Currency)
                     %th Actions
               %tbody
@@ -29,6 +31,11 @@
                     %td= currency.code
                     %td= currency.symbol
                     %td= currency.country
+                    %td
+                      - if currency.default?
+                        %i.fa.fa-check{"aria-hidden" => true}
+                      - else
+                        %i.fa.fa-times{"aria-hidden" => true}
                     - if can?(:edit, Currency) || can?(:destroy, Currency)
                       %td
                         - if can?(:destroy, Currency)

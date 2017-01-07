@@ -1,0 +1,21 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      = link_to "Back", currencies_path, class: "btn btn-primary btn-rounded pull-left m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h2 Choose the default currency
+        .ibox-content
+          .form-horizontal
+            .form-group
+              = label_tag nil, "Choose default currency", class: 'col-sm-3 control-label'
+              .col-sm-3
+                = select_tag :default_currency_id, options_for_select(@currency_names_and_ids, selected: @default_currency_id), class: "form-control", prompt: "Pleaes choose default currency.", id: "currencySelectTag"
+              .col-sm-1
+                = link_to "Save", "", class: "btn btn-primary", id: "setDefaultCurrency", data: { style: "zoom-in" }
+              .col-sm-2.currency-default
+                %span.label.label-primary Default Currency
+              .col-sm-3.currency-default#defaultCurrencyName
+                = @default_currency_name
+            %br
+            .hr-line-dashed

@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170103010039) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "account_main_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",  null: false
@@ -107,9 +104,9 @@ ActiveRecord::Schema.define(version: 20170103010039) do
     t.string   "code"
     t.string   "symbol"
     t.string   "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "default"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "default",    default: false
   end
 
   create_table "departments", force: :cascade do |t|

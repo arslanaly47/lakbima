@@ -1,6 +1,6 @@
 class CurrenciesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_currency, only: [:edit, :update, :show, :destroy]
+  before_action :set_currency, only: [:edit, :update, :show, :destroy, :set_default]
   helper_method :sort_column
 
   def new
@@ -40,6 +40,18 @@ class CurrenciesController < ApplicationController
       flash.now[:notice] = "Currency: #{@currency.name} has been deleted." 
       format.js
     end
+  end
+
+  def set_default
+    Currency.unset_default
+    @currency.update_attribute(:default, true)
+    render json: { default_currency_name: @currency.name }
+  end
+
+  def default
+    @currency_names_and_ids = Currency.pluck(:name, :id)
+    @default_currency_id = Currency.default.try(:first).try(:id)
+    @default_currency_name = Currency.default.try(:first).try(:name) || "Not selected yet!"
   end
 
   private
