@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103010039) do
+ActiveRecord::Schema.define(version: 20170107091759) do
 
   create_table "account_main_types", force: :cascade do |t|
     t.string   "name"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20170103010039) do
     t.integer  "user_id"
     t.integer  "branch_id"
     t.boolean  "terminated",       default: false
+    t.boolean  "future",           default: false
     t.index ["branch_id"], name: "index_employees_on_branch_id", using: :btree
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
     t.index ["terminated"], name: "index_employees_on_terminated", using: :btree
