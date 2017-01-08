@@ -47,7 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def view
-    return render json: Account.data()
+    @accounts = AccountMainType.all
   end
 
 

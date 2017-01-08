@@ -107,7 +107,7 @@ $(document).ready(function() {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.json("/accounts/view", function(error, flare) {
+  d3.json("/accounts/view.json", function(error, flare) {
     if (error) throw error;
 
     root = flare;
