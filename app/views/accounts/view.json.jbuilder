@@ -9,6 +9,15 @@ json.children @accounts do |account|
 		      json.children do
 				    json.array!(account_sub_type.account_types) do |account_type|
 				      json.name account_type.name
+              if account_type.accounts.present?
+                json.children do
+                  json.array!(account_type.accounts) do |account|
+                    json.name account.name
+                  end
+                end
+              else
+                json.children false
+              end
 				    end
 				  end
 				else
