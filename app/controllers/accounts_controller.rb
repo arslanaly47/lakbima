@@ -47,7 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def view
-    @accounts = AccountMainType.all
+    @accounts = AccountMainType.includes(:account_sub_types, :account_types, :accounts).all
   end
 
 
