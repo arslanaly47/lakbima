@@ -14,22 +14,4 @@ class Account < ApplicationRecord
   def total_balance
     (opening_balance || 0.0) + (transactional_balance || 0.0)
   end
-
-  def self.data    
-    account = AccountMainType.all.map do |main|
-      { "name" => main.name,
-        "children"   => main.account_sub_types.present? && main.account_sub_types.all.map do |sub_type|
-        {
-          "name" => sub_type.name,
-          "children"   => sub_type.account_types.present? && sub_type.account_types.all.map do |type|
-          {
-            "name" => type.name,
-          }
-          end
-        }
-        end
-      }
-    end
-    '{"name": "Accounts","children": '+account.to_json+'}'
-  end
 end
