@@ -24,6 +24,7 @@
 //= require ladda/ladda.jquery.min.js
 //= require rickshaw/vendor/d3.v3.js
 //= require rickshaw/rickshaw.min.js
+//= require d3js.js
 //= require_self
 //= require_tree .
 

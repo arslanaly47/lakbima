@@ -46,6 +46,10 @@ class AccountsController < ApplicationController
     end
   end
 
+  def view
+    return render json: Account.data()
+  end
+
 
   private
 

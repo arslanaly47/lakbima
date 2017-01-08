@@ -57,6 +57,8 @@ Rails.application.routes.draw do
       get 'account_sub_headers'
     end
   end
+  get 'view' => "accounts#view"
+  get 'account_tree' => "accounts#account_tree"
   resources :account_sub_types, path: "account_sub_headers" do
     member do
       get 'account_lists'
