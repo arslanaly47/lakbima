@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
-  resources :job_titles, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :accounts
+  resources :job_titles, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches
 
   resources :currencies do
     collection do
@@ -57,8 +57,13 @@ Rails.application.routes.draw do
       get 'account_sub_headers'
     end
   end
-  get 'view' => "accounts#view"
-  get 'account_tree' => "accounts#account_tree"
+
+  resources :accounts do
+    collection do
+      get 'view' => "accounts#view"
+      get 'account_tree' => "accounts#account_tree"
+    end
+  end
   resources :account_sub_types, path: "account_sub_headers" do
     member do
       get 'account_lists'
