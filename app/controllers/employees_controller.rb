@@ -37,7 +37,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.update_attributes(employee_params) && @employee.user.update_attribute(:username, params[:employee][:user][:username])
+    if @employee.update_attributes(employee_params) && @employee.user.update_attributes(username: params[:employee][:user][:username])
       redirect_to @employee, notice: "Employee has successfully been updated."
     else
       set_departments
@@ -85,7 +85,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, :date_of_joining, :appointment_date, :branch_id, attachments_attributes: [:id, :attachment_type_id, :image, :_destroy], salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]], vacations_attributes: [:id, :vacation_type_id, :starts_from, :ends_at, :_destroy])
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, :date_of_joining, :appointment_date, :branch_id, :future, attachments_attributes: [:id, :attachment_type_id, :image, :_destroy], salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]], vacations_attributes: [:id, :vacation_type_id, :starts_from, :ends_at, :_destroy])
   end
 
   def set_employee

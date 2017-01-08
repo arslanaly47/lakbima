@@ -35,6 +35,11 @@
   .hr-line-dashed
   %h3 Employment Info
   .form-group
+    = label_tag :future, "Future Employee", class: "col-sm-2 control-label"
+    .col-sm-10.future-checkbox
+      = f.check_box :future, {}, true
+  .hr-line-dashed
+  .form-group
     = label_tag :role_id, "Choose Role", class: "col-sm-2 control-label"
     .col-sm-10
       = select_tag :role_id, options_for_select(Role.all.map { |r| [r.name, r.id] }, selected: employee.user.try(:role_id)), class: "form-control", prompt: "Please choose role."
