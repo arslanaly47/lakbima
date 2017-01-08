@@ -35,8 +35,11 @@ class Employee < ApplicationRecord
   delegate :expired_allowances, to: :salary, allow_nil: true
   delegate :allowances, to: :salary, allow_nil: true
 
+  after_save :make_valid_regarding_terminate_and_false
+
   scope :terminated,   -> { where(terminated: true) }
-  scope :unterminated, -> { where(terminated: false) }
+  scope :current,      -> { where(terminated: false, future: false) }
+  scope :future,       -> { where(future: true) }
 
   def full_name
     [first_name, last_name]*" "
@@ -93,10 +96,26 @@ class Employee < ApplicationRecord
   end
 
   def terminate!
-    update_attribute :terminated, true
+    update_attributes terminated: true, future: false
   end
 
   def unterminate!
     update_attribute :terminated, false
+  end
+
+  def future?
+    future
+  end
+
+  def current?
+    !terminated? && !future?  # If an employee hasn't been terminated, neither he/she is a future employee.
+  end
+
+  def not_current?
+    terminated? || future?
+  end
+
+  def make_valid_regarding_terminate_and_false
+    update_column(:terminated, false) if future?
   end
 end

@@ -7,12 +7,12 @@
           &nbsp;&nbsp; New Employee
       .ibox.float-e-margins
         .ibox-title
-          = radio_button_tag :employee, "All Employees", true, id: "allEmployees", class: "employee-display"
-          = label_tag :allEmployees, "All Employees"
-          = radio_button_tag :employee, "Terminated", false, id: "terminatedEmployees", class: "employee-display"
-          = label_tag :terminatedEmployees, "Terminated Employees"
-          = radio_button_tag :employee, "Unterminated", false, id: "unterminatedEmployees", class: "employee-display"
-          = label_tag  :unterminatedEmployees, "Unterminated Employees"
+          = radio_button_tag :employee, "Current", true, id: "currentEmployees", class: "employee-display"
+          = label_tag :currentEmployees, "Current Employees"
+          = radio_button_tag :employee, "Past", false, id: "terminatedEmployees", class: "employee-display"
+          = label_tag :terminatedEmployees, "Terminated(past) Employees"
+          = radio_button_tag :employee, "Future", false, id: "futureEmployees", class: "employee-display"
+          = label_tag  :futureEmployees, "Future Employees"
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty.employeeTable
@@ -32,7 +32,7 @@
                     %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id }, class: "employee #{'terminated-employee' if employee.terminated?} #{'unterminated-employee' if employee.unterminated?}" }
+                  %tr{data: { id: employee.id }, class: "#{get_class_for_employee(employee)} #{'hidden' if employee.not_current?}"}
                     - if can? :show, Employee
                       %td= link_to employee.id, employee
                     - if employee.profile_image

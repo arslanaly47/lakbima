@@ -193,30 +193,39 @@ $(document).on('ready nested:fieldAdded', function() {
     unterminateButton.click(unterminateAnEmployee);
   }
 
-  function showAllEmployees() {
-    $('.employee').show();
+  function showCurrentEmployees() {
+    $('.current-employees').removeClass('hidden');
+    $('.current-employees').show();
+    $('.past-employees').hide();
+    $('.future-employees').hide();
   }
 
-  function showTerminatedEmployees() {
-    $('.unterminated-employee').hide();
-    $('.terminated-employee').show();
+  function showPastEmployees() {
+    $('.past-employees').removeClass('hidden');
+    $('.past-employees').show();
+    $('.current-employees').hide();
+    $('.future-employees').hide();
   }
 
-  function showUnterminatedEmployees() {
-    $('.terminated-employee').hide();
-    $('.unterminated-employee').show();
+  function showFutureEmployees() {
+    $('.future-employees').removeClass('hidden');
+    $('.future-employees').show();
+    $('.past-employees').hide();
+    $('.current-employees').hide();
   }
 
   $(".employee-display").change(function() {
-    if($(this).val() == "All Employees") {
-      showAllEmployees();
+    if($(this).val() == "Current") {
+      showCurrentEmployees();
       return;
     }
-    if($(this).val() == "Terminated") {
-      showTerminatedEmployees();
+    if($(this).val() == "Past") {
+      showPastEmployees();
+      return;
     }
-    if($(this).val() == "Unterminated") {
-      showUnterminatedEmployees();
+    if($(this).val() == "Future") {
+      showFutureEmployees();
+      return;
     }
   });
 
