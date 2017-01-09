@@ -6,13 +6,17 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Employee
       .ibox.float-e-margins
-        .ibox-title
+        .ibox-title.p-sm
           = radio_button_tag :employee, "Current", true, id: "currentEmployees", class: "employee-display"
           = label_tag :currentEmployees, "Current Employees"
           = radio_button_tag :employee, "Past", false, id: "terminatedEmployees", class: "employee-display"
           = label_tag :terminatedEmployees, "Terminated(past) Employees"
           = radio_button_tag :employee, "Future", false, id: "futureEmployees", class: "employee-display"
           = label_tag  :futureEmployees, "Future Employees"
+          .form-group.pull-right.m-t-n-xs
+            = text_field_tag :search, nil, class: "form-control", id: "searchEmployees"
+          .pull-right.m-r-md
+            = label_tag :search
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty.employeeTable
@@ -32,15 +36,15 @@
                     %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id }, class: "#{get_class_for_employee(employee)} #{'hidden' if employee.not_current?}"}
+                  %tr{data: { id: employee.id }, class: "employees #{get_class_for_employee(employee)} #{'hidden' if employee.not_current?}"}
                     - if can? :show, Employee
                       %td= link_to employee.id, employee
                     - if employee.profile_image
                       %td= image_tag employee.profile_image.image.url(:thumb)
                     - else
                       %td No image
-                    %td= employee.first_name
-                    %td= employee.last_name
+                    %td.first-name= employee.first_name
+                    %td.last-name= employee.last_name
                     %td= employee.phone_number
                     %td= employee.visa_expiry
                     %td= employee.medical_expiry

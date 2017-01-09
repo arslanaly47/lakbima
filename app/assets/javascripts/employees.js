@@ -214,18 +214,46 @@ $(document).on('ready nested:fieldAdded', function() {
     $('.current-employees').hide();
   }
 
+  var allEmployees = $('.employees:visible');
+
   $(".employee-display").change(function() {
     if($(this).val() == "Current") {
       showCurrentEmployees();
+      allEmployees = $('.employees:visible');
       return;
     }
     if($(this).val() == "Past") {
       showPastEmployees();
+      allEmployees = $('.employees:visible');
       return;
     }
     if($(this).val() == "Future") {
       showFutureEmployees();
+      allEmployees = $('.employees:visible');
       return;
+    }
+  });
+
+
+  $("#searchEmployees").on('input properychange paste', function() {
+    var $this = $(this);
+
+    var searchText = $this.val();
+    if(searchText == "") {
+      allEmployees.show();
+    } else {
+      var firstName, lastName;
+      allEmployees.each(function() {
+        firstName = $(this).find('.first-name').html();
+        lastName  = $(this).find('.last-name').html();
+
+        searchTextRegExp = new RegExp(searchText, "i");
+        if((firstName.match(searchTextRegExp) == null) && (lastName.match(searchTextRegExp) == null)) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
     }
   });
 
