@@ -56,5 +56,6 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 gem 'blueimp-gallery'
 gem 'high_voltage', '~> 3.0.0'
+gem 'prawn'
 
 ruby "2.3.0"
