@@ -114,17 +114,13 @@ $(document).ready(function() {
     root = flare;
     root.x0 = height / 2;
     root.y0 = 0;
-    console.log(flare);
     function collapse(d) {
-      console.log(d);
-      console.log(d.children);
       if (d.children) {
         d._children = d.children;
         d._children.forEach(collapse);
         d.children = null;
       }
     }
-    console.log(collapse);
     root.children.forEach(collapse);
     update(root);
   });
