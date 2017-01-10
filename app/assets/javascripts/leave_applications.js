@@ -37,4 +37,14 @@ $(document).on('ready', function() {
   });
 
   $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
+
+  $(function(){
+    $('#vacation_type').bind('change', function () {
+     var url = "?vacation_type=" + $(this).val()
+      if (url) {
+        window.location.replace(url);
+      }
+      return false;
+    });
+  });
 });

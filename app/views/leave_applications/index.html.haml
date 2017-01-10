@@ -6,7 +6,17 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Leave Application
       .ibox.float-e-margins
-        .ibox-title All Leave Applications
+        .ibox-title 
+          .row
+            .col-lg-6
+              All Leave Applications
+            .col-lg-6
+              .row
+                .col-lg-4
+                  Filter By Vacation Type: 
+                .col-lg-6
+                  = select_tag "vacation_type", options_for_select(VacationType.all.map { |v| [v.name, v.id] }), {:include_blank => 'Select Vacation Type', class: 'form-control', id: 'vacation_type'}
+
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty
