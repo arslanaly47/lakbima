@@ -12,7 +12,7 @@ json.children @accounts do |account|
               if account_type.accounts.present?
                 json.children do
                   json.array!(account_type.accounts) do |account|
-                    json.name "["+account.name+" , "+account.total_balance.to_s+"]"
+                    json.name "["+account.name+", "+account.total_balance.to_s+"]"
                   end
                 end
               else
