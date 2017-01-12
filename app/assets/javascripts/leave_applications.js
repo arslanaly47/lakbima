@@ -38,13 +38,26 @@ $(document).on('ready', function() {
 
   $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
 
-  $(function(){
-    $('#vacation_type').bind('change', function () {
-     var url = "?vacation_type=" + $(this).val()
-      if (url) {
-        window.location.replace(url);
-      }
-      return false;
-    });
+  var allTypes = $('.leave_applications:visible');
+  $("#vacation_type").on('input properychange paste', function() {
+    var $this = $(this);
+    var searchText = $this.val();
+    if(searchText == "") {
+      allTypes.show();
+    } else {
+      var vacationType;
+      allTypes.each(function() {
+        vacationType = $(this).find('.vacation_type').html();
+        searchTextRegExp = new RegExp(searchText, "i");
+        if((vacationType.match(searchTextRegExp) == null)) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+        if(searchText == "all_types"){
+          allTypes.show();
+        }
+      });
+    }
   });
 });
