@@ -156,7 +156,12 @@ $(document).ready(function() {
         .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
         .text(function(d) { return d.name; })
         .style("fill-opacity", 1e-6);
-
+    nodeEnter.append("text")
+      .text(function(d) { return (d.level == "bold") ? d.amount : "" })
+      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .attr("dy", "1.5em")
+      .style("font-weight", function(d) { return d.level; })
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
         .duration(duration)
