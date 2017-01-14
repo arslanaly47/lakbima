@@ -6,7 +6,17 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Leave Application
       .ibox.float-e-margins
-        .ibox-title All Leave Applications
+        .ibox-title 
+          .row
+            .col-lg-6
+              All Leave Applications
+            .col-lg-6
+              .row
+                .col-lg-4
+                  Filter By Vacation Type: 
+                .col-lg-6
+                  = select_tag "vacation_type", options_for_select(VacationType.all.map { |v| [v.name, v.name] }.push(["All Types","all_types"])), {:include_blank => 'Select Vacation Type', class: 'form-control', id: 'vacation_type'}
+
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty
@@ -26,13 +36,13 @@
                     %th Actions
               %tbody
                 - @leave_applications.each do |leave_application|
-                  %tr
+                  %tr{data: { id: leave_application.id }, class: "leave_applications"}
                     - if can? :show, LeaveApplication
                       %td.font-bold= link_to leave_application.id, leave_application
                     - if current_user.manager?
                       %td= leave_application.applicant.full_name
                     %td
-                      %span.badge.badge-info
+                      %span.badge.badge-info.vacation_type
                         = leave_application.vacation_type.try(:name)
                     %td= leave_application.number_of_days
                     %td= leave_application.start_date

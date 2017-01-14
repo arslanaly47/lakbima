@@ -37,4 +37,26 @@ $(document).on('ready', function() {
   });
 
   $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
+
+  var allTypes = $('.leave_applications:visible');
+  $("#vacation_type").on('input', function() {
+    var $this = $(this);
+    var dropdownValue = $this.val();
+    if(dropdownValue == "") {
+      allTypes.show();
+    } else {
+      var vacationType;
+      allTypes.each(function() {
+        vacationType = $(this).find('.vacation_type').html();
+        if((vacationType.match(dropdownValue) == null)) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+        if(dropdownValue == "all_types"){
+          allTypes.show();
+        }
+      });
+    }
+  });
 });
