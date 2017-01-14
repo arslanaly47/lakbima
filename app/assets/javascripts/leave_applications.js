@@ -39,7 +39,7 @@ $(document).on('ready', function() {
   $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
 
   var allTypes = $('.leave_applications:visible');
-  $("#vacation_type").on('input properychange paste', function() {
+  $("#vacation_type").on('input', function() {
     var $this = $(this);
     var searchText = $this.val();
     if(searchText == "") {
@@ -48,8 +48,7 @@ $(document).on('ready', function() {
       var vacationType;
       allTypes.each(function() {
         vacationType = $(this).find('.vacation_type').html();
-        searchTextRegExp = new RegExp(searchText, "i");
-        if((vacationType.match(searchTextRegExp) == null)) {
+        if((vacationType.match(searchText) == null)) {
           $(this).hide();
         } else {
           $(this).show();
