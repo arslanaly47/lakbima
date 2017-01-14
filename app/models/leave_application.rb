@@ -52,4 +52,8 @@ class LeaveApplication < ApplicationRecord
     end
     Notification.create(content: content, leave_application: self, notification_type: type)
   end
+
+  def self.filter_by_vacation_type(params)
+    params[:vacation_type].present? ? self.where(:vacation_type_id => params[:vacation_type]) : self.all
+  end
 end
