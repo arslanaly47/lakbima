@@ -41,19 +41,19 @@ $(document).on('ready', function() {
   var allTypes = $('.leave_applications:visible');
   $("#vacation_type").on('input', function() {
     var $this = $(this);
-    var searchText = $this.val();
-    if(searchText == "") {
+    var dropdownValue = $this.val();
+    if(dropdownValue == "") {
       allTypes.show();
     } else {
       var vacationType;
       allTypes.each(function() {
         vacationType = $(this).find('.vacation_type').html();
-        if((vacationType.match(searchText) == null)) {
+        if((vacationType.match(dropdownValue) == null)) {
           $(this).hide();
         } else {
           $(this).show();
         }
-        if(searchText == "all_types"){
+        if(dropdownValue == "all_types"){
           allTypes.show();
         }
       });
