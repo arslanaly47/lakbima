@@ -82,6 +82,16 @@ class EmployeesController < ApplicationController
     render json: { success: true }
   end
 
+  def download_pdf
+    @employees = Employee.includes(:profile_image).order(sort_column + " " + sort_direction)
+    respond_to do |format|
+      format.pdf do
+        pdf = EmployeePdf.new(@employees)
+        send_data pdf.render, filename: "all_employees", type: "application/pdf"
+      end
+    end
+  end
+
   private
 
   def employee_params

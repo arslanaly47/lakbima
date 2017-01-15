@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   end
 
   resources :employees do
+    collection do
+      get 'download_pdf' => 'employees#download_pdf'
+    end
     member do
       get 'download_attachment/:attachment_id' => 'employees#download_attachment',
         as: :attachment

@@ -5,6 +5,7 @@
         = link_to new_employee_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Employee
+        = link_to "Download PDF", download_pdf_employees_path(format: :pdf), class: "btn btn-primary btn-rounded m-sm pull-right"
       .ibox.float-e-margins
         .ibox-title.p-sm
           = radio_button_tag :employee, "Current", true, id: "currentEmployees", class: "employee-display"
