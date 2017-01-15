@@ -230,4 +230,20 @@ $(document).ready(function() {
     }
     update(d);
   }
+  $('#treeZoomIn').click(function(){
+    value = $('#treeZoomIn').val()
+    if(value > 0){
+      $('#treeZoomOut').val(parseInt(value)-1)
+      $('#treeZoomIn').val(parseInt(value)+ 1)
+      $('#tree').animate({ 'zoom': value }, 400);
+    }
+  });
+  $('#treeZoomOut').click(function(){
+    value = $('#treeZoomOut').val()
+    if(value > 0){
+      $('#treeZoomOut').val(parseInt(value)- 1)
+      $('#tree').animate({ 'zoom': value }, 400);
+      $('#treeZoomIn').val(parseInt(value)+ 1)
+    }
+  });
 });
