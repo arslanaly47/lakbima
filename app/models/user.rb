@@ -41,6 +41,11 @@ class User < ApplicationRecord
     [first_name, last_name]*' '
   end
 
+  def full_name_with_role
+    full_name = [first_name, last_name]*''
+    "#{full_name} (#{role.name})"
+  end
+
   def unread_notifications_count
     unread_notifications.count
   end
