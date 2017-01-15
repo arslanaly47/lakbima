@@ -50,4 +50,7 @@ textarea {
 }
 .tree-zoon-buttons {
   padding-top: 10px;
+  position: fixed;
+  z-index: 1;
+  left: 80%;
 }
