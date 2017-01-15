@@ -8,7 +8,7 @@
             - @notifications.each do |notification|
               - if notification.applicant?
                 %span
-                  = link_to notification.generator.try(:full_name), notification.generator.try(:employee) || "javascript:void(0)"
+                  = link_to notification.generator.try(:full_name_with_role), notification.generator.try(:employee) || "javascript:void(0)"
                 = link_to notification.leave_application do
                   %u= " " + notification.content
                 %br
@@ -27,7 +27,7 @@
               - elsif notification.action?
                 = notification.content + " by "
                 %span
-                  = link_to notification.generator.try(:full_name), notification.generator.employee || "javascript:void(0)"
+                  = link_to notification.generator.try(:full_name_with_role), notification.generator.employee || "javascript:void(0)"
                 = " for #{pluralize(notification.leave_application.number_of_days, "day")}."
                 %br
                 %small.text-muted
