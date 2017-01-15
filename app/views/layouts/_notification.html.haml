@@ -10,7 +10,7 @@
         .media-body.p-xxs
           = link_to notification.leave_application, class: "notification-link" do
             %strong
-              = notification.generator.try(:full_name)
+              = notification.generator.try(:full_name)+" ("+notification.generator.role.name+")"
             = notification.content
           %br
           %small.text-muted
@@ -26,7 +26,7 @@
           = link_to notifications_path, class: "notification-link" do
             = notification.content + " by "
             %strong
-              = notification.generator.try(:full_name) + "."
+              = notification.generator.try(:full_name)+" ("+notification.generator.role.name+")" + "."
           %br
           %small.text-muted
             = time_ago_in_words(notification.created_at) + " ago at "
