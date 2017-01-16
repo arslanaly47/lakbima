@@ -19,19 +19,19 @@
               = f.text_field :happened_at, class: "form-control"
           .form-group
             = f.label :amount, class: 'control-label'
-            = f.number_field :amount, class: 'form-control'
+            = f.number_field :amount, class: 'form-control', min: 1
           .form-group
             = f.label :description, class: 'control-label'
             = f.text_area :description, class: 'form-control'
           .form-group
             = f.label :from_account_id, 'From Account', class: 'control-label'
-            = f.select :from_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.from_account_id), { prompt: "Please choose FROM account." }, class: "form-control journal-entry-from-account", data: { journal_entry_id: journal_entry.try(:id) }
+            = f.select :from_account_id, options_for_select(@accounts_with_names_and_ids, selected: journal_entry.from_account_id), { prompt: "Please choose FROM account." }, class: "form-control journal-entry-from-account", data: { journal_entry_id: journal_entry.try(:id) }
           .form-group
             = f.label :to_account_id, 'To Account', class: 'control-label'
             - if journal_entry.new_record?
-              = f.select :to_account_id, options_for_select(Account.all.map { |a| [a.name, a.id] }, selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
+              = f.select :to_account_id, options_for_select(@accounts_with_names_and_ids, selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
             - else
-              = f.select :to_account_id, options_for_select((Account.available_accounts_for(journal_entry.id)), selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
+              = f.select :to_account_id, options_for_select(Account.available_accounts_for(journal_entry.id), selected: journal_entry.to_account_id), { prompt: "Please choose TO account." }, class: "form-control journal-entry-to-account"
           .modal-footer.journal-entry-footer
             = link_to "Close", accounts_path, class: "btn btn-white", data: { dismiss: "modal" }
             - if journal_entry.new_record?

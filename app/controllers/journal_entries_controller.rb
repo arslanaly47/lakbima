@@ -1,6 +1,7 @@
 class JournalEntriesController < ApplicationController
 
   before_action :set_journal_entry_session, only: [:index, :show, :create, :update, :destroy]
+  before_action :set_accounts_with_names_and_ids, only: [:index, :create]
   helper_method :sort_column
 
   def index
@@ -39,7 +40,7 @@ class JournalEntriesController < ApplicationController
 
   def build_options
     account = Account.find_by_id(params[:id])
-    remaining_accounts = (Account.all - [account]).map { |a| [a.id, a.name] }
+    remaining_accounts = (Account.order('name asc') - [account]).map { |a| [a.id, a.name] }
     remaining_options = "<option value>Please choose TO account.</option>"
     remaining_accounts.each do |remaining_account|
       remaining_options << "<option value=\"#{remaining_account[0]}\">#{remaining_account[1]}</option>"
@@ -59,5 +60,9 @@ class JournalEntriesController < ApplicationController
 
   def sort_column
     JournalEntry.column_names.include?(params[:sort])? params[:sort] : "id"
+  end
+
+  def set_accounts_with_names_and_ids
+    @accounts_with_names_and_ids = Account.order('name asc').pluck(:name, :id)
   end
 end
