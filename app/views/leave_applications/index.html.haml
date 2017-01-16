@@ -11,10 +11,10 @@
             .col-lg-6
               All Leave Applications
             .col-lg-6
-              .row
+              .row.pull-right
                 .col-lg-4
                   Filter By Vacation Type: 
-                .col-lg-6
+                .col-lg-8
                   = select_tag "vacation_type", options_for_select(VacationType.all.map { |v| [v.name, v.name] }.push(["All Types","all_types"])), {:include_blank => 'Select Vacation Type', class: 'form-control', id: 'vacation_type'}
 
         .ibox-content
