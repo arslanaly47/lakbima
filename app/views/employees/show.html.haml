@@ -74,12 +74,13 @@
             .col-md-2
               %p.font-bold Joining Date
             .col-md-10
-              %p= @employee.date_of_joining
+              %p= @employee.date_of_joining.try(:strftime, "%b %d, %Y")
           .row
             .col-md-2
               %p.font-bold Passport Expiry
             .col-md-10
-              %p= @employee.passport_expiry
+              %p= @employee.passport_expiry.try(:strftime, "%b %d, %Y")
+
           .row
             .col-md-2
               %p.font-bold Visa No.
@@ -89,7 +90,7 @@
             .col-md-2
               %p.font-bold Visa Expiry
             .col-md-10
-              %p= @employee.visa_expiry
+              %p= @employee.visa_expiry.try(:strftime, "%b %d, %Y")
           .row
             .col-md-2
               %p.font-bold Department
@@ -138,7 +139,7 @@
                             = allowance.lump_sum_amount
                           %span & Expired at:
                           %span.font-bold
-                            = allowance.ends_at.to_s
+                            = allowance.ends_at.try(:strftime, "%b %d, %Y")
           .row
             .col-md-2
               %p.font-bold Attachments

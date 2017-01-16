@@ -47,9 +47,9 @@
                     %td.first-name= employee.first_name
                     %td.last-name= employee.last_name
                     %td= employee.phone_number
-                    %td= employee.visa_expiry
-                    %td= employee.medical_expiry
-                    %td= employee.passport_expiry
+                    %td= employee.visa_expiry.try(:strftime, "%b %d, %Y")
+                    %td= employee.medical_expiry.try(:strftime, "%b %d, %Y")
+                    %td= employee.passport_expiry.try(:strftime, "%b %d, %Y")
                     %td= employee.branch.try(:name)
                     - if can?(:edit, Employee) || can?(:destroy, Employee)
                       %td
