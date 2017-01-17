@@ -1,7 +1,11 @@
 class Account < ApplicationRecord
-  belongs_to :account_type
+  has_many :from_journal_entries, class_name: :JournalEntry, foreign_key: :from_account_id
+  has_many :from_transactions,    class_name: :Transaction,  foreign_key: :from_account_id
+  has_many :to_journal_entries,   class_name: :JournalEntry, foreign_key: :to_account_id
+  has_many :to_transactions,      class_name: :Transaction,  foreign_key: :to_account_id
   has_one :account_sub_type, through: :account_type
   has_one :account_main_type, through: :account_sub_type
+  belongs_to :account_type
 
   validates :account_type_id, :name, :description, presence: true
 

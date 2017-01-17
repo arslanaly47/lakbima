@@ -1,9 +1,9 @@
 class Transaction < ApplicationRecord
+  has_many :attachments, as: :attachable
   belongs_to :from_account, class_name: "Account"
   belongs_to :to_account,   class_name: "Account"
   belongs_to :dynamic_menu
   belongs_to :user
-  has_many :attachments, as: :attachable
 
   validates :from_account, :to_account, :amount, :happened_at, :user, presence: true
   validate  :from_account_id_can_not_be_same_as_to_account
