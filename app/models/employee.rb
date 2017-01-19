@@ -115,6 +115,14 @@ class Employee < ApplicationRecord
     terminated? || future?
   end
 
+  def self.get_pdf_report(type, sort_column, sort_direction)
+    self.includes(:profile_image)
+        .where(["terminated = ? and future = ?",
+               (type == "Past") ? true : false,
+               (type == "Future") ? true : false])
+        .order(sort_column + " " + sort_direction)
+  end
+
   def make_valid_regarding_terminate_and_false
     update_column(:terminated, false) if future?
   end
