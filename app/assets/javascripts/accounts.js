@@ -233,6 +233,7 @@ $(document).ready(function() {
     }
     update(d);
   }
+
   $('#treeZoomIn').click(function(){
     value = $('#treeZoomIn').val()
     if(value > 0){
@@ -241,6 +242,7 @@ $(document).ready(function() {
       $('#tree').animate({ 'zoom': value }, 400);
     }
   });
+
   $('#treeZoomOut').click(function(){
     value = $('#treeZoomOut').val()
     if(value > 0){
