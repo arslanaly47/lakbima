@@ -259,6 +259,7 @@ $(document).on('ready nested:fieldAdded', function() {
       });
     }
   });
+
   $("#pdfDownload").click(function(){
     setTimeout(function () {
       $("#pdfDownload").prop("disabled", false);

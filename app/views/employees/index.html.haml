@@ -6,8 +6,8 @@
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Employee
         = form_tag download_pdf_employees_path, method: "get", id: "pdfForm" do
-          = hidden_field_tag 'format', 'pdf'
-          = hidden_field_tag 'type', 'Current', id: "downloadValue"
+          = hidden_field_tag :format, 'pdf'
+          = hidden_field_tag :type, 'Current', id: "downloadValue"
           = submit_tag 'Download PDF', class: "btn btn-primary btn-rounded m-sm pull-right", id: "pdfDownload"
       .ibox.float-e-margins
         .ibox-title.p-sm
