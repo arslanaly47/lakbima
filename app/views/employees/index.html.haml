@@ -5,7 +5,10 @@
         = link_to new_employee_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
           %i.fa.fa-plus{"aria-hidden" => true}
           &nbsp;&nbsp; New Employee
-        = link_to "Download PDF", download_pdf_employees_path(format: :pdf), class: "btn btn-primary btn-rounded m-sm pull-right"
+        = form_tag download_pdf_employees_path, method: "get", id: "pdfForm" do
+          = hidden_field_tag :format, 'pdf'
+          = hidden_field_tag :type, 'Current', id: "downloadValue"
+          = submit_tag 'Download PDF', class: "btn btn-primary btn-rounded m-sm pull-right", id: "pdfDownload"
       .ibox.float-e-margins
         .ibox-title.p-sm
           = radio_button_tag :employee, "Current", true, id: "currentEmployees", class: "employee-display"
