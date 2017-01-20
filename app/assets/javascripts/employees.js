@@ -218,16 +218,19 @@ $(document).on('ready nested:fieldAdded', function() {
 
   $(".employee-display").change(function() {
     if($(this).val() == "Current") {
+      $("#downloadValue").val("Current");
       showCurrentEmployees();
       allEmployees = $('.employees:visible');
       return;
     }
     if($(this).val() == "Past") {
+      $("#downloadValue").val("Past");
       showPastEmployees();
       allEmployees = $('.employees:visible');
       return;
     }
     if($(this).val() == "Future") {
+      $("#downloadValue").val("Future");
       showFutureEmployees();
       allEmployees = $('.employees:visible');
       return;
@@ -257,6 +260,11 @@ $(document).on('ready nested:fieldAdded', function() {
     }
   });
 
+  $("#pdfDownload").click(function(){
+    setTimeout(function () {
+      $("#pdfDownload").prop("disabled", false);
+    }, 500);
+  });
 });
 
 $(document).on('ready', function() {
