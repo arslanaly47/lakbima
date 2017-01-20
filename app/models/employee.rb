@@ -116,10 +116,10 @@ class Employee < ApplicationRecord
   end
 
   def self.get_pdf_report(type, sort_column, sort_direction)
-    self.includes(:profile_image)
+    self.includes(:profile_image, :salary, :vacations, :job_title, :user, :branch)
         .where(["terminated = ? and future = ?",
-               (type == "Past") ? true : false,
-               (type == "Future") ? true : false])
+               (type == "Past"),
+               (type == "Future")])
         .order(sort_column + " " + sort_direction)
   end
 
