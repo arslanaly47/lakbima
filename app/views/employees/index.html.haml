@@ -62,3 +62,9 @@
                         - if can? :edit, Employee
                           = link_to edit_employee_path(employee), class: "action-link" do
                             %i.fa.fa-pencil{"aria-hidden" => true}
+          .row
+            .col-lg-12
+              %span
+                Total Employees: 
+              %span#totalEmployees
+

@@ -5,6 +5,7 @@
 
 $(document).on('ready nested:fieldAdded', function() {
 
+  $("#totalEmployees").text($('.current-employees').length);
   var hostname = window.location.origin;
   //toastr.success("Such a pleasure that you read it.", "Big Title");
   var optionsForDatePicker = {
@@ -198,6 +199,7 @@ $(document).on('ready nested:fieldAdded', function() {
     $('.current-employees').show();
     $('.past-employees').hide();
     $('.future-employees').hide();
+    $("#totalEmployees").text($('.current-employees').length);
   }
 
   function showPastEmployees() {
@@ -205,6 +207,7 @@ $(document).on('ready nested:fieldAdded', function() {
     $('.past-employees').show();
     $('.current-employees').hide();
     $('.future-employees').hide();
+    $("#totalEmployees").text($('.past-employees').length);
   }
 
   function showFutureEmployees() {
@@ -212,6 +215,7 @@ $(document).on('ready nested:fieldAdded', function() {
     $('.future-employees').show();
     $('.past-employees').hide();
     $('.current-employees').hide();
+    $("#totalEmployees").text($('.future-employees').length);
   }
 
   var allEmployees = $('.employees:visible');
