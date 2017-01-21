@@ -155,11 +155,9 @@ $(document).ready(function() {
 				.attr("dy", ".10em")
 				.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
 		text.append("tspan")
-				.text(function(d) { return "[" })
-		text.append("tspan")
 				.text(function(d) { return d.name; });
 		text.append("tspan")
-				.text(function(d) { return ", " })
+				.text(function(d) { return " [" })
 		text.append("tspan")
 				.text(function(d) { return d.amount; })
 				.style("font-weight", function(d) { return d.level; })
