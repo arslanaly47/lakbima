@@ -83,7 +83,7 @@ class EmployeesController < ApplicationController
   end
 
   def download_pdf
-    @employees = Employee.includes(:profile_image).order(sort_column + " " + sort_direction)
+    @employees = Employee.get_pdf_report(params[:type], sort_column, sort_direction)
     respond_to do |format|
       format.pdf do
         pdf = EmployeePdf.new(@employees)

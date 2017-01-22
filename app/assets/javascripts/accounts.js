@@ -150,18 +150,21 @@ $(document).ready(function() {
         .attr("r", 1e-6)
         .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
-    nodeEnter.append("text")
-        .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-        .attr("dy", ".10em")
-        .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-        .text(function(d) { return d.name; })
-        .style("fill-opacity", 1e-6);
-    nodeEnter.append("text")
-      .text(function(d) { return (d.level == "bold") ? d.amount : "" })
-      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .attr("dy", "1.5em")
-      .style("font-weight", function(d) { return d.level; })
+		var text = nodeEnter.append("text")
+				.attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+				.attr("dy", ".10em")
+				.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+		text.append("tspan")
+				.text(function(d) { return "[" })
+		text.append("tspan")
+				.text(function(d) { return d.name; });
+		text.append("tspan")
+				.text(function(d) { return ", " })
+		text.append("tspan")
+				.text(function(d) { return d.amount; })
+				.style("font-weight", function(d) { return d.level; })
+		text.append("tspan")
+				.text(function(d) { return "]" })
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
         .duration(duration)
@@ -230,6 +233,7 @@ $(document).ready(function() {
     }
     update(d);
   }
+
   $('#treeZoomIn').click(function(){
     value = $('#treeZoomIn').val()
     if(value > 0){
@@ -238,6 +242,7 @@ $(document).ready(function() {
       $('#tree').animate({ 'zoom': value }, 400);
     }
   });
+
   $('#treeZoomOut').click(function(){
     value = $('#treeZoomOut').val()
     if(value > 0){

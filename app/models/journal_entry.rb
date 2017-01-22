@@ -7,6 +7,7 @@ class JournalEntry < ApplicationRecord
             :from_account_id, :to_account_id, :happened_at, presence: true
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validate :from_and_to_account_can_not_be_same
+  after_create :update_associated_accounts
 
   def happened_at=(val)
     date = Date.strptime(val, "%m/%d/%Y") if val.present?
@@ -17,5 +18,12 @@ class JournalEntry < ApplicationRecord
     if from_account_id == to_account_id
       errors.add :base, "FROM and TO accounts can't be the same. Please choose different ones."
     end
+  end
+
+  def update_associated_accounts
+    from_account.transactional_balance -= amount
+    from_account.save
+    to_account.transactional_balance += amount
+    to_account.save
   end
 end
