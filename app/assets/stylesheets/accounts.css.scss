@@ -1,3 +1,5 @@
+//= require daterangepicker/daterangepicker-bs3.css
+
 .asset-account {
   background-color: rgba(236, 100, 75, 0.5) !important;
 }
@@ -31,4 +33,9 @@
 }
 #tree {
   overflow: auto;
+}
+
+#accountTreeWaveAnimation {
+  margin-right: -50px;
+  margin-top: -32px;
 }

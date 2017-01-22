@@ -15,8 +15,8 @@ json.children @accounts do |account|
                 json.children do
                   json.array!(account_type.accounts) do |account|
                     json.name account.name
-                    total_balance += account.total_balance
-                    json.amount account.total_balance.to_s
+                    total_balance += account.total_balance(@start_date, @end_date)
+                    json.amount account.total_balance(@start_date, @end_date).to_s
     								json.level "bold"
                   end
                 end
@@ -24,7 +24,7 @@ json.children @accounts do |account|
                 json.children false
               end
 				      json.name account_type.name
-				      json.amount total_balance.to_s
+              json.amount total_balance.to_s
     					json.level "bold"
               sub_type_balance += total_balance
 				    end

@@ -1,3 +1,6 @@
+//= require fullcalendar/moment.min.js
+//= require daterangepicker/daterangepicker.js
+
 $(document).ready(function() {
 
   var hostname = window.location.origin;
@@ -234,21 +237,68 @@ $(document).ready(function() {
     update(d);
   }
 
-  $('#treeZoomIn').click(function(){
-    value = $('#treeZoomIn').val()
-    if(value > 0){
-      $('#treeZoomOut').val(parseInt(value)-1)
-      $('#treeZoomIn').val(parseInt(value)+ 1)
+  $('#treeZoomIn').click(function() {
+    value = $('#treeZoomIn').val();
+    if(value > 0) {
+      $('#treeZoomOut').val(parseInt(value)-1);
+      $('#treeZoomIn').val(parseInt(value)+ 1);
       $('#tree').animate({ 'zoom': value }, 400);
     }
   });
 
-  $('#treeZoomOut').click(function(){
-    value = $('#treeZoomOut').val()
-    if(value > 0){
-      $('#treeZoomOut').val(parseInt(value)- 1)
+  $('#treeZoomOut').click(function() {
+    value = $('#treeZoomOut').val();
+    if(value > 0) {
+      $('#treeZoomOut').val(parseInt(value)- 1);
       $('#tree').animate({ 'zoom': value }, 400);
-      $('#treeZoomIn').val(parseInt(value)+ 1)
+      $('#treeZoomIn').val(parseInt(value)+ 1);
     }
   });
+
+  $("#reportrange").daterangepicker(
+    {
+      format: 'DD/MM/YYYY',
+      startDate: $("#reportrange").data('start-date'),
+      endDate: moment(),
+      minDate: $("#reportrange").data('start-date'),
+      maxDate: moment(),
+      showDropdowns: true,
+      showWeekNumbers: true,
+      timePicker: false,
+      timePickerIncrement: 1,
+      timePicker12Hour: true,
+      ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+    },
+    function(start, end, label) {
+      formatted_start_date = start.format('MMMM D, YYYY');
+      formatted_end_date   = end.format('MMMM D, YYYY');
+      $('#reportrange span').html(formatted_start_date + ' - ' + formatted_end_date);
+      $("#accountTreeWaveAnimation").removeClass('hidden');
+      var url = "/accounts/view.json?start_date=" + formatted_start_date + "&end_date=" + formatted_end_date;
+      d3.json(url, function(error, flare) {
+        if (error) throw error;
+
+        $("#accountTreeWaveAnimation").addClass('hidden');
+        root = flare;
+        root.x0 = height / 2;
+        root.y0 = 0;
+        function collapse(d) {
+          if (d.children) {
+            d._children = d.children;
+            d._children.forEach(collapse);
+            d.children = null;
+          }
+        }
+        root.children.forEach(collapse);
+        update(root);
+      });
+    }
+  );
 });

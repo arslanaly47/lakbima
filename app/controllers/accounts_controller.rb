@@ -47,9 +47,18 @@ class AccountsController < ApplicationController
   end
 
   def view
+    start_date = params[:start_date] if params.has_key? :start_date
+    end_date   = params[:end_date]   if params.has_key? :end_date
+    if start_date && end_date
+      @start_date = Date.parse(start_date)
+      @end_date   = Date.parse(end_date)
+    end
     @accounts = AccountMainType.includes(:account_sub_types, :account_types, :accounts).all
   end
 
+  def account_tree
+    @start_date = Account.min_date
+  end
 
   private
 

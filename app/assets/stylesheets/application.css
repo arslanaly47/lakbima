@@ -9,13 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require font-awesome
  *= require animate/animate.css
  *= require blueimp-gallery-all
  *= require toastr/toastr.min.css
  *= require sortable
  *= require ladda/ladda-themeless.min.css
  *= require style
+ *= require font-awesome
  */
 
 .action-link {

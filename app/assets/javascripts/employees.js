@@ -10,7 +10,6 @@ $(document).on('ready nested:fieldAdded', function() {
   var optionsForDatePicker = {
     format: "mm/dd/yyyy",
     todayBtn: "linked",
-    keyboardNavigation: false,
     forceParse: false,
     autoclose: true
   };
