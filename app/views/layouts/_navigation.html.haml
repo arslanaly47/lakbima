@@ -34,14 +34,17 @@
               %li{class: "#{'active' if controller_name == 'account_types' }"}
                 = link_to "Account Lists", account_types_path
             - if can? :index, Account
-              %li{class: "#{'active' if controller_name == 'accounts' && action_name != 'account_tree' }"}
+              %li{class: "#{'active' if controller_name == 'accounts' && action_name == 'index' }"}
                 = link_to "Chart of Accounts", accounts_path
             - if can? :index, DynamicMenu
               %li{class: "#{'active' if controller_name == 'dynamic_menus' }"}
                 = link_to "Dynamic Menus", dynamic_menus_path
             - if can? :account_view, Account
-              %li{class: "#{'active' if action_name == 'account_tree' }"}
+              %li{class: "#{'active' if controller_name == 'accounts' && action_name == 'account_tree' }"}
                 = link_to "Accounts Tree", account_tree_accounts_path
+            - if can? :balance_sheet, Account
+              %li{class: "#{'active' if controller_name == 'accounts' && action_name == 'balance_sheet' }"}
+                = link_to "Balance Sheet", balance_sheet_accounts_path
         %li{class: "#{'active' if %w(journal_entry_sessions journal_entries transactions).include? controller_name}"}
           = link_to '#' do
             %i.fa.fa-database
