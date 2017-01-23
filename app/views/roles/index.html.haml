@@ -15,6 +15,7 @@
                   - if can? :show, Role
                     %th #
                   %th Name
+                  %th Description
                   %th Permissions
                   - if can?(:edit, Role) || can?(:destroy, Role)
                     %th Actions
@@ -24,6 +25,7 @@
                     - if can? :show, Role
                       %td= link_to role.id, role
                     %td= role.name
+                    %td= role.description
                     %td= render 'permissions', permissions: role.permissions
                     - if can?(:edit, Role) || can?(:destroy, Role)
                       %td
