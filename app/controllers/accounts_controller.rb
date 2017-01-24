@@ -53,11 +53,14 @@ class AccountsController < ApplicationController
       @start_date = Date.parse(start_date)
       @end_date   = Date.parse(end_date)
     end
-    @accounts = AccountMainType.includes(:account_sub_types, :account_types, :accounts).all
+    @accounts = AccountMainType.includes(:accounts).all
   end
 
   def account_tree
     @start_date = Account.min_date
+  end
+
+  def balance_sheet
   end
 
   private
