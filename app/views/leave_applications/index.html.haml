@@ -48,7 +48,7 @@
                     %td= leave_application.start_date
                     - if leave_application.end_date.nil?
                       %td.text-center -
-                    -else
+                    - else
                       %td= leave_application.end_date
                     - unless current_user.manager?
                       %td{class: "#{class_decider(leave_application.status)}"}= leave_application.status
