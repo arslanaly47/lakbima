@@ -5,13 +5,11 @@
     .ibox-content
       .row
         .col-md-6
-          Assets
+          .font-bold Assets
           = render 'accounts', accounts_main_type: @assets_main_type
         .col-md-6
-          Liabilities
+          .font-bold Liabilities
           = render 'accounts', accounts_main_type: @liabilities_main_type
           %br
-          %br
-          %br
-          Equities
+          .font-bold Equities
           = render 'accounts', accounts_main_type: @equities_main_type
