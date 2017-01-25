@@ -1,0 +1,37 @@
+.hr-line-solid
+- if accounts_main_type.account_sub_types.present?
+  - accounts_main_type.account_sub_types.each do |account_sub_type|
+    = account_sub_type.name
+    %hr
+    - if account_sub_type.account_types.present?
+      - account_sub_type.account_types.each do |account_type|
+        .m-l-md
+          = account_type.name
+          .hr-line-dashed
+          - if account_type.accounts.present?
+            - account_type.accounts.each do |account|
+              .m-l-lg
+                .row
+                  .col-md-6
+                    = account.name
+                  .col-md-6
+                    .pull-right
+                      = account.total_balance.to_s
+            %br
+            .m-l-lg
+              %hr
+              .row
+                .col-md-6
+                  Total Balance
+                .col-md-6
+                  .pull-right
+                    = account_type.total_balance.to_s
+              %hr
+.hr-line-solid
+.row
+  .col-md-6
+    Total Balance
+  .col-md-6
+    .pull-right
+      = accounts_main_type.total_balance.to_s
+.hr-line-solid

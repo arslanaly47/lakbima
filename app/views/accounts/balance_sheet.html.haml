@@ -1,0 +1,17 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .ibox.float-e-margins
+    .ibox-title
+      = "Balance Sheet | #{Date.today.strftime("%b %d, %Y")}"
+    .ibox-content
+      .row
+        .col-md-6
+          Assets
+          = render 'accounts', accounts_main_type: @assets_main_type
+        .col-md-6
+          Liabilities
+          = render 'accounts', accounts_main_type: @liabilities_main_type
+          %br
+          %br
+          %br
+          Equities
+          = render 'accounts', accounts_main_type: @equities_main_type

@@ -61,6 +61,9 @@ class AccountsController < ApplicationController
   end
 
   def balance_sheet
+    @assets_main_type      = AccountMainType.assets
+    @liabilities_main_type = AccountMainType.liabilities
+    @equities_main_type    = AccountMainType.equities
   end
 
   private

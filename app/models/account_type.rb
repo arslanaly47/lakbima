@@ -6,4 +6,8 @@ class AccountType < ApplicationRecord
   belongs_to :account_sub_type
 
   validates :account_sub_type, :name, :description, presence: true
+
+  def total_balance
+    accounts.sum(&:total_balance).to_s
+  end
 end
