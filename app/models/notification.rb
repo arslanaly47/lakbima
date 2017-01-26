@@ -1,7 +1,7 @@
 class Notification < ApplicationRecord
-  belongs_to :leave_application
   has_many :notification_users
   has_many :receivers, through: :notification_users, class_name: "User", source: :user
+  belongs_to :leave_application
 
   validates :leave_application, :notification_type, presence: true
 
