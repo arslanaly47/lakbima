@@ -2,9 +2,8 @@ class UpdateBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(event)
-    puts "*"*80
-    puts event.inspect
-    puts "*"*80
-    ActionCable.server.broadcast 'activity_channel', message: event, type: "Manager", id: event.user_id
+    unless event.status == "pending"
+      ActionCable.server.broadcast 'activity_channel', message: event, type: "Manager", id: event.user_id, notice: "Your leave application has been " + event.status
+    end
   end
 end

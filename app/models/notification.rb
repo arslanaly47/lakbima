@@ -9,8 +9,6 @@ class Notification < ApplicationRecord
 
   after_create :associate_it_with_concerned_people
 
-  after_create_commit { NotificationBroadcastJob.perform_later self }
-
   enum notification_type: [:applicant, :action]
 
   def associate_it_with_concerned_people
