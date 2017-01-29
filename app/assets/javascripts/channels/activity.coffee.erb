@@ -1,0 +1,17 @@
+App.activity = App.cable.subscriptions.create "ActivityChannel",
+  connected: ->
+    # Called when the subscription is ready for use on the server
+
+  disconnected: ->
+    # Called when the subscription has been terminated by the server
+
+  received: (data) ->
+    # Called when there's incoming data on the websocket for this channel
+    $("#notificationCount").text(parseInt($("#notificationCount").text()) + 1) if ($("#notificationCount").data("type") == data.type)
+    $("#notificationCount").text(parseInt($("#notificationCount").text()) + 1) if ($("#notificationCount").data("user-id") == data.id)
+    document.getElementById("notification_#{data.message.id if data.message }").innerHTML = "<span class='label label-primary animted fadeInDown' > Approved</span>" if ("#{data.message.status if data.message}" == "approved") && (document.getElementById("notification_#{data.message.id if data.message }"))
+    document.getElementById("notification_#{data.message.id if data.message }").innerHTML = "<span class='label label-danger animted fadeInDown' > Denied</span>" if ("#{data.message.status if data.message}" == "denied") && (document.getElementById("notification_#{data.message.id if data.message }"))
+    document.getElementById("notification_manager_#{data.message.id if data.message }").className = "bg-success" if ("#{data.message.status if data.message}" == "approved") && (document.getElementById("notification_manager_#{data.message.id if data.message }")) 
+    document.getElementById("notification_manager_#{data.message.id if data.message }").className = "bg-danger" if ("#{data.message.status if data.message}" == "denied") && (document.getElementById("notification_manager_#{data.message.id if data.message }"))
+    document.getElementById("notification_manager_#{data.message.id if data.message }").innerHTML = "approved" if ("#{data.message.status if data.message}" == "approved") && (document.getElementById("notification_manager_#{data.message.id if data.message }"))
+    document.getElementById("notification_manager_#{data.message.id if data.message }").innerHTML = "denied" if ("#{data.message.status if data.message}" == "denied") && (document.getElementById("notification_manager_#{data.message.id if data.message }"))

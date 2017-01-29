@@ -16,6 +16,8 @@ class LeaveApplication < ApplicationRecord
 
   enum status: [:pending, :approved, :denied]
 
+  after_save  { UpdateBroadcastJob.perform_later self }
+
   def start_date=(val)
     date = Date.strptime(val, "%m/%d/%Y") if val.present?
     write_attribute :start_date, date
