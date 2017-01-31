@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130184834) do
+ActiveRecord::Schema.define(version: 20170131004532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20170130184834) do
     t.date     "municipality_registration_expiry"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.string   "subdomain"
   end
 
   create_table "currencies", force: :cascade do |t|
