@@ -34,7 +34,6 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.includes(:account_sub_type).all
     @accounts = Account.includes(:account_sub_type).order(sort_column + " " + sort_direction)
   end
 
