@@ -47,7 +47,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  config.tenant_names = lambda { Company.pluck :subdomain }
+  config.tenant_names = lambda { Company.pluck(:subdomain) + ['admin'] }
 
   #
   # ==> PostgreSQL only options
@@ -90,3 +90,4 @@ end
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
 Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
 # Rails.application.config.middleware.use 'Apartment::Elevators::FirstSubdomain'
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www']

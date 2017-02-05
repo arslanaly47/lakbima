@@ -1,0 +1,64 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@company.business_name
+        .ibox-content
+          .row
+            .col-md-2
+              %p.font-bold Subdomain
+            .col-md-10
+              %p= @company.subdomain
+          .row
+            .col-md-2
+              %p.font-bold Business Name
+            .col-md-10
+              %p= @company.business_name
+          .row
+            .col-md-2
+              %p.font-bold Other names
+            .col-md-10
+              %p= @company.other_names
+          .row
+            .col-md-2
+              %p.font-bold Address
+            .col-md-10
+              %p= @company.address
+          .row
+            .col-md-2
+              %p.font-bold Telephone
+            .col-md-10
+              %p= @company.telephone
+          .row
+            .col-md-2
+              %p.font-bold Mobile
+            .col-md-10
+              %p= @company.mobile
+          .row
+            .col-md-2
+              %p.font-bold Commercial Registration No.
+            .col-md-10
+              %p= @company.commercial_registration_no
+          .row
+            .col-md-2
+              %p.font-bold Commercial Registration Expriy
+            .col-md-10
+              %p= @company.commercial_registration_expiry
+          .row
+            .col-md-2
+              %p.font-bold Municipality Registration No.
+            .col-md-10
+              %p= @company.municipality_registration_no
+          .row
+            .col-md-2
+              %p.font-bold Municipality Registration Expiry.
+            .col-md-10
+              %p= @company.municipality_registration_expiry
+          .clearfix
+  .row
+    .col-lg-12
+      - if can? :edit, Company
+        = link_to "Edit", edit_company_path(@company), class: "btn btn-primary btn-rounded"
+      - if can? :index, Company
+        = link_to "All Companies", companies_path, class: "btn btn-primary btn-rounded"

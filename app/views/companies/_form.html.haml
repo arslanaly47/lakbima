@@ -1,0 +1,52 @@
+= form_for company, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: company
+  .form-group
+    = f.label :subdomain, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :subdomain, class: 'form-control'
+      %span.help-block.m-b-none
+        Chaning a subdomain will change the URL for the associated site, so please be careful.
+  .form-group
+    = f.label :business_name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :business_name, class: 'form-control'
+  .form-group
+    = f.label :other_names, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :other_names, class: 'form-control', placeholder: "Please insert other names separated by commas"
+  .form-group
+    = f.label :address, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_area :address, class: 'form-control'
+  .form-group
+    = f.label :telephone, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :telephone, class: 'form-control'
+  .form-group
+    = f.label :mobile, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :mobile, class: 'form-control'
+  .form-group
+    = f.label :commercial_registration_no, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :commercial_registration_no, class: 'form-control'
+  .form-group
+    = f.label :commercial_registration_expiry, class: 'col-sm-2 control-label'
+    .col-sm-2.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :commercial_registration_expiry, class: 'form-control input-group date', id: "commercialRegistrationExpiry"
+  .form-group
+    = f.label :municipality_registration_no, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :municipality_registration_no, class: 'form-control'
+  .form-group
+    = f.label :municipality_registration_expiry, class: 'col-sm-2 control-label'
+    .col-sm-2.input-group.date.m-r-md
+      %span.input-group-addon
+        %i.fa.fa-calendar
+      = f.text_field :municipality_registration_expiry, class: 'form-control input-group date', id: "municipalityRegistrationExpiry"
+  .form-group
+    .col-sm-4.col-sm-offset-2
+      = f.submit "Save", class: "btn btn-primary"
+      = link_to "Cancel", companies_path, class: "btn btn-primary"

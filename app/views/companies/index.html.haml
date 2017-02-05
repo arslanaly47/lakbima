@@ -1,0 +1,51 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, Company
+        = link_to new_company_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New Compnay
+      .ibox.float-e-margins
+        .ibox-title All Companies
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, Company
+                    %th ID
+                  %th Subdomain
+                  %th Business Name
+                  %th Other names
+                  %th Address
+                  %th Telephone
+                  %th Mobile
+                  %th Commercial Registration No.
+                  %th Commercial Registration Expiry
+                  %th Municipality Registration No.
+                  %th Municipality Registration Expiry
+                  - if can?(:edit, Company) || can?(:destroy, Company)
+                    %th Actions
+              %tbody
+                - @companies.each do |company|
+                  %tr{data: { id: company.id } }
+                    - if can? :show, Company
+                      %td.font-bold= link_to company.id, company
+                    %td.font-bold= company.subdomain
+                    %td= company.business_name
+                    %td= company.other_names
+                    %td= company.address
+                    %td= company.telephone
+                    %td= company.mobile
+                    %td= company.commercial_registration_no
+                    %td= company.commercial_registration_expiry.try(:strftime, "%b %d, %Y")
+                    %td= company.municipality_registration_no
+                    %td= company.commercial_registration_expiry.try(:strftime, "%b %d, %Y")
+                    - if can?(:edit, Company) || can?(:destroy, Company)
+                      %td
+                        - if can? :delete, Company
+                          = link_to company, method: :delete, remote: true, data: { confirm: "Are you sure to delete this company from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, AccountType
+                          = link_to edit_company_path(company), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

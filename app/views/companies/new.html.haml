@@ -1,0 +1,10 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :index, Company
+        = link_to "All Companies", companies_path, class: "btn btn-primary btn-rounded m-sm"
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Create a new Company
+        .ibox-content
+          = render 'form', company: @company
