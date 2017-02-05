@@ -101,3 +101,8 @@
             - if can? :index, Branch
               %li{class: "#{'active' if controller_name == 'branches'}"}
                 = link_to "Manage Branches", branches_path
+      - if can?(:index, Company)
+        %li{class: "#{'active' if controller_name == 'companies' }"}
+          = link_to companies_path do
+            %i.fa.fa-building
+            %span.nav-label Manage Companies
