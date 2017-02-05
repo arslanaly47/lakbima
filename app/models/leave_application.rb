@@ -16,7 +16,7 @@ class LeaveApplication < ApplicationRecord
 
   enum status: [:pending, :approved, :denied]
 
-  after_save  { UpdateBroadcastJob.perform_later self }
+  after_update  { UpdateBroadcastJob.perform_later self }
 
   after_create_commit { NotificationBroadcastJob.perform_later self }
 

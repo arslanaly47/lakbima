@@ -18,8 +18,9 @@
               You're all caught up!
             %li.divider
           - else
-            - current_user.unread_notifications.limit(3).each do |notification|
-              = render 'layouts/notification', notification: notification
+            #notification_div
+              - current_user.unread_notifications.limit(3).each do |notification|
+                = render 'layouts/notification', notification: notification
           %li
             .text-center.link-block
               %a{href: "#"}
