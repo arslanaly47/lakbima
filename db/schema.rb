@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214072457) do
+ActiveRecord::Schema.define(version: 20170214075857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,14 +173,12 @@ ActiveRecord::Schema.define(version: 20170214072457) do
     t.date     "date_of_joining"
     t.integer  "job_title_id"
     t.date     "appointment_date"
-    t.integer  "user_id"
     t.integer  "branch_id"
     t.boolean  "terminated",       default: false
     t.boolean  "future",           default: false
     t.index ["branch_id"], name: "index_employees_on_branch_id", using: :btree
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
     t.index ["terminated"], name: "index_employees_on_terminated", using: :btree
-    t.index ["user_id"], name: "index_employees_on_user_id", using: :btree
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -349,7 +347,6 @@ ActiveRecord::Schema.define(version: 20170214072457) do
   add_foreign_key "dynamic_menus_to_account_types", "account_types"
   add_foreign_key "dynamic_menus_to_account_types", "dynamic_menus"
   add_foreign_key "employees", "job_titles"
-  add_foreign_key "employees", "users"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "journal_entries", "journal_entry_sessions"
   add_foreign_key "journal_entry_sessions", "users"
