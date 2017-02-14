@@ -17,7 +17,6 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.save
-      @employee.create_associated_user(params[:role_id].to_i)
       redirect_to @employee, notice: "Employee has successfully been saved."
     else
       set_departments
@@ -37,7 +36,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.update_attributes(employee_params) && @employee.user.update_attributes(username: params[:employee][:user][:username])
+    if @employee.update_attributes(employee_params)
       redirect_to @employee, notice: "Employee has successfully been updated."
     else
       set_departments
