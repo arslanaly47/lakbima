@@ -47,7 +47,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  config.tenant_names = lambda { Company.pluck(:subdomain) + ['admin'] }
+  config.tenant_names = lambda { Company.pluck(:subdomain) }
 
   #
   # ==> PostgreSQL only options
