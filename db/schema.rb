@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131004532) do
+ActiveRecord::Schema.define(version: 20170214072457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,7 +313,9 @@ ActiveRecord::Schema.define(version: 20170131004532) do
     t.integer  "role_id"
     t.string   "temp_password"
     t.boolean  "temp_password_changed",  default: false
+    t.integer  "employee_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["employee_id"], name: "index_users_on_employee_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
@@ -361,6 +363,7 @@ ActiveRecord::Schema.define(version: 20170131004532) do
   add_foreign_key "salaries", "employees"
   add_foreign_key "transactions", "dynamic_menus"
   add_foreign_key "transactions", "users"
+  add_foreign_key "users", "employees"
   add_foreign_key "users", "roles"
   add_foreign_key "vacations", "employees"
   add_foreign_key "vacations", "vacation_types"
