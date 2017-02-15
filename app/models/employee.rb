@@ -1,11 +1,11 @@
 class Employee < ApplicationRecord
 
   has_one :salary
+  has_many :users
   has_many :vacations
   has_many :attachments, as: :attachable
   has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
   belongs_to :job_title
-  belongs_to :user
   belongs_to :branch
 
   validates_associated :salary, :vacations, :attachments, :user

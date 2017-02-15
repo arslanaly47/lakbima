@@ -9,7 +9,7 @@ class User < ApplicationRecord
   attr_accessor :login
 
   belongs_to :role
-  has_one :employee
+  belongs_to :employee
   has_one :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
   has_many :notification_users
   has_many :read_notification_users,   -> { read },   class_name: "NotificationUser"
