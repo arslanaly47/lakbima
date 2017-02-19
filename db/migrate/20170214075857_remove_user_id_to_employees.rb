@@ -10,7 +10,7 @@ class RemoveUserIdToEmployees < ActiveRecord::Migration[5.0]
         end
       end
     end
-    remove_column :employees, :user_id
+    remove_reference :employees, :user
   end
 
   def down
