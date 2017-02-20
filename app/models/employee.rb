@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
   belongs_to :job_title
   belongs_to :branch
 
-  validates_associated :salary, :vacations, :attachments, :user
+  validates_associated :salary, :vacations, :attachments
   validates :first_name, :last_name, presence: true
   validate :attachment_types_should_be_unique
 
@@ -116,7 +116,7 @@ class Employee < ApplicationRecord
   end
 
   def self.get_pdf_report(type, sort_column, sort_direction)
-    self.includes(:profile_image, :salary, :vacations, :job_title, :user, :branch)
+    self.includes(:profile_image, :salary, :vacations, :job_title, :branch)
         .where(["terminated = ? and future = ?",
                (type == "Past"),
                (type == "Future")])
