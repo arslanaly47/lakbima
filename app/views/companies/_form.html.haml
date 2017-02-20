@@ -1,4 +1,4 @@
-= form_for company, html: { class: "form-horizontal" } do |f|
+= form_for company, html: { class: "form-horizontal", id: "manageCompany" } do |f|
   = render "shared/errors", resource: company
   .form-group
     = f.label :subdomain, class: 'col-sm-2 control-label'
