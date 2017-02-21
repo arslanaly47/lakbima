@@ -37,14 +37,6 @@ class CompaniesController < ApplicationController
     @company = Company.all.order(sort_column + " " + sort_direction)
   end
 
-  def destroy
-    @company && @company.destroy
-    respond_to do |format|
-      flash.now[:notice] = "Company: #{@company.name} has been deleted."
-      format.js
-    end
-  end
-
   private
   def company_params
     params.require(:company).permit(:business_name, :other_names, :address, :telephone, :mobile, :commercial_registration_no, :commercial_registration_expiry, :municipality_registration_no, :municipality_registration_expiry, :subdomain)
