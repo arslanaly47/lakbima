@@ -61,4 +61,8 @@ class CompaniesController < ApplicationController
   def update_tenant_info(old_subdomain)
     @company.rename_tenant(old_subdomain)
   end
+
+  def sort_column
+    Company.column_names.include?(params[:sort])? params[:sort] : "id"
+  end
 end

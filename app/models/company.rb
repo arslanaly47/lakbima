@@ -19,6 +19,10 @@ class Company < ApplicationRecord
     write_attribute :municipality_registration_expiry, date
   end
 
+  def url
+    "http://#{subdomain}.lakbimagrand.com"
+  end
+
   private
   def create_tenant
     Apartment::Tenant.create(subdomain)
