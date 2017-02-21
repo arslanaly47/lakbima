@@ -12,6 +12,11 @@
               %p= @company.subdomain
           .row
             .col-md-2
+              %p.font-bold URL
+            .col-md-10
+              %p= link_to @company.url, @company.url
+          .row
+            .col-md-2
               %p.font-bold Business Name
             .col-md-10
               %p= @company.business_name
