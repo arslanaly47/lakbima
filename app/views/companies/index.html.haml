@@ -9,21 +9,22 @@
         .ibox-title All Companies
         .ibox-content
           .table-responsive
-            %table.table.table-bordered.table-striped
+            %table.table.table-bordered.table-striped.pretty
               %thead
                 %tr
                   - if can? :show, Company
-                    %th ID
-                  %th Subdomain
-                  %th Business Name
-                  %th Other names
-                  %th Address
-                  %th Telephone
-                  %th Mobile
-                  %th Commercial Registration No.
-                  %th Commercial Registration Expiry
-                  %th Municipality Registration No.
-                  %th Municipality Registration Expiry
+                    %th= sortable "id", "ID"
+                  %th= sortable "subdomain"
+                  %th URL
+                  %th= sortable "business_name", "Business Name"
+                  %th= sortable "other_names", "Other names"
+                  %th= sortable "address", "Address"
+                  %th= sortable "telephone", "Telephone"
+                  %th= sortable "mobile", "Mobile"
+                  %th= sortable "commercial_registration_no", "Commercial Registration No."
+                  %th= sortable "commercial_registration_expriy", "Commercial Registration Expiry"
+                  %th= sortable "municipality_registration_no", "Municipality Registration No."
+                  %th= sortable "municipality_registration_no", "Municipality Registration Expiry"
                   - if can?(:edit, Company) || can?(:destroy, Company)
                     %th Actions
               %tbody
@@ -32,6 +33,7 @@
                     - if can? :show, Company
                       %td.font-bold= link_to company.id, company
                     %td.font-bold= company.subdomain
+                    %td= link_to company.url, company.url, target: :_blank
                     %td= company.business_name
                     %td= company.other_names
                     %td= company.address
