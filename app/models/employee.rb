@@ -75,10 +75,6 @@ class Employee < ApplicationRecord
                 temp_password: temp_password, employee: self, role_id: role_id)
   end
 
-  def generate_random_password
-    SecureRandom.hex(8)
-  end
-
   def generate_uniq_username
     username = first_name.downcase.gsub ' ', '_'
     begin
