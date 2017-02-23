@@ -41,3 +41,5 @@
     .col-lg-12.m-b-xs
       - if can? :edit, Employee
         = link_to "Edit", edit_user_path(@user), class: "btn btn-primary btn-rounded"
+      - if can? :index, Employee
+        = link_to "All Users", users_path, class: "btn btn-primary btn-rounded"
