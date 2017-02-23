@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   def authenticate_and_check_user!
     authenticate_user!
     if current_user && !current_user.temp_password_changed?
-      redirect_to edit_user_path(current_user)
+      redirect_to change_password_user_path(current_user)
     end
   end
 

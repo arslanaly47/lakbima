@@ -30,7 +30,7 @@ class User < ApplicationRecord
   validates :role, :username, presence: true
   validates :username, uniqueness: true
 
-  scope :managers,  -> { where(role: Role.find_by(name: "Manager")) }
+  scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
   delegate :profile_image, to: :employee, allow_nil: true
@@ -97,5 +97,11 @@ class User < ApplicationRecord
 
   def has_active_journal_entry_session?
     journal_entry_sessions.any? &:active?
+  end
+
+  def set_random_password
+    random_password = SecureRandom.hex(8)
+    self.password = random_password
+    self.temp_password = random_password
   end
 end

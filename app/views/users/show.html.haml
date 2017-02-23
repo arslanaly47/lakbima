@@ -1,0 +1,43 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h2=@user.employee.try(:full_name)
+        .ibox-content
+          .row
+            .col-md-2
+              %p.font-bold Username
+            .col-md-10
+              %p= @user.username
+          .row
+            .col-md-2
+              %p.font-bold Role
+            .col-md-10
+              %span.label.label-primary= @user.role.try(:name)
+          - if @user.temp_password?
+            .row
+              .col-md-5
+                %p.font-bold Temporary Password
+              - if @user.temp_password_changed?
+                .col-md-7
+                  %del= @user.temp_password
+                  %span (Doesn't work any more.)
+              - else
+                .col-md-7
+                  %p= @user.temp_password
+            .row
+              .col-md-5
+                %p.font-bold Has the user changed the temporary password?
+              .col-md-7
+                %p= @user.temp_password_changed? ? "Yes" : "No"
+          .row
+            .col-md-2
+              %p.font-bold Associated Employee
+            .col-md-10
+              %p.font-bold= link_to @user.employee.try(:full_name), @user.employee
+          .clearfix
+  .row
+    .col-lg-12.m-b-xs
+      - if can? :edit, Employee
+        = link_to "Edit", edit_user_path(@user), class: "btn btn-primary btn-rounded"

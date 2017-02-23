@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 20170214075857) do
     t.boolean  "temp_password_changed",  default: false
     t.integer  "employee_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["employee_id"], name: "index_users_on_employee_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
