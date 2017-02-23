@@ -1,0 +1,44 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      - if can? :new, User
+        = link_to new_user_path, class: "btn btn-primary btn-rounded m-sm pull-right" do
+          %i.fa.fa-plus{"aria-hidden" => true}
+          &nbsp;&nbsp; New User
+      .ibox.float-e-margins
+        .ibox-title.p-sm
+          All users in the current branch
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped.pretty.employeeTable
+              %thead
+                %tr
+                  - if can? :show, User
+                    %th= sortable "id", "ID"
+                  %th= sortable "username"
+                  %th= sortable "role_id", "Role"
+                  %th Associated Employee
+                  %th User changed the password?
+                  - if can?(:edit, User) || can?(:destroy, User)
+                    %th Actions
+              %tbody
+                - @users.each do |user|
+                  %tr
+                    - if can? :show, User
+                      %td= link_to user.id, user
+                    %td= user.username
+                    %td= user.role.try(:name)
+                    %td= link_to user.employee.try(:full_name), (user.employee || "#")
+                    %td
+                      - if user.temp_password_changed?
+                        %i.fa.fa-check{"aria-hidden" => true}
+                      - else
+                        %i.fa.fa-times{"aria-hidden" => true}
+                    - if can?(:edit, User) || can?(:destroy, User)
+                      %td
+                        - if can? :destroy, User
+                          = link_to user, method: :delete, remote: true, data: { confirm: "Are you sure to delete this user from database?" }, class: "action-link" do
+                            %i.fa.fa-trash{"aria-hidden" => true}
+                        - if can? :edit, User
+                          = link_to edit_user_path(user), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

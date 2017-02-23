@@ -1,32 +1,26 @@
-= form_for user, url: update_profile_path, html: { class: "form-horizontal" } do |f|
-  = render "shared/errors", resource: user
+= form_for @user, html: { class: "form-horizontal" } do |f|
+  = render "shared/errors", resource: @user
+  .form-group
+    = f.label :employee_id, 'Choose an Employee', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :employee_id, options_for_select(@employees.map { |e| [e.full_name, e.id] }), { prompt: "Please choose an employee.", selected: @user.employee_id }, class: 'form-control', required: true
+  .hr-line-dashed
   .form-group
     = f.label :username, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :username, class: 'form-control'
-  .hr-line-dashed
+      = f.text_field :username, class: 'form-control', required: true
+  - if action_name == "new"
+    .form-group
+      = f.label :password, class: 'col-sm-2 control-label'
+      .col-sm-5
+        = f.text_field :password, value: nil, class: 'form-control', id: "userCreationPasswordField", required: true, disabled: true
+      .col-sm-5.m-t-xs
+        = check_box_tag :auto_generate, nil, true, id: "autoGenerateUserPassword"
+        = label_tag :auto_generate, "Auto Generate the password", class: "m-l-sm"
   .form-group
-    = f.label :first_name, class: 'col-sm-2 control-label'
+    = f.label :role_id, "Role", class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :first_name, class: 'form-control'
-  .hr-line-dashed
-  .form-group
-    = f.label :last_name, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.text_field :last_name, class: 'form-control'
-  .hr-line-dashed
-  .form-group
-    = f.label :phone_number, 'Mobile No.', class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.phone_field :phone_number, class: 'form-control'
-  .hr-line-dashed
-  .form-group
-    = f.label :address, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.text_area :address, class: 'form-control'
-  .hr-line-dashed
-  = f.fields_for :employee do |employee_field|
-    = render 'employee_fields', f: employee_field
+      = f.select :role_id, options_for_select(@roles.pluck(:name, :id)), { prompt: "Please select a role" }, class: 'form-control', required: true
   .form-group
     .col-sm-4.col-sm-offset-2
-      = f.submit "Save", class: "btn btn-primary"
+      = f.submit "Save User", class: "btn btn-primary"
