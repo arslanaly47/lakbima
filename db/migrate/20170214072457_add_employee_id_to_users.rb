@@ -1,5 +1,11 @@
 class AddEmployeeIdToUsers < ActiveRecord::Migration[5.0]
-  def change
-    add_reference :users, :employee, foreign_key: true, index: true
+  def up
+    add_column :users, :employee_id, :integer
+    add_foreign_key :users, "public.employees", column: :employee_id
+  end
+
+  def down
+    remove_foreign_key :users, "public.employees", column: :employee_id
+    remove_column :users, :employee_id
   end
 end
