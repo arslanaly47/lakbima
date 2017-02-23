@@ -37,7 +37,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:edit] do
+  resources :users, only: [:edit, :new, :create, :index, :destroy, :show, :update] do
+    member do
+      get 'change_password' => 'users#change_password'
+    end
     collection do
       patch 'update_password'
       get   'check_uniqueness'
