@@ -5,7 +5,7 @@ class AddEmployeeIdToUsers < ActiveRecord::Migration[5.0]
   end
 
   def down
-    remove_foreign_key :users, "public.employees", column: :employee_id
+    remove_foreign_key :users, "public.employees"
     remove_column :users, :employee_id
   end
 end
