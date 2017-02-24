@@ -103,7 +103,7 @@ $(document).on('ready nested:fieldAdded', function() {
     });
   });
 
-  $("#employeeUsername").on('input properychange paste', function() {
+  $("#userCreationUsername").on('input properychange paste', function() {
     var $this = $(this);
     var currentText = $(this).val() || "";
 
