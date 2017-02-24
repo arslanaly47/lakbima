@@ -8,7 +8,7 @@
   .form-group
     = f.label :username, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :username, class: 'form-control', required: true
+      = f.text_field :username, class: 'form-control', required: true, id: 'userCreationUsername'
   - if action_name == "new"
     .form-group
       = f.label :password, class: 'col-sm-2 control-label'
