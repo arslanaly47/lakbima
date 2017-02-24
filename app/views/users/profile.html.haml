@@ -33,5 +33,6 @@
                 = f.text_area :address, class: 'form-control'
             .hr-line-dashed
             .form-group
-              .col-sm-4.col-sm-offset-2
+              .col-sm-2.col-sm-offset-2
                 = f.submit "Save", class: "btn btn-primary"
+                = link_to "Cancel", root_path, class: "btn btn-primary"
