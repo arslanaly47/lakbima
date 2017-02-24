@@ -12,7 +12,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.set_random_password if params[:auto_generate] == "on"
+    if params[:auto_generate] == "on"
+      @user.set_random_password
+    else
+      @user.temp_password = params[:user][:password]
+    end
     if @user.save
       redirect_to users_path, notice: "User has successfully been created in this branch."
     else
