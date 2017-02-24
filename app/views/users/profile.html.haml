@@ -5,4 +5,33 @@
         .ibox-title
           %h5 Edit your profile
         .ibox-content
-          = render 'form', user: @user
+          = form_for @user, url: update_profile_path, html: { class: "form-horizontal" } do |f|
+            = render "shared/errors", resource: @user
+            .form-group
+              = f.label :username, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_field :username, class: 'form-control'
+            .hr-line-dashed
+            .form-group
+              = f.label :first_name, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_field :first_name, class: 'form-control'
+            .hr-line-dashed
+            .form-group
+              = f.label :last_name, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_field :last_name, class: 'form-control'
+            .hr-line-dashed
+            .form-group
+              = f.label :phone_number, 'Mobile No.', class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.phone_field :phone_number, class: 'form-control'
+            .hr-line-dashed
+            .form-group
+              = f.label :address, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_area :address, class: 'form-control'
+            .hr-line-dashed
+            .form-group
+              .col-sm-4.col-sm-offset-2
+                = f.submit "Save", class: "btn btn-primary"
