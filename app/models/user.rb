@@ -27,22 +27,21 @@ class User < ApplicationRecord
   has_many :leave_applications
   has_many :journal_entry_sessions
 
-  validates :role, :username, presence: true
+  validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
   delegate :profile_image, to: :employee, allow_nil: true
+  delegate :full_name,     to: :employee, allow_nil: true
 
   accepts_nested_attributes_for :employee
 
-  def full_name
-    [first_name, last_name]*' '
-  end
+  after_create :update_email
 
   def full_name_with_role
-    full_name = [first_name, last_name]*''
+    full_name ||= "No name"
     "#{full_name} (#{role.name})"
   end
 
@@ -103,5 +102,9 @@ class User < ApplicationRecord
     random_password = SecureRandom.hex(8)
     self.password = random_password
     self.temp_password = random_password
+  end
+
+  def update_email
+    update_attribute :email, employee.email if employee
   end
 end
