@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_and_check_user!
   before_action :authenticate_user!
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :set_user, only: [:edit, :update, :show, :terminate, :unterminate]
   helper_method :sort_column
 
   def new
@@ -84,10 +84,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def terminate
+    @user.terminate!
+    render json: { success: true }
+  end
+
+  def unterminate
+    @user.unterminate!
+    render json: { success: true }
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:password, :first_name, :last_name, :username, :phone_number, :role_id, :employee_id, :address)
+    params.require(:user).permit(:password, :first_name, :last_name, :username, :phone_number, :role_id, :employee_id, :address, :future)
   end
 
   def sort_column

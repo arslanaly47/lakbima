@@ -35,11 +35,6 @@ class Employee < ApplicationRecord
   delegate :expired_allowances, to: :salary, allow_nil: true
   delegate :allowances, to: :salary, allow_nil: true
 
-  after_save :make_valid_regarding_terminate_and_false
-
-  scope :terminated,   -> { where(terminated: true) }
-  scope :current,      -> { where(terminated: false, future: false) }
-  scope :future,       -> { where(future: true) }
 
   def full_name
     [first_name, last_name]*" "
@@ -68,58 +63,8 @@ class Employee < ApplicationRecord
      end
   end
 
-  def create_associated_user(role_id)
-    temp_password = generate_random_password
-    uniq_username = generate_uniq_username
-    User.create(username: uniq_username, password: temp_password,
-                temp_password: temp_password, employee: self, role_id: role_id)
-  end
-
-  def generate_uniq_username
-    username = first_name.downcase.gsub ' ', '_'
-    begin
-      rand_username  = username + rand(111..999).to_s
-    end until User.uniq_username? rand_username
-    rand_username
-  end
-
-  def terminated?
-    terminated
-  end
-
-  def unterminated?
-    !terminated? 
-  end
-
-  def terminate!
-    update_attributes terminated: true, future: false
-  end
-
-  def unterminate!
-    update_attribute :terminated, false
-  end
-
-  def future?
-    future
-  end
-
-  def current?
-    !terminated? && !future?  # If an employee hasn't been terminated, neither he/she is a future employee.
-  end
-
-  def not_current?
-    terminated? || future?
-  end
-
-  def self.get_pdf_report(type, sort_column, sort_direction)
+  def self.get_pdf_report(sort_column, sort_direction)
     self.includes(:profile_image, :salary, :vacations, :job_title, :branch)
-        .where(["terminated = ? and future = ?",
-               (type == "Past"),
-               (type == "Future")])
         .order(sort_column + " " + sort_direction)
-  end
-
-  def make_valid_regarding_terminate_and_false
-    update_column(:terminated, false) if future?
   end
 end

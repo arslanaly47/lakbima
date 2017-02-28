@@ -7,7 +7,12 @@
           &nbsp;&nbsp; New User
       .ibox.float-e-margins
         .ibox-title.p-sm
-          All users in the current branch
+          = radio_button_tag :user, "Current", true, id: "currentUsers", class: "user-display"
+          = label_tag :currentUsers, "Current Users"
+          = radio_button_tag :user, "Past", false, id: "terminatedUsers", class: "user-display"
+          = label_tag :terminatedUsers, "Terminated(past) Users"
+          = radio_button_tag :user, "Future", false, id: "futureUsers", class: "user-display"
+          = label_tag  :futureUsers, "Future Users"
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped.pretty.employeeTable
@@ -23,7 +28,7 @@
                     %th Actions
               %tbody
                 - @users.each do |user|
-                  %tr
+                  %tr{data: { id: user.id }, class: "users #{get_class_for_user(user)} #{'hidden' if user.not_current?}"}
                     - if can? :show, User
                       %td= link_to user.id, user
                     %td= user.username

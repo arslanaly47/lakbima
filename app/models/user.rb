@@ -27,22 +27,26 @@ class User < ApplicationRecord
   has_many :leave_applications
   has_many :journal_entry_sessions
 
-  validates :role, :username, presence: true
+  validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
   delegate :profile_image, to: :employee, allow_nil: true
+  delegate :full_name,     to: :employee, allow_nil: true
+
+  scope :terminated,   -> { where(terminated: true) }
+  scope :current,      -> { where(terminated: false, future: false) }
+  scope :future,       -> { where(future: true) }
 
   accepts_nested_attributes_for :employee
 
-  def full_name
-    [first_name, last_name]*' '
-  end
+  after_create :update_email
+  after_save :make_valid_regarding_terminate_and_false
 
   def full_name_with_role
-    full_name = [first_name, last_name]*''
+    full_name ||= "No name"
     "#{full_name} (#{role.name})"
   end
 
@@ -103,5 +107,42 @@ class User < ApplicationRecord
     random_password = SecureRandom.hex(8)
     self.password = random_password
     self.temp_password = random_password
+  end
+
+  def update_email
+    update_attribute :email, employee.email if employee
+  end
+
+  def terminated?
+    terminated
+  end
+
+  def unterminated?
+    !terminated?
+  end
+
+  def terminate!
+    update_attribute :terminated, true
+    update_attribute :future, false
+  end
+
+  def unterminate!
+    update_attribute :terminated, false
+  end
+
+  def future?
+    future
+  end
+
+  def current?
+    !terminated? && !future?  # If a user hasn't been terminated, neither he/she is a future user.
+  end
+
+  def not_current?
+    terminated? || future?
+  end
+
+  def make_valid_regarding_terminate_and_false
+    update_column(:terminated, false) if future?
   end
 end

@@ -32,14 +32,14 @@ Rails.application.routes.draw do
     member do
       get 'download_attachment/:attachment_id' => 'employees#download_attachment',
         as: :attachment
-      post 'terminate' => 'employees#terminate'
-      post 'unterminate' => 'employees#unterminate'
     end
   end
 
   resources :users, only: [:edit, :new, :create, :index, :destroy, :show, :update] do
     member do
       get 'change_password' => 'users#change_password'
+      post 'terminate'      => 'users#terminate'
+      post 'unterminate'    => 'users#unterminate'
     end
     collection do
       patch 'update_password'
