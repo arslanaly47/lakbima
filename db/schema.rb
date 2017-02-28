@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227001407) do
+ActiveRecord::Schema.define(version: 20170227005656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 20170227001407) do
     t.string   "email"
     t.text     "address"
     t.string   "phone_number"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "nationality"
     t.string   "passport_no"
     t.date     "passport_expiry"
@@ -174,11 +174,8 @@ ActiveRecord::Schema.define(version: 20170227001407) do
     t.integer  "job_title_id"
     t.date     "appointment_date"
     t.integer  "branch_id"
-    t.boolean  "terminated",       default: false
-    t.boolean  "future",           default: false
     t.index ["branch_id"], name: "index_employees_on_branch_id", using: :btree
     t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
-    t.index ["terminated"], name: "index_employees_on_terminated", using: :btree
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -308,8 +305,12 @@ ActiveRecord::Schema.define(version: 20170227001407) do
     t.boolean  "temp_password_changed",  default: false
     t.integer  "employee_id"
     t.string   "email"
+    t.boolean  "terminated",             default: false
+    t.boolean  "future",                 default: false
+    t.index ["future"], name: "index_users_on_future", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
+    t.index ["terminated"], name: "index_users_on_terminated", using: :btree
   end
 
   create_table "vacation_types", force: :cascade do |t|
