@@ -9,7 +9,7 @@
     = f.label :username, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.text_field :username, class: 'form-control', required: true, id: 'userCreationUsername'
-  - if action_name == "new"
+  - if %w(new create).include? action_name
     .form-group
       = f.label :password, class: 'col-sm-2 control-label'
       .col-sm-5
