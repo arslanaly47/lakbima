@@ -33,6 +33,20 @@
                 %p= @user.temp_password_changed? ? "Yes" : "No"
           .row
             .col-md-2
+              %p.font-bold Future User
+            .col-md-10
+              - if @user.temp_password_changed?
+                %i.fa.fa-check{"aria-hidden" => true}
+              - else
+                %i.fa.fa-times{"aria-hidden" => true}
+          .row
+            .col-md-2
+              %p.font-bold Joining Date
+            .col-md-10
+              %p= @user.date_of_joining.try(:strftime, "%b %d, %Y")
+          .hr-line-dashed
+          .row
+            .col-md-2
               %p.font-bold Associated Employee
             .col-md-10
               %p.font-bold= link_to @user.employee.try(:full_name), @user.employee
