@@ -29,6 +29,7 @@ class User < ApplicationRecord
 
   validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
+  validate :date_must_be_in_future_for_a_future_user
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
@@ -144,5 +145,18 @@ class User < ApplicationRecord
 
   def make_valid_regarding_terminate_and_false
     update_column(:terminated, false) if future?
+  end
+
+  def date_of_joining=(val)
+    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    write_attribute :date_of_joining, date
+  end
+
+  def date_must_be_in_future_for_a_future_user
+    if future
+      unless date_of_joining.future?
+        errors.add :base, "For a future user, joining date must be in future."
+      end
+    end
   end
 end

@@ -1,7 +1,12 @@
+//= require datapicker/datepicker3.css
 .future-checkbox {
   padding-top: 5px;
 }
 
 .terminated-employee {
   background-color: rgba(248,157,140,0.75) !important;
+}
+
+.input-group.date {
+  padding-left: 14px;
 }
