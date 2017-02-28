@@ -39,7 +39,13 @@
           .clearfix
   .row
     .col-lg-12.m-b-xs
-      - if can? :edit, Employee
+      - if can? :edit, User
         = link_to "Edit", edit_user_path(@user), class: "btn btn-primary btn-rounded"
+      - if @user.terminated?
+        - if can? :unterminate, User
+          = link_to "Unterminate", "", class: "btn btn-primary btn-rounded unterminate-user", data: { user_id: @user.id, style: "zoom-in", confirm: "Are you sure you want to unterminate this user?" }
+      - else
+        - if can? :terminate, User
+          = link_to "Terminate", "" ,class: "btn btn-danger btn-rounded terminate-user", data: { user_id: @user.id, style: "zoom-in", confirm: "Are you sure you want to terminate this user?" }
       - if can? :index, Employee
-        = link_to "All Users", users_path, class: "btn btn-primary btn-rounded"
+        = link_to "All Users", users_path, class: "btn btn-primary btn-rounded pull-right"

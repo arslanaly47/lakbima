@@ -143,12 +143,6 @@
     .col-lg-12.m-b-xs
       - if can? :edit, Employee
         = link_to "Edit", edit_employee_path(@employee), class: "btn btn-primary btn-rounded"
-      - if @employee.terminated?
-        - if can? :unterminate, Employee
-          = link_to "Unterminate", "", class: "btn btn-primary btn-rounded unterminate-employee", data: { employee_id: @employee.id, style: "zoom-in", confirm: "Are you sure you want to unterminate this employee?" }
-      - else
-        - if can? :terminate, Employee
-          = link_to "Terminate", "" ,class: "btn btn-danger btn-rounded terminate-employee", data: { employee_id: @employee.id, style: "zoom-in", confirm: "Are you sure you want to terminate this employee?" }
       - if can? :index, Employee
         = link_to "All Employees", employees_path, class: "btn btn-primary btn-rounded pull-right"
 #blueimp-gallery.blueimp-gallery

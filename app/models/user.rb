@@ -36,9 +36,14 @@ class User < ApplicationRecord
   delegate :profile_image, to: :employee, allow_nil: true
   delegate :full_name,     to: :employee, allow_nil: true
 
+  scope :terminated,   -> { where(terminated: true) }
+  scope :current,      -> { where(terminated: false, future: false) }
+  scope :future,       -> { where(future: true) }
+
   accepts_nested_attributes_for :employee
 
   after_create :update_email
+  after_save :make_valid_regarding_terminate_and_false
 
   def full_name_with_role
     full_name ||= "No name"
@@ -106,5 +111,38 @@ class User < ApplicationRecord
 
   def update_email
     update_attribute :email, employee.email if employee
+  end
+
+  def terminated?
+    terminated
+  end
+
+  def unterminated?
+    !terminated?
+  end
+
+  def terminate!
+    update_attribute :terminated, true
+    update_attribute :future, false
+  end
+
+  def unterminate!
+    update_attribute :terminated, false
+  end
+
+  def future?
+    future
+  end
+
+  def current?
+    !terminated? && !future?  # If a user hasn't been terminated, neither he/she is a future user.
+  end
+
+  def not_current?
+    terminated? || future?
+  end
+
+  def make_valid_regarding_terminate_and_false
+    update_column(:terminated, false) if future?
   end
 end

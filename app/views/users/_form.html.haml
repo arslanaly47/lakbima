@@ -22,5 +22,10 @@
     .col-sm-10
       = f.select :role_id, options_for_select(@roles.pluck(:name, :id)), { prompt: "Please select a role" }, class: 'form-control', required: true
   .form-group
+    = label_tag :future, "Future User", class: "col-sm-2 control-label"
+    .col-sm-10.future-checkbox
+      = f.check_box :future, {}, true
+  .hr-line-dashed
+  .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save User", class: "btn btn-primary"

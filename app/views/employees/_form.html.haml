@@ -28,11 +28,6 @@
   .hr-line-dashed
   %h3 Employment Info
   .form-group
-    = label_tag :future, "Future Employee", class: "col-sm-2 control-label"
-    .col-sm-10.future-checkbox
-      = f.check_box :future, {}, true
-  .hr-line-dashed
-  .form-group
     = f.label :branch_id, "Choose Branch", class: "col-sm-2 control-label"
     .col-sm-10
       = f.select :branch_id, options_for_select(Branch.all.map { |b| [b.name, b.id] }, selected: employee.branch_id), { prompt: "Please choose branch." }, class: "form-control"

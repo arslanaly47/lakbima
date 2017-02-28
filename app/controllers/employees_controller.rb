@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource except: [:index]
 
-  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment, :terminate]
+  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_attachment]
   helper_method :sort_column
 
   def new
@@ -71,18 +71,8 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def terminate
-    @employee.terminate!
-    render json: { success: true }
-  end
-
-  def unterminate
-    @employee.unterminate!
-    render json: { success: true }
-  end
-
   def download_pdf
-    @employees = Employee.get_pdf_report(params[:type], sort_column, sort_direction)
+    @employees = Employee.get_pdf_report(sort_column, sort_direction)
     respond_to do |format|
       format.pdf do
         pdf = EmployeePdf.new(@employees)

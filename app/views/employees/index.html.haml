@@ -7,16 +7,9 @@
           &nbsp;&nbsp; New Employee
         = form_tag download_pdf_employees_path, method: "get", id: "pdfForm" do
           = hidden_field_tag :format, 'pdf'
-          = hidden_field_tag :type, 'Current', id: "downloadValue"
           = submit_tag 'Download PDF', class: "btn btn-primary btn-rounded m-sm pull-right", id: "pdfDownload"
       .ibox.float-e-margins
         .ibox-title.p-sm
-          = radio_button_tag :employee, "Current", true, id: "currentEmployees", class: "employee-display"
-          = label_tag :currentEmployees, "Current Employees"
-          = radio_button_tag :employee, "Past", false, id: "terminatedEmployees", class: "employee-display"
-          = label_tag :terminatedEmployees, "Terminated(past) Employees"
-          = radio_button_tag :employee, "Future", false, id: "futureEmployees", class: "employee-display"
-          = label_tag  :futureEmployees, "Future Employees"
           .form-group.pull-right.m-t-n-xs
             = text_field_tag :search, nil, class: "form-control", id: "searchEmployees"
           .pull-right.m-r-md.m-t-xxs
@@ -40,7 +33,7 @@
                     %th Actions
               %tbody
                 - @employees.each do |employee|
-                  %tr{data: { id: employee.id }, class: "employees #{get_class_for_employee(employee)} #{'hidden' if employee.not_current?}"}
+                  %tr.employees
                     - if can? :show, Employee
                       %td= link_to employee.id, employee
                     - if employee.profile_image
