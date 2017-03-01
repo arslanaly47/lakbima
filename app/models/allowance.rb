@@ -7,7 +7,7 @@ class Allowance < ApplicationRecord
   validate :ends_at_should_be_after_starts_from
 
   scope :applicable, -> { where("'#{Date.today}' between starts_from and ends_at") }
-  scope :expired, -> { where.not("'#{Date.today}' between starts_from and ends_at") }
+  scope :expired,    -> { where.not("'#{Date.today}' between starts_from and ends_at") }
 
   delegate :lump_sum_amount, to: :allowance_type
   delegate :name, to: :allowance_type

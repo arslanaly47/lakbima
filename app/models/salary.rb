@@ -2,7 +2,7 @@ class Salary < ApplicationRecord
 
   has_many :allowances
   has_many :applicable_allowances, -> { applicable }, class_name: "Allowance"
-  has_many :expired_allowances,    -> { expired }, class_name: "Allowance"
+  has_many :expired_allowances,    -> { expired    }, class_name: "Allowance"
   belongs_to :employee
 
   validates :basic_salary, presence: true
