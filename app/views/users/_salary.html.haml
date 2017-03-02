@@ -1,7 +1,7 @@
 = f.label :basic_salary, 'Basic Salary', class: 'col-sm-2 control-label'
 .col-sm-10
   = f.number_field :basic_salary, class: 'form-control'
-  = f.fields_for :allowances, f.object.allowances do |allowance_field|
+  = f.fields_for :allowances do |allowance_field|
     = render 'allowance', f: allowance_field
   = f.link_to_add :allowances, class: 'btn btn-primary m-t-xs' do
     %i.fa.fa-plus-circle
