@@ -1,6 +1,5 @@
 class Employee < ApplicationRecord
 
-  has_one :salary
   has_many :users
   has_many :vacations
   has_many :attachments, as: :attachable
@@ -8,16 +7,11 @@ class Employee < ApplicationRecord
   belongs_to :job_title
   belongs_to :branch
 
-  validates_associated :salary, :vacations, :attachments
+  validates_associated :vacations, :attachments
   validates :first_name, :last_name, presence: true
   validate :attachment_types_should_be_unique
 
   NATIONALITIES = ["Sri Lanka", "India", "Nepal", "Phillippines"]
-  accepts_nested_attributes_for :salary,
-                                allow_destroy: true,
-                                reject_if: proc { |attributes|
-                                  attributes['basic_salary'].blank?
-                                }
   accepts_nested_attributes_for :vacations,
                                 allow_destroy: true,
                                 reject_if: proc { |attributes|
@@ -31,9 +25,6 @@ class Employee < ApplicationRecord
                                 }
 
   delegate :department, to: :job_title, allow_nil: true
-  delegate :applicable_allowances, to: :salary, allow_nil: true
-  delegate :expired_allowances, to: :salary, allow_nil: true
-  delegate :allowances, to: :salary, allow_nil: true
 
 
   def full_name
@@ -64,7 +55,7 @@ class Employee < ApplicationRecord
   end
 
   def self.get_pdf_report(sort_column, sort_direction)
-    self.includes(:profile_image, :salary, :vacations, :job_title, :branch)
+    self.includes(:profile_image, :vacations, :job_title, :branch)
         .order(sort_column + " " + sort_direction)
   end
 end
