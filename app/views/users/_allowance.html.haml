@@ -1,6 +1,6 @@
 .row.m-t-xs.form-inline.m-l-xs
   = f.label :allowance_type_id, 'Allowance Type', class: 'control-label'
-  = f.select :allowance_type_id, options_for_select(AllowanceType.all.map { |a| [a.name, a.id] }, selected: f.object.allowance_type_id), {}, class: 'form-control input-sm'
+  = f.select :allowance_type_id, options_for_select(AllowanceType.pluck(:name, :id), selected: f.object.allowance_type_id), {}, class: 'form-control input-sm'
   .input-group.date
     %span.input-group-addon
       %i.fa.fa-calendar

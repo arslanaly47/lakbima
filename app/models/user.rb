@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   belongs_to :employee
+  has_one    :salary
   has_one :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
   has_many :notification_users
   has_many :read_notification_users,   -> { read },   class_name: "NotificationUser"
@@ -30,18 +31,27 @@ class User < ApplicationRecord
   validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
   validate :date_must_be_in_future_for_a_future_user
+  validates_associated :salary
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
   delegate :profile_image, to: :employee, allow_nil: true
   delegate :full_name,     to: :employee, allow_nil: true
+  delegate :applicable_allowances, to: :salary, allow_nil: true
+  delegate :expired_allowances, to: :salary, allow_nil: true
+  delegate :allowances, to: :salary, allow_nil: true
 
   scope :terminated,   -> { where(terminated: true) }
   scope :current,      -> { where(terminated: false, future: false) }
   scope :future,       -> { where(future: true) }
 
   accepts_nested_attributes_for :employee
+  accepts_nested_attributes_for :salary,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes|
+                                  attributes['basic_salary'].blank?
+                                }
 
   after_create :update_email
   after_save :make_valid_regarding_terminate_and_false

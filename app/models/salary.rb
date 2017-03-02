@@ -2,8 +2,8 @@ class Salary < ApplicationRecord
 
   has_many :allowances
   has_many :applicable_allowances, -> { applicable }, class_name: "Allowance"
-  has_many :expired_allowances,    -> { expired }, class_name: "Allowance"
-  belongs_to :employee
+  has_many :expired_allowances,    -> { expired    }, class_name: "Allowance"
+  belongs_to :user
 
   validates :basic_salary, presence: true
   accepts_nested_attributes_for :allowances,

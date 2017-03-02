@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user = User.new
     @employees = Employee.all
     @roles = Role.all
+    set_salary
   end
 
   def create
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
     else
       @employees = Employee.all
       @roles = Role.all
+      set_salary
       render :new
     end
   end
@@ -32,6 +34,7 @@ class UsersController < ApplicationController
   def edit
     @employees = Employee.all
     @roles = Role.all
+    set_salary
   end
 
   def update
@@ -40,6 +43,7 @@ class UsersController < ApplicationController
     else
       @employees = Employee.all
       @roles = Role.all
+      set_salary
       render :edit
     end
   end
@@ -97,7 +101,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:password, :first_name, :last_name, :username, :phone_number, :role_id, :employee_id, :address, :future, :date_of_joining)
+    params.require(:user).permit(:password, :first_name, :last_name, :username, :phone_number, :role_id, :employee_id, :address, :future, :date_of_joining, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
   end
 
   def sort_column
@@ -106,5 +110,9 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_salary
+    @user.salary || @user.build_salary
   end
 end

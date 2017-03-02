@@ -8,7 +8,6 @@ class EmployeesController < ApplicationController
     @employee = Employee.new
     set_departments
     set_job_titles
-    set_salary
     set_vacation
     set_attachment
     set_attachment_types
@@ -21,7 +20,6 @@ class EmployeesController < ApplicationController
     else
       set_departments
       set_job_titles
-      set_salary
       render :new
     end
   end
@@ -29,10 +27,8 @@ class EmployeesController < ApplicationController
   def edit
     set_departments
     set_job_titles
-    set_salary
     set_attachment
     set_attachment_types
-    @allowances = @employee.salary.try(:allowances)
   end
 
   def update
@@ -41,7 +37,6 @@ class EmployeesController < ApplicationController
     else
       set_departments
       set_job_titles
-      set_salary
       render :edit
     end
   end
@@ -84,7 +79,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, :date_of_joining, :appointment_date, :branch_id, :future, attachments_attributes: [:id, :attachment_type_id, :image, :_destroy], salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]], vacations_attributes: [:id, :vacation_type_id, :starts_from, :ends_at, :_destroy])
+    params.require(:employee).permit(:first_name, :last_name, :email, :address, :phone_number, :nationality, :passport_no, :passport_expiry, :visa_no, :id_no, :visa_expiry, :medical_expiry, :job_title_id, :date_of_joining, :appointment_date, :branch_id, :future, attachments_attributes: [:id, :attachment_type_id, :image, :_destroy], acations_attributes: [:id, :vacation_type_id, :starts_from, :ends_at, :_destroy])
   end
 
   def set_employee
@@ -101,10 +96,6 @@ class EmployeesController < ApplicationController
     else
       @job_titles = @departments.first.try(:job_titles)
     end
-  end
-
-  def set_salary
-    @employee.salary || @employee.build_salary
   end
 
   def set_vacation

@@ -1,4 +1,4 @@
-= form_for @user, html: { class: "form-horizontal" } do |f|
+= nested_form_for @user, html: { class: "form-horizontal" } do |f|
   = render "shared/errors", resource: @user
   .form-group
     = f.label :employee_id, 'Choose an Employee', class: 'col-sm-2 control-label'
@@ -33,6 +33,11 @@
     = label_tag :future, "Future User", class: "col-sm-2 control-label"
     .col-sm-10.future-checkbox
       = f.check_box :future, {}, true
+  %h3 Salary
+  .form-group
+    = f.fields_for :salary do |salary_field|
+      = render 'salary', f: salary_field
+  .hr-line-dased
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save User", class: "btn btn-primary"
