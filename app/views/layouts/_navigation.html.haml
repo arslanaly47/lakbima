@@ -106,7 +106,7 @@
           = link_to companies_path do
             %i.fa.fa-building
             %span.nav-label Manage Companies
-        %li{class: "#{'active' if controller_name == 'users' && %w(new index create).include?(action_name)}"}
+        %li{class: "#{'active' if controller_name == 'users' && %w(new index create edit show).include?(action_name)}"}
           = link_to '#' do
             %i.fa.fa-user-plus
             %span.nav-label Manager Users

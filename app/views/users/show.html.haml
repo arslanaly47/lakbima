@@ -44,6 +44,45 @@
               %p.font-bold Joining Date
             .col-md-10
               %p= @user.date_of_joining.try(:strftime, "%b %d, %Y")
+          .row
+            .col-md-2
+              %p.font-bold Salary
+            .col-md-10
+              %p= @user.salary.try(:total_amount)
+          .row
+            .col-md-2
+              %p.font-bold Allowances
+            - if @user.allowances.blank?
+              .col-md-10
+                %p This emlpoyee has got no allowances.
+            - else
+              .col-md-10
+                %dl
+                  %dt Applicable Allowances
+                  %dd
+                    %dl.m-l-sm
+                      - @user.applicable_allowances.each do |allowance|
+                        %dt= allowance.name
+                        %dd
+                          %span Lump sum amount:
+                          %span.font-bold
+                            = allowance.lump_sum_amount
+                          %span & Expires at:
+                          %span.font-bold
+                            = allowance.ends_at.try(:strftime, "%b %d, %Y")
+                %dl
+                  %dt Expired Allowances
+                  %dd
+                    %dl.m-l-sm
+                      - @user.expired_allowances.each do |allowance|
+                        %dt= allowance.name
+                        %dd
+                          %span Lump sum amount:
+                          %span.font-bold
+                            = allowance.lump_sum_amount
+                          %span & Expired at:
+                          %span.font-bold
+                            = allowance.ends_at.try(:strftime, "%b %d, %Y")
           .hr-line-dashed
           .row
             .col-md-2

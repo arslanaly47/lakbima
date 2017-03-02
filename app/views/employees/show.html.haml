@@ -78,45 +78,6 @@
               %p= @employee.job_title.try(:name)
           .row
             .col-md-2
-              %p.font-bold Salary
-            .col-md-10
-              %p= @employee.salary.try(:total_amount)
-          .row
-            .col-md-2
-              %p.font-bold Allowances
-            - if @employee.allowances.blank?
-              .col-md-10
-                %p This emlpoyee has got no allowances.
-            - else
-              .col-md-10
-                %dl
-                  %dt Applicable Allowances
-                  %dd
-                    %dl.m-l-sm
-                      - @employee.applicable_allowances.each do |allowance|
-                        %dt= allowance.name
-                        %dd
-                          %span Lump sum amount:
-                          %span.font-bold
-                            = allowance.lump_sum_amount
-                          %span & Expires at:
-                          %span.font-bold
-                            = allowance.ends_at.to_s
-                %dl
-                  %dt Expired Allowances
-                  %dd
-                    %dl.m-l-sm
-                      - @employee.expired_allowances.each do |allowance|
-                        %dt= allowance.name
-                        %dd
-                          %span Lump sum amount:
-                          %span.font-bold
-                            = allowance.lump_sum_amount
-                          %span & Expired at:
-                          %span.font-bold
-                            = allowance.ends_at.try(:strftime, "%b %d, %Y")
-          .row
-            .col-md-2
               %p.font-bold Attachments
             .col-md-10
               .row
