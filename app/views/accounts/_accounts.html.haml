@@ -1,5 +1,5 @@
 .hr-line-solid
-- if accounts_main_type.account_sub_types.present?
+- if accounts_main_type.present? && accounts_main_type.account_sub_types.present?
   - accounts_main_type.account_sub_types.each do |account_sub_type|
     = account_sub_type.name
     %hr
@@ -33,5 +33,5 @@
     Total Balance
   .col-md-6
     .pull-right
-      = accounts_main_type.total_balance.to_s
+      = accounts_main_type.try(:total_balance).try(:to_s)
 .hr-line-solid
