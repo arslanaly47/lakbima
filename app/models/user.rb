@@ -163,7 +163,7 @@ class User < ApplicationRecord
   end
 
   def date_must_be_in_future_for_a_future_user
-    if future
+    if future && date_of_joining
       unless date_of_joining.future?
         errors.add :base, "For a future user, joining date must be in future."
       end
