@@ -28,7 +28,6 @@
                   %th= sortable "visa_expiry"
                   %th= sortable "medical_expiry"
                   %th= sortable "passport_expiry"
-                  %th= sortable "branch_id", "Branch Name"
                   - if can?(:edit, Employee) || can?(:destroy, Employee)
                     %th Actions
               %tbody
@@ -46,7 +45,6 @@
                     %td= employee.visa_expiry.try(:strftime, "%b %d, %Y")
                     %td= employee.medical_expiry.try(:strftime, "%b %d, %Y")
                     %td= employee.passport_expiry.try(:strftime, "%b %d, %Y")
-                    %td= employee.branch.try(:name)
                     - if can?(:edit, Employee) || can?(:destroy, Employee)
                       %td
                         - if can? :destroy, Employee
