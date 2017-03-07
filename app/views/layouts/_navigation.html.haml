@@ -71,7 +71,7 @@
             %i.fa.fa-male
             %span.nav-label Employee Section
       - if can?(:index, Department) || can?(:index, JobTitle) || can?(:index, Currency) || can?(:index, AllowanceType) || can?(:index, VacationType) || can?(:index, AttachmentType) || can?(:index, Role)
-        %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types attachment_types roles branches).include? controller_name}"}
+        %li{class: "#{'active' if %w(departments job_titles currencies allowance_types vacation_types attachment_types roles).include? controller_name}"}
           = link_to '#' do
             %i.fa.fa-cogs
             %span.nav-label Settings
@@ -98,9 +98,6 @@
             - if can? :index, Role
               %li{class: "#{'active' if controller_name == 'roles'}"}
                 = link_to "Roles", roles_path
-            - if can? :index, Branch
-              %li{class: "#{'active' if controller_name == 'branches'}"}
-                = link_to "Manage Branches", branches_path
       - if can?(:index, Company)
         %li{class: "#{'active' if controller_name == 'companies' }"}
           = link_to companies_path do
