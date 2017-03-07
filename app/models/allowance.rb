@@ -3,7 +3,7 @@ class Allowance < ApplicationRecord
   belongs_to :salary
 
   validates_associated :allowance_type, :salary
-  validates :starts_from, :ends_at, presence: true
+  validates :starts_from, :ends_at, :allowance_type, presence: true
   validate :ends_at_should_be_after_starts_from
 
   scope :applicable, -> { where("'#{Date.today}' between starts_from and ends_at")     }
