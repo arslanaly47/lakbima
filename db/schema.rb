@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307113122) do
+ActiveRecord::Schema.define(version: 20170310071307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,14 +94,6 @@ ActiveRecord::Schema.define(version: 20170307113122) do
     t.index ["attachment_type_id"], name: "index_attachments_on_attachment_type_id", using: :btree
   end
 
-  create_table "branches", force: :cascade do |t|
-    t.string   "name"
-    t.text     "address"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "companies", force: :cascade do |t|
     t.string   "business_name"
     t.string   "other_names"
@@ -170,9 +162,7 @@ ActiveRecord::Schema.define(version: 20170307113122) do
     t.string   "id_no"
     t.date     "visa_expiry"
     t.date     "medical_expiry"
-    t.integer  "job_title_id"
     t.date     "appointment_date"
-    t.index ["job_title_id"], name: "index_employees_on_job_title_id", using: :btree
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -305,7 +295,9 @@ ActiveRecord::Schema.define(version: 20170307113122) do
     t.boolean  "terminated",             default: false
     t.boolean  "future",                 default: false
     t.date     "date_of_joining"
+    t.integer  "job_title_id"
     t.index ["future"], name: "index_users_on_future", using: :btree
+    t.index ["job_title_id"], name: "index_users_on_job_title_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
     t.index ["terminated"], name: "index_users_on_terminated", using: :btree
@@ -339,7 +331,6 @@ ActiveRecord::Schema.define(version: 20170307113122) do
   add_foreign_key "dynamic_menus_from_account_types", "dynamic_menus"
   add_foreign_key "dynamic_menus_to_account_types", "account_types"
   add_foreign_key "dynamic_menus_to_account_types", "dynamic_menus"
-  add_foreign_key "employees", "job_titles"
   add_foreign_key "job_titles", "departments"
   add_foreign_key "journal_entries", "journal_entry_sessions"
   add_foreign_key "journal_entry_sessions", "users"
@@ -354,6 +345,7 @@ ActiveRecord::Schema.define(version: 20170307113122) do
   add_foreign_key "transactions", "dynamic_menus"
   add_foreign_key "transactions", "users"
   add_foreign_key "users", "employees"
+  add_foreign_key "users", "job_titles"
   add_foreign_key "users", "roles"
   add_foreign_key "vacations", "employees"
   add_foreign_key "vacations", "vacation_types"

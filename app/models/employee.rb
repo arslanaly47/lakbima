@@ -4,7 +4,6 @@ class Employee < ApplicationRecord
   has_many :vacations
   has_many :attachments, as: :attachable
   has_one :profile_image, -> { profile_image }, class_name: :Attachment, as: :attachable
-  belongs_to :job_title
 
   validates_associated :vacations, :attachments
   validates :first_name, :last_name, presence: true
@@ -22,8 +21,6 @@ class Employee < ApplicationRecord
                                 reject_if: proc { |attributes|
                                   attributes['image'].blank?
                                 }
-
-  delegate :department, to: :job_title, allow_nil: true
 
 
   def full_name

@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     @employees = Employee.all
     @roles = Role.all
     set_salary
+    set_departments
+    set_job_titles
   end
 
   def create
@@ -24,6 +26,8 @@ class UsersController < ApplicationController
       @employees = Employee.all
       @roles = Role.all
       set_salary
+      set_departments
+      set_job_titles
       render :new
     end
   end
@@ -35,6 +39,8 @@ class UsersController < ApplicationController
     @employees = Employee.all
     @roles = Role.all
     set_salary
+    set_departments
+    set_job_titles
   end
 
   def update
@@ -44,6 +50,8 @@ class UsersController < ApplicationController
       @employees = Employee.all
       @roles = Role.all
       set_salary
+      set_departments
+      set_job_titles
       render :edit
     end
   end
@@ -102,6 +110,18 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:password, :first_name, :last_name, :username, :phone_number, :role_id, :employee_id, :address, :future, :date_of_joining, salary_attributes: [:id, :basic_salary, allowances_attributes: [:id, :allowance_type_id, :starts_from, :ends_at, :_destroy]])
+  end
+
+  def set_departments
+    @departments = Department.all
+  end
+
+  def set_job_titles
+    if @user.job_title
+      @job_titles = @user.department.job_titles
+    else
+      @job_titles = @departments.first.try(:job_titles)
+    end
   end
 
   def sort_column

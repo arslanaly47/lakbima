@@ -6,8 +6,6 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    set_departments
-    set_job_titles
     set_vacation
     set_attachment
     set_attachment_types
@@ -18,15 +16,11 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to @employee, notice: "Employee has successfully been saved."
     else
-      set_departments
-      set_job_titles
       render :new
     end
   end
 
   def edit
-    set_departments
-    set_job_titles
     set_attachment
     set_attachment_types
   end
@@ -35,8 +29,6 @@ class EmployeesController < ApplicationController
     if @employee.update_attributes(employee_params)
       redirect_to @employee, notice: "Employee has successfully been updated."
     else
-      set_departments
-      set_job_titles
       render :edit
     end
   end
@@ -84,18 +76,6 @@ class EmployeesController < ApplicationController
 
   def set_employee
     @employee = Employee.find(params[:id]) 
-  end
-
-  def set_departments
-    @departments = Department.all
-  end
-
-  def set_job_titles
-    if @employee.job_title
-      @job_titles = @employee.department.job_titles
-    else
-      @job_titles = @departments.first.try(:job_titles)
-    end
   end
 
   def set_vacation

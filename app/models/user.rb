@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   belongs_to :employee
+  belongs_to :job_title
   has_one    :salary
   has_one :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
   has_many :notification_users
@@ -36,11 +37,12 @@ class User < ApplicationRecord
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
   scope :employees, -> { where(role: Role.find_by(name: "Employee")) }
 
-  delegate :profile_image, to: :employee, allow_nil: true
-  delegate :full_name,     to: :employee, allow_nil: true
-  delegate :applicable_allowances, to: :salary, allow_nil: true
-  delegate :expired_allowances, to: :salary, allow_nil: true
-  delegate :allowances, to: :salary, allow_nil: true
+  delegate :profile_image,         to: :employee,  allow_nil: true
+  delegate :full_name,             to: :employee,  allow_nil: true
+  delegate :applicable_allowances, to: :salary,    allow_nil: true
+  delegate :expired_allowances,    to: :salary,    allow_nil: true
+  delegate :allowances,            to: :salary,    allow_nil: true
+  delegate :department,            to: :job_title, allow_nil: true
 
   scope :terminated,   -> { where(terminated: true) }
   scope :current,      -> { where(terminated: false, future: false) }
