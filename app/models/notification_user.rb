@@ -3,5 +3,5 @@ class NotificationUser < ApplicationRecord
   belongs_to :user
 
   scope :unread, -> { where(read: false) }
-  scope :read, -> { where(read: true) }
+  scope :read,   -> { where(read: true)  }
 end

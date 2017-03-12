@@ -1,7 +1,7 @@
 class LeaveApplication < ApplicationRecord
 
   has_one :applicant_notification, -> { applicant }, class_name: "Notification"
-  has_one :action_notification,    -> { action }, class_name: "Notification"
+  has_one :action_notification,    -> { action    }, class_name: "Notification"
 
   belongs_to :applicant, class_name: "User", foreign_key: :user_id
   belongs_to :manager, class_name: "User"
