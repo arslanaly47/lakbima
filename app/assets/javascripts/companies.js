@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
   $.validator.addMethod('lowerCaseLetters', function(value) {
-    return value.match(/^[a-z]+$/);
-  }, "You must use only lowercase letters.");
+    return value.match(/^[a-z/-]+$/);
+  }, "You must use only lowercase letters, and '-'");
 
   $("#manageCompany").validate({
     rules: {
