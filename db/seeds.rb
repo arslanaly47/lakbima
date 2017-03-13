@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Inserting account headers..."
+
 AccountMainType.create(name: "Assets", description: "Something owned or controlled by an entity")
 AccountMainType.create(name: "Liabilities", description: "Economic obligations of an entity.")
 AccountMainType.create(name: "Equity", description: "The value of assets after deducting the value of all liabilites.")
