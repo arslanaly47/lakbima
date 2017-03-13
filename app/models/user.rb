@@ -12,9 +12,9 @@ class User < ApplicationRecord
   belongs_to :employee
   belongs_to :job_title
   has_one    :salary
-  has_one :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
+  has_one  :active_journal_entry_session, -> { active }, class_name: "JournalEntrySession"
   has_many :notification_users
-  has_many :read_notification_users,   -> { read },   class_name: "NotificationUser"
+  has_many :read_notification_users,   -> { read   }, class_name: "NotificationUser"
   has_many :unread_notification_users, -> { unread }, class_name: "NotificationUser"
 
   has_many :received_notifications, through: :notification_users,
