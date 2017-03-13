@@ -27,5 +27,13 @@ class Company < ApplicationRecord
 
   def create_tenant
     Apartment::Tenant.create(subdomain)
+    seed_tenant
+  end
+
+  def seed_tenant
+    current_tenant = Apartment::Tenant.current
+    Apartment::Tenant.switch! subdomain
+    CreateAdminUser.new.call
+    Apartment::Tenant.switch! current_tenant
   end
 end
