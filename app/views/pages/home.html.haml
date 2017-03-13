@@ -2,8 +2,9 @@
   .col-lg-12
     .jumbotron
       %h1
-        Welcome
-        %span.font-bold= current_user.full_name + "!"
+        - if current_user.full_name
+          Welcome
+          %span.font-bold= current_user.full_name + "!"
       %p Here, you can manage different tasks related to Lakbima Restaurant.
       %p
         - if current_user.has_active_journal_entry_session?
