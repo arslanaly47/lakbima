@@ -290,12 +290,12 @@ ActiveRecord::Schema.define(version: 20170310071307) do
     t.integer  "role_id"
     t.string   "temp_password"
     t.boolean  "temp_password_changed",  default: false
-    t.integer  "employee_id"
     t.string   "email"
     t.boolean  "terminated",             default: false
     t.boolean  "future",                 default: false
     t.date     "date_of_joining"
     t.integer  "job_title_id"
+    t.integer  "employee_id"
     t.index ["future"], name: "index_users_on_future", using: :btree
     t.index ["job_title_id"], name: "index_users_on_job_title_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -344,7 +344,6 @@ ActiveRecord::Schema.define(version: 20170310071307) do
   add_foreign_key "salaries", "users"
   add_foreign_key "transactions", "dynamic_menus"
   add_foreign_key "transactions", "users"
-  add_foreign_key "users", "employees"
   add_foreign_key "users", "job_titles"
   add_foreign_key "users", "roles"
   add_foreign_key "vacations", "employees"
