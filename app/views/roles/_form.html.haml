@@ -11,7 +11,7 @@
   .form-group
     = f.label :permission_ids, "Select permissions", class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.select :permission_ids, options_for_select(permissions.pluck(:name, :id), @role.permission_ids), {}, class: "form-control dual_select", multiple: true, include_blank: false
+      = f.select :permission_ids, options_for_select(permissions.map { |p| [p.name, p.id] }, @role.permission_ids), {}, class: "form-control dual_select", multiple: true, include_blank: false
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save Role", class: "btn btn-primary"
