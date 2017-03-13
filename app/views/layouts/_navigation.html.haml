@@ -60,7 +60,7 @@
                   = link_to "Add Journal Entries", journal_entry_session_journal_entries_path(current_user.active_journal_entry_session)
                 - else
                   = link_to "Add Journal Entries", root_path
-      - if can? :index, LeaveApplication
+      - if can?(:index, LeaveApplication) || can?(:approve, LeaveApplication)
         %li{class: "#{'active' if controller_name == 'leave_applications'}"}
           = link_to leave_applications_path do
             %i.fa.fa-bed
