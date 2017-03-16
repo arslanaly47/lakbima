@@ -51,7 +51,7 @@ class Employee < ApplicationRecord
   end
 
   def self.get_pdf_report(sort_column, sort_direction)
-    self.includes(:profile_image, :vacations, :job_title, :branch)
+    self.includes(:profile_image, :vacations)
         .order(sort_column + " " + sort_direction)
   end
 end

@@ -18,12 +18,12 @@ class EmployeePdf < Prawn::Document
   end
 
   def employee_header
-    ["Profile Image", "First Name", "Last Name", "Phone No.", "Visa Expiry", "Medical Expiry", "Passport Expiry", "Branch Name", "Nationality", "Joining Date", "Visa No.", "Department", "Job Title", "Salary"]
+    ["Profile Image", "First Name", "Last Name", "Phone No.", "Visa Expiry", "Medical Expiry", "Passport Expiry", "Nationality", "Visa No."]
   end
 
   def employee_rows
     @employees.map do |employee|
-      [{image: open(image_path_for_employee(employee))} ,employee.first_name, employee.last_name, employee.phone_number, employee.visa_expiry, employee.medical_expiry, employee.passport_expiry, employee.branch.try(:name), employee.nationality, employee.date_of_joining, employee.visa_no, employee.department.try(:name), employee.job_title.try(:name), employee.salary.try(:total_amount)]
+      [{image: open(image_path_for_employee(employee))} ,employee.first_name, employee.last_name, employee.phone_number, employee.visa_expiry, employee.medical_expiry, employee.passport_expiry, employee.nationality, employee.visa_no]
     end
   end
 
