@@ -17,7 +17,7 @@ class SeedNewTenant
   end
 
   def create_common_permissions
-    Permission.create(subject_class: "LeaveApplication", action: "Create")
+    Permission.find_or_create_by(subject_class: "LeaveApplication", action: "Create")
   end
 
   def create_employee_role
