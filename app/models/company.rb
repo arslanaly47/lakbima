@@ -21,7 +21,7 @@ class Company < ApplicationRecord
   end
 
   def url
-    "http://#{subdomain}.lakbimagrand.com"
+    "http://#{subdomain}.#{ENV["DOMAIN_NAME"]}"
   end
 
   private
