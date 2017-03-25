@@ -14,6 +14,7 @@ class JobTitlesController < ApplicationController
     if @job_title.save
       redirect_to @job_title, notice: "Job title has successfully been saved."
     else
+      set_departments
       render :new
     end
   end
