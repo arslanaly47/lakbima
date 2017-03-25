@@ -23,21 +23,21 @@
       - if @departments.present?
         = select_tag :department, options_for_select(@departments.pluck(:name, :id), selected: @user.department.try(:id)), class: "form-control", id: "departmentSelect"
       - else
-        %p= "Please create departments first through #{link_to 'settings', departments_path}."
+        %p= "Please create departments first through #{link_to 'settings', departments_path}.".html_safe
   .form-group
     = f.label :job_title, 'Job Title', class: 'col-sm-2 control-label'
     .col-sm-10
       - if @job_titles.present?
         = f.select :job_title_id, options_for_select(@job_titles.pluck(:name, :id), selected: @user.job_title_id), { prompt: "Please choose job title." }, class: 'form-control', id: "jobTitleSelect"
       - else
-        %p= "Please create job titles first through #{link_to 'settings', job_titles_path}."
+        %p= "Please create job titles first through #{link_to 'settings', job_titles_path}.".html_safe
   .form-group
     = f.label :role_id, "Role", class: 'col-sm-2 control-label'
     .col-sm-10
       - if @roles.present?
         = f.select :role_id, options_for_select(@roles.pluck(:name, :id)), { prompt: "Please select a role" }, class: 'form-control', required: true
       - else
-        %p= "Please create roles first through #{link_to 'settings', roles_path}."
+        %p= "Please create roles first through #{link_to 'settings', roles_path}.".html_safe
   .form-group
     = f.label :date_of_joining, 'Date of joining', class: 'col-sm-2 control-label'
     .col-sm-2.input-group.date.m-r-md
