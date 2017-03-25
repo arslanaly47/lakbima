@@ -13,10 +13,13 @@
   .form-group
     %label.col-sm-2.control-label Please choose currency
     .col-sm-10
-      - @currencies.each do |currency|
-        .radio.radio-info.radio-inline
-          = f.radio_button :currency_id, currency.id, id: "inlineRadio#{currency.id}", required: true
-          = f.label :currency_id, currency.name, for: "inlineRadio#{currency.id}"
+      - if @currencies.present?
+        - @currencies.each do |currency|
+          .radio.radio-info.radio-inline
+            = f.radio_button :currency_id, currency.id, id: "inlineRadio#{currency.id}", required: true
+            = f.label :currency_id, currency.name, for: "inlineRadio#{currency.id}"
+      - else
+        %p= "Please create currencies first from #{link_to 'settings', currencies_path}.".html_safe
   .form-group
     = f.label :lump_sum_amount, 'Lump sum amount', class: 'col-sm-2 control-label'
     .col-sm-10
