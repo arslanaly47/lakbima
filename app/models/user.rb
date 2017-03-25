@@ -32,6 +32,7 @@ class User < ApplicationRecord
   validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
   validate :date_must_be_in_future_for_a_future_user
+  validate :date_must_be_in_past_for_a_non_future_user
   validates_associated :salary
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
@@ -168,6 +169,14 @@ class User < ApplicationRecord
     if future && date_of_joining
       unless date_of_joining.future?
         errors.add :base, "For a future user, joining date must be in future."
+      end
+    end
+  end
+
+  def date_must_be_in_past_for_a_non_future_user
+    unless future
+      if date_of_joining.present? || date_of_joining.future?
+        errors.add :base, "For a past user, joining date must be in past."
       end
     end
   end
