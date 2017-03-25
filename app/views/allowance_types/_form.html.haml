@@ -3,24 +3,24 @@
   .form-group
     = f.label :name, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :name, class: 'form-control'
+      = f.text_field :name, class: 'form-control', required: true
   .hr-line-dashed
   .form-group
     = f.label :description, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_area :description, class: 'form-control'
+      = f.text_area :description, class: 'form-control', required: true
   .hr-line-dashed
   .form-group
     %label.col-sm-2.control-label Please choose currency
     .col-sm-10
       - @currencies.each do |currency|
         .radio.radio-info.radio-inline
-          = f.radio_button :currency_id, currency.id, id: "inlineRadio#{currency.id}"
+          = f.radio_button :currency_id, currency.id, id: "inlineRadio#{currency.id}", required: true
           = f.label :currency_id, currency.name, for: "inlineRadio#{currency.id}"
   .form-group
     = f.label :lump_sum_amount, 'Lump sum amount', class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.number_field :lump_sum_amount, class: 'form-control'
+      = f.number_field :lump_sum_amount, class: 'form-control', required: true
   .form-group
     .col-sm-4.col-sm-offset-2
       = f.submit "Save", class: "btn btn-primary"

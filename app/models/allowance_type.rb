@@ -5,10 +5,8 @@ class AllowanceType < ApplicationRecord
 
   default_scope { order('id ASC') }
 
-  validates :name, :lump_sum_amount, presence: true
-
-
-  validates_associated :currency
+  validates :name, :lump_sum_amount, :currency, presence: true
+  validates :name, uniqueness: true
 
   def currency_symbol
     currency && currency.symbol

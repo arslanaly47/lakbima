@@ -5,7 +5,7 @@ class AllowanceTypesController < ApplicationController
 
   def new
     @allowance_type = AllowanceType.new
-    @currencies = Currency.all
+    set_currencies
   end
 
   def create
@@ -13,18 +13,20 @@ class AllowanceTypesController < ApplicationController
     if @allowance_type.save
       redirect_to @allowance_type, notice: "Allowance type has successfully been saved."
     else
+      set_currencies
       render :new
     end
   end
 
   def edit
-    @currencies = Currency.all
+    set_currencies
   end
 
   def update
     if @allowance_type.update_attributes(allowance_type_params)
       redirect_to @allowance_type, notice: "Allowance type has successfully been updated."
     else
+      set_currencies
       render :edit
     end
   end
@@ -52,5 +54,9 @@ class AllowanceTypesController < ApplicationController
 
   def set_allowance_type
     @allowance_type = AllowanceType.find(params[:id]) 
+  end
+
+  def set_currencies
+    @currencies = Currency.all
   end
 end
