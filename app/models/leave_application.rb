@@ -17,12 +17,12 @@ class LeaveApplication < ApplicationRecord
   enum status: [:pending, :approved, :denied]
 
   def start_date=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :start_date, date
   end
 
   def end_date=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :end_date, date
   end
 

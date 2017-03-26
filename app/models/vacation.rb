@@ -3,12 +3,12 @@ class Vacation < ApplicationRecord
   belongs_to :vacation_type
 
   def starts_from=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :starts_from, date
   end
 
   def ends_at=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :ends_at, date
   end
 

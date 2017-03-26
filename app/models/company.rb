@@ -11,12 +11,12 @@ class Company < ApplicationRecord
   end
 
   def commercial_registration_expiry=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :commercial_registration_expiry, date
   end
 
   def municipality_registration_expiry=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :municipality_registration_expiry, date
   end
 

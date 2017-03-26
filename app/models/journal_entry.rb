@@ -10,7 +10,7 @@ class JournalEntry < ApplicationRecord
   after_create :update_associated_accounts
 
   def happened_at=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :happened_at, date
   end
 

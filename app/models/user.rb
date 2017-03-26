@@ -161,7 +161,7 @@ class User < ApplicationRecord
   end
 
   def date_of_joining=(val)
-    date = Date.strptime(val, "%m/%d/%Y") if val.present?
+    date = Date.strptime(val, "%d/%m/%Y") if val.present?
     write_attribute :date_of_joining, date
   end
 

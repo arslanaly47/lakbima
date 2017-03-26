@@ -29,7 +29,7 @@ class Employee < ApplicationRecord
 
   %w(passport_expiry visa_expiry medical_expiry appointment_date).each do |attribute|
     define_method "#{attribute}=" do |val|
-      date = Date.strptime(val, "%m/%d/%Y") if val.present?
+      date = Date.strptime(val, "%d/%m/%Y") if val.present?
       write_attribute attribute.to_sym, date
     end
   end
