@@ -175,7 +175,7 @@ class User < ApplicationRecord
 
   def date_must_be_in_past_for_a_non_future_user
     unless future
-      if date_of_joining.present? || date_of_joining.future?
+      if date_of_joining && (date_of_joining.present? || date_of_joining.future?)
         errors.add :base, "For a past user, joining date must be in past."
       end
     end
