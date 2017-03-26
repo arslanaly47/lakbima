@@ -9,7 +9,7 @@ $(document).on('ready nested:fieldAdded', function() {
   var hostname = window.location.origin;
   //toastr.success("Such a pleasure that you read it.", "Big Title");
   var optionsForDatePicker = {
-    format: "mm/dd/yyyy",
+    format: "dd/mm/yyyy",
     todayBtn: "linked",
     forceParse: false,
     autoclose: true
