@@ -5,7 +5,7 @@ class RemoveUserIdToEmployees < ActiveRecord::Migration[5.0]
       Employee.find_each do |employee|
         if employee.respond_to?(:user_id) && employee.user_id
           user = User.find(employee.user_id)
-          user.employee_id = user.employee.id
+          user.employee_id = user.employee.try(:id)
           user.save!
         end
       end
