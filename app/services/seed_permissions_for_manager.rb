@@ -8,7 +8,7 @@ class SeedPermissionsForManager
   private
 
   def seed_permissions
-    actions = %w(create update view)
+    actions = %w(Create Update View)
     models = %w(AccountMainType AccountSubType AccountType Account AllowanceType AttachmentType Company Currency Department DynamicMenu Employee JobTitle JournalEntry JournalEntrySession Role Transaction User VacationType)
     actions.each do |action|
       models.each do |model|
@@ -18,7 +18,7 @@ class SeedPermissionsForManager
   end
 
   def seed_permissions_for_leave_application
-    %w(approve deny view).each do |action|
+    %w(Approve Deny View).each do |action|
       Permission.find_or_create_by(subject_class: 'LeaveApplication', action: action)
     end
   end
