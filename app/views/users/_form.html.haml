@@ -3,7 +3,7 @@
   .form-group
     = f.label :employee_id, 'Choose an Employee', class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.select :employee_id, options_for_select(@employees.map { |e| [e.full_name, e.id] }), { prompt: "Please choose an employee.", selected: @user.employee_id }, class: 'form-control', required: true
+      = f.select :employee_id, options_for_select(@employees.map { |e| [e.full_name, e.id] }, selected: @user.employee_id), { prompt: "Please choose an employee." }, class: 'form-control', required: true
   .hr-line-dashed
   .form-group
     = f.label :username, class: 'col-sm-2 control-label'
