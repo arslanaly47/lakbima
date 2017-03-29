@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @employees = Employee.all
+    @employees = Employee.all.sort_by(&:full_name)
     @roles = Role.all
     set_salary
     set_departments
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path, notice: "User has successfully been created in this branch."
     else
-      @employees = Employee.all
+      @employees = Employee.all.sort_by(&:full_name)
       @roles = Role.all
       set_salary
       set_departments
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @employees = Employee.all
+    @employees = Employee.all.sort_by(&:full_name)
     @roles = Role.all
     set_salary
     set_departments
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, notice: "User has successfully been updated."
     else
-      @employees = Employee.all
+      @employees = Employee.all.sort_by(&:full_name)
       @roles = Role.all
       set_salary
       set_departments
