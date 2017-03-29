@@ -7,7 +7,7 @@ $(document).on('ready nested:fieldAdded', function() {
 
   $("#totalEmployees").text($('.current-employees').length);
   var hostname = window.location.origin;
-  //toastr.success("Such a pleasure that you read it.", "Big Title");
+
   var optionsForDatePicker = {
     format: "dd/mm/yyyy",
     todayBtn: "linked",
