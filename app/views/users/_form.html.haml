@@ -28,7 +28,7 @@
     = f.label :job_title, 'Job Title', class: 'col-sm-2 control-label'
     .col-sm-10
       - if @job_titles.present?
-        = f.select :job_title_id, options_for_select(@job_titles.pluck(:name, :id), selected: @user.job_title_id), { prompt: "Please choose job title." }, class: 'form-control', id: "jobTitleSelect", prompt: "Please choose job title."
+        = f.select :job_title_id, options_for_select(@job_titles.pluck(:name, :id), selected: @user.job_title_id), { prompt: "Please choose job tilte." }, class: 'form-control', id: "jobTitleSelect"
       - else
         %p= "Please create job titles first through #{link_to 'settings', job_titles_path}.".html_safe
   .form-group
