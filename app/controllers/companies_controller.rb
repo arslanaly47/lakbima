@@ -22,8 +22,9 @@ class CompaniesController < ApplicationController
 
   def update
     old_subdomain =  @company.subdomain
+    should_tenant_be_updated = @company.subdomain_changed?
     if @company.update_attributes(company_params)
-      update_tenant_info(old_subdomain)
+      update_tenant_info(old_subdomain) if should_tenant_be_updated
       redirect_to @company, notice: "Company has successfully been updated."
     else
       render :edit
