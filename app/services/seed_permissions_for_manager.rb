@@ -15,6 +15,7 @@ class SeedPermissionsForManager
         Permission.find_or_create_by(subject_class: model, action: action)
       end
     end
+    Permission.find_or_create_by(subject_class: 'Employee', action: 'download_pdf')
   end
 
   def seed_permissions_for_leave_application
