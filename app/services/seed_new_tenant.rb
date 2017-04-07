@@ -8,11 +8,11 @@ class SeedNewTenant
 
   private
   def create_header_accounts
-    AccountMainType.create(name: "Assets",      description: "Something owned or controlled by an entity")
-    AccountMainType.create(name: "Liabilities", description: "Economic obligations of an entity.")
-    AccountMainType.create(name: "Equity",      description: "The value of assets after deducting the value of all liabilites.")
-    AccountMainType.create(name: "Income",      description: "The company's earnings and common examples.")
-    AccountMainType.create(name: "Expense",     description: "The company's expenditures.")
+    AccountMainType.find_or_create_by(name: "Assets",      description: "Something owned or controlled by an entity")
+    AccountMainType.find_or_create_by(name: "Liabilities", description: "Economic obligations of an entity.")
+    AccountMainType.find_or_create_by(name: "Equity",      description: "The value of assets after deducting the value of all liabilites.")
+    AccountMainType.find_or_create_by(name: "Income",      description: "The company's earnings and common examples.")
+    AccountMainType.find_or_create_by(name: "Expense",     description: "The company's expenditures.")
   end
 
   def create_employee_role
@@ -34,21 +34,21 @@ class SeedNewTenant
   end
 
   def create_job_titles_for_production
-    JobTitle.create(name: "Chef", description: "Quality Controls and planning the Recipes and Production.", department: @production_department)
-    JobTitle.create(name: "Store Keeper", description: "Manager of the store and record keeper.", department: @production_department)
+    JobTitle.find_or_create_by(name: "Chef", description: "Quality Controls and planning the Recipes and Production.", department: @production_department)
+    JobTitle.find_or_create_by(name: "Store Keeper", description: "Manager of the store and record keeper.", department: @production_department)
   end
 
   def create_job_titles_for_sales
-    JobTitle.create(name: "Finance Manager", description: "This person will be responsible for managing all kind of financial matters.", department: @sales_department)
-    JobTitle.create(name: "Accountant", description: "Financial accounting.", department: @sales_department)
-    JobTitle.create(name: "Waiter", description: "Serves food.", department: @sales_department)
-    JobTitle.create(name: "Managing Director", description: "One the directors who manage the business directly.", department: @sales_department)
-    JobTitle.create(name: "General Manager", description: "Manages all the branches and reporting to Managing Director.", department: @sales_department)
-    JobTitle.create(name: "Assistant Cook", description: "", department: @sales_department)
-    JobTitle.create(name: "Cook", description: "To assist the chef.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Finance Manager", description: "This person will be responsible for managing all kind of financial matters.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Accountant", description: "Financial accounting.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Waiter", description: "Serves food.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Managing Director", description: "One the directors who manage the business directly.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "General Manager", description: "Manages all the branches and reporting to Managing Director.", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Assistant Cook", description: "", department: @sales_department)
+    JobTitle.find_or_create_by(name: "Cook", description: "To assist the chef.", department: @sales_department)
   end
 
   def create_job_titles_for_management
-    JobTitle.create(name: "Mandoob", description: "PRO", department: @management_department)
+    JobTitle.find_or_create_by(name: "Mandoob", description: "PRO", department: @management_department)
   end
 end
