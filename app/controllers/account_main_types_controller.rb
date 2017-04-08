@@ -1,7 +1,7 @@
 class AccountMainTypesController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_account_main_type, only: [:edit, :update, :show, :account_sub_types]
+  before_action :set_account_main_type, only: [:edit, :update, :show, :account_sub_headers]
 
   def edit
   end
