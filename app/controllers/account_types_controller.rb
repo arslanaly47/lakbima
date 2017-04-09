@@ -17,6 +17,7 @@ class AccountTypesController < ApplicationController
   end
 
   def edit
+    @account_sub_types = @account_type.account_main_type.try(:account_sub_types)
   end
 
   def update
