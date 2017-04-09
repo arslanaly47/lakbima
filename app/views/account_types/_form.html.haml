@@ -8,8 +8,8 @@
   .form-group
     = f.label :acount_sub_type_id, "Sub Category", class: "col-sm-2 control-label"
     .col-sm-10
-      - if action_name == 'new'
-        = f.select :account_sub_type_id, AccountSubType.pluck(:name, :id), { prompt: "Please choose account sub header." }, class: "form-control", id: "accountSubTypeSelectTag"
+      - if @account_type.new_record?
+        = f.select :account_sub_type_id, ["",""], { prompt: "Please choose account sub header." }, class: "form-control", id: "accountSubTypeSelectTag", disabled: true
       - else
         = f.select :account_sub_type_id, @account_sub_types.pluck(:name, :id), { prompt: "Please choose account sub header." }, class: "form-control", id: "accountSubTypeSelectTag"
   .hr-line-dashed
