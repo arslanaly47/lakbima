@@ -16,6 +16,7 @@ class Ability
       elsif permission.action.downcase == "view"
         can :index, permission.subject_class.constantize
         can :show, permission.subject_class.constantize
+        can permission.action.downcase.to_sym, permission.subject_class.constantize if permission.subject_class.downcase == "account"
       else
         can permission.action.downcase.to_sym, permission.subject_class.constantize
       end
