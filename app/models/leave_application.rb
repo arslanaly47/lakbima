@@ -54,6 +54,6 @@ class LeaveApplication < ApplicationRecord
   end
 
   def self.filter_by_vacation_type(params)
-    params[:vacation_type].present? ? self.where(:vacation_type_id => params[:vacation_type]) : self.all
+    params[:vacation_type].present? ? self.where(vacation_type_id: params[:vacation_type]) : self.all
   end
 end
