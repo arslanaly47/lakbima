@@ -50,8 +50,8 @@ class CurrenciesController < ApplicationController
 
   def default
     @currency_names_and_ids = Currency.pluck(:name, :id)
-    @default_currency_id = Currency.default.try(:first).try(:id)
-    @default_currency_name = Currency.default.try(:first).try(:name) || "Not selected yet!"
+    @default_currency_id    = Currency.default.try(:first).try(:id)
+    @default_currency_name  = Currency.default.try(:first).try(:name) || "Not selected yet!"
   end
 
   private
