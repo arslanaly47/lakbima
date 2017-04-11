@@ -16,7 +16,7 @@
                     %th #
                   %th Name
                   %th Description
-                  - if can?(:edit, AttachmentType) || can?(:destroy, AttachmentType)
+                  - if can?(:edit, AttachmentType)
                     %th Actions
               %tbody
                 - @attachment_types.each do |attachment_type|
@@ -25,11 +25,8 @@
                       %td= link_to attachment_type.id, attachment_type
                     %td= attachment_type.name
                     %td= attachment_type.description
-                    - if can?(:edit, AttachmentType) || can?(:destroy, AttachmentType)
+                    - if can?(:edit, AttachmentType)
                       %td
-                        - if can? :destroy, AttachmentType
-                          = link_to attachment_type, method: :delete, remote: true, data: { confirm: "Are you sure to delete this attachment type from database?" }, class: "action-link" do
-                            %i.fa.fa-trash{"aria-hidden" => true}
                         - if can? :edit, AttachmentType
                           = link_to edit_attachment_type_path(attachment_type), class: "action-link" do
                             %i.fa.fa-pencil{"aria-hidden" => true}
