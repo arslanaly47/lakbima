@@ -10,7 +10,7 @@
   .form-group
     = f.label :amount, class: 'col-sm-2 control-label'
     .col-sm-2.transaction-amount-field
-      = f.number_field :amount, class: 'form-control'
+      = f.number_field :amount, class: 'form-control', step: 'any'
   .hr-line-dashed
   .form-group
     = f.label :description, class: 'col-sm-2 control-label'
