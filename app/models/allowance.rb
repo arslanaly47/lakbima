@@ -10,7 +10,7 @@ class Allowance < ApplicationRecord
   scope :expired,    -> { where.not("'#{Date.today}' between starts_from and ends_at") }
 
   delegate :lump_sum_amount, to: :allowance_type
-  delegate :name, to: :allowance_type
+  delegate :name,            to: :allowance_type
 
   def starts_from=(val)
     date = Date.strptime(val, "%d/%m/%Y") if val.present?
