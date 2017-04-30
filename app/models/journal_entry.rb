@@ -15,6 +15,8 @@ class JournalEntry < ApplicationRecord
   end
 
   def from_and_to_account_can_not_be_same
+    return if from_account_id.nil? || to_account_id.nil?
+
     if from_account_id == to_account_id
       errors.add :base, "FROM and TO accounts can't be the same. Please choose different ones."
     end
