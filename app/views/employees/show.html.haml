@@ -58,16 +58,6 @@
               %p= @employee.visa_expiry.try(:strftime, "%b %d, %Y")
           .row
             .col-md-2
-              %p.font-bold Department
-            .col-md-10
-              %p= @employee.department_name
-          .row
-            .col-md-2
-              %p.font-bold Job Title
-            .col-md-10
-              %p= @employee.job_title.try(:name)
-          .row
-            .col-md-2
               %p.font-bold Attachments
             .col-md-10
               .row
