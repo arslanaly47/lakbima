@@ -58,6 +58,14 @@ class DynamicMenusController < ApplicationController
     render json: { options: options }
   end
 
+  def check_uniqueness_for_name
+    if params[:currentName].empty?
+      render json: { result: true }
+    else
+      result = DynamicMenu.uniq_name?(params[:currentName])
+      render json: { result: result }
+    end
+  end
 
   private
 

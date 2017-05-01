@@ -2,6 +2,34 @@ $(document).ready(function() {
 
   var hostname = window.location.origin;
 
+  $("#dynamicMenuName").on('input properychange paste', function() {
+    var $this = $(this);
+    var currentName = $(this).val() || "";
+
+    var url = hostname + "/dynamic_menus/check_uniqueness_for_name";
+    var data = { currentName: currentName };
+
+    $.ajax({
+      url: url,
+      type: "GET",
+      data: data,
+      success: function(data) {
+        if(data.result) {
+          $("#dynamicMenuNameHelpBlock").remove();
+          $this.parent().parent().removeClass('has-error');
+          $this.removeClass('invalid');
+        } else {
+          if (!$("#dynamicMenuNameHelpBlock").length) {
+            var helpBlock = $("<span id='dynamicMenuNameHelpBlock' class='help-block m-b-none'>A dynamic menu with this name already exists.</span>");
+            $this.after(helpBlock);
+          }
+          $this.parent().parent().addClass('has-error');
+          $this.addClass('invalid');
+        }
+      }
+    });
+  });
+
   $("#fromAccountTypeSelect").change(function() {
     var toAccountTypeSelect = $("#toAccountTypeSelect");
     var currentlySelectedOptionIDs = $(this).val();

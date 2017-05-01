@@ -43,4 +43,8 @@ class DynamicMenu < ApplicationRecord
   def to_account_ids
     to_account_types.includes(:accounts).map(&:accounts).flatten.map(&:id)
   end
+
+  def self.uniq_name?(name)
+    !DynamicMenu.find_by_name(name)
+  end
 end
