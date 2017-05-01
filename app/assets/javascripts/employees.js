@@ -9,7 +9,7 @@ $(document).on('ready nested:fieldAdded', function() {
   var hostname = window.location.origin;
 
   var optionsForDatePicker = {
-    format: "mm/dd/yyyy",
+    format: "dd/mm/yyyy",
     todayBtn: "linked",
     forceParse: false,
     autoclose: true
@@ -35,7 +35,7 @@ $(document).on('ready nested:fieldAdded', function() {
   $.validator.addMethod(
     "australianDate",
     function(value, element) {
-      return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+      return value.match(/^(0?[1-9]|[12][0-9]|3[0-1])[/., -](0?[1-9]|1[0-2])[/., -](19|20)?\d{2}$/);
     },
     "Please enter a valid date"
   );
@@ -66,19 +66,24 @@ $(document).on('ready nested:fieldAdded', function() {
         required: true
       },
       "employee[date_of_joining]": {
-        australianDate : true
+        australianDate : true,
+        date: false
       },
       "employee[passport_expiry]": {
-        australianDate : true
+        australianDate : true,
+        date: false
       },
       "employee[visa_expiry]": {
-        australianDate : true
+        australianDate : true,
+        date: false
       },
       "employee[medical_expiry]": {
-        australianDate : true
+        australianDate : true,
+        date: false
       },
       "employee[appointment_date]": {
-        australianDate : true
+        australianDate : true,
+        date: false
       }
     }
   });
