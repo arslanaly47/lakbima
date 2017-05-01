@@ -5,6 +5,7 @@ class DynamicMenu < ApplicationRecord
   has_many :to_account_types,   through: :dynamic_menus_to_account_types,   source: :account_type
   has_many :transactions
 
+  validates :name, uniqueness: true
   validates :name, :description, presence: true
   validate :from_account_types_should_not_be_same_as_to_account_types
   validate :should_have_atleast_one_from_account_type
