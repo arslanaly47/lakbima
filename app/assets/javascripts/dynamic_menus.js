@@ -15,10 +15,12 @@ $(document).ready(function() {
       data: data,
       success: function(data) {
         if(data.result) {
+          $("#dynamicMenuSubmit").attr('disabled', false);
           $("#dynamicMenuNameHelpBlock").remove();
           $this.parent().parent().removeClass('has-error');
           $this.removeClass('invalid');
         } else {
+          $("#dynamicMenuSubmit").attr('disabled', true);
           if (!$("#dynamicMenuNameHelpBlock").length) {
             var helpBlock = $("<span id='dynamicMenuNameHelpBlock' class='help-block m-b-none'>A dynamic menu with this name already exists.</span>");
             $this.after(helpBlock);
