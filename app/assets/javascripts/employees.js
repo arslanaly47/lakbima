@@ -5,7 +5,7 @@
 
 $(document).on('ready nested:fieldAdded', function() {
 
-  $("#totalEmployees").text($('.current-employees').length);
+  $("#totalEmployees").text($('.employees').length);
   var hostname = window.location.origin;
 
   var optionsForDatePicker = {
@@ -158,6 +158,7 @@ $(document).on('ready nested:fieldAdded', function() {
         }
       });
     }
+    $("#totalEmployees").text($('.employees:visible').length);
   });
 
   $("#pdfDownload").click(function(){
