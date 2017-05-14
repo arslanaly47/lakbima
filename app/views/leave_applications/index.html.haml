@@ -8,14 +8,21 @@
       .ibox.float-e-margins
         .ibox-title 
           .row
-            .col-lg-6
+            .col-lg-4
               All Leave Applications
-            .col-lg-6
+            - if current_user.manager?
+              .col-lg-4
+                .row.pull-right
+                  .col-lg-4
+                    Filter By applicant:
+                  .col-lg-8
+                    = select_tag "vacation_type", options_for_select(@applicants.map { |a| [a.full_name, a.id]}.push(["All Applicants","all_applicants"])), {include_blank: 'Select an applicant', class: 'form-control', id: 'leaveApplicationApplicantsDropdown'}
+            .col-lg-4.pull-right
               .row.pull-right
                 .col-lg-4
                   Filter By Vacation Type: 
                 .col-lg-8
-                  = select_tag "vacation_type", options_for_select(VacationType.all.map { |v| [v.name, v.name] }.push(["All Types","all_types"])), {:include_blank => 'Select Vacation Type', class: 'form-control', id: 'vacation_type'}
+                  = select_tag "vacation_type", options_for_select(VacationType.pluck(:name, :id).push(["All Types","all_types"])), {include_blank: 'Select Vacation Type', class: 'form-control', id: 'leaveApplicationVacationTypesDropdown'}
 
         .ibox-content
           .table-responsive
@@ -36,7 +43,7 @@
                     %th Actions
               %tbody
                 - @leave_applications.each do |leave_application|
-                  %tr{data: { id: leave_application.id }, class: "leave_applications"}
+                  %tr{data: { id: leave_application.id, applicant_id: leave_application.applicant.try(:id), vacation_type_id: leave_application.vacation_type_id }, class: "leave_applications"}
                     - if can? :show, LeaveApplication
                       %td.font-bold= link_to leave_application.id, leave_application
                     - if current_user.manager?

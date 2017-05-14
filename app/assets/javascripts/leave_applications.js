@@ -23,12 +23,13 @@ $(document).on('ready', function() {
   });
 
   var optionsForDatePicker = {
-    format: "mm/dd/yyyy",
+    format: "dd/mm/yyyy",
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
     calendarWeeks: true,
     autoclose: true,
+    todayHighlight: true,
     startDate: new Date()
   };
 
@@ -38,25 +39,37 @@ $(document).on('ready', function() {
 
   $('.leave-dates.input-group.date').datepicker(optionsForDatePicker);
 
-  var allTypes = $('.leave_applications:visible');
-  $("#vacation_type").on('input', function() {
-    var $this = $(this);
-    var dropdownValue = $this.val();
-    if(dropdownValue == "") {
-      allTypes.show();
+  function showAllLeaveApplications() {
+    $('.leave_applications').show();
+  }
+
+  function showLeaveApplicationWithVacationTypeID(vacationTypeID) {
+    $('.leave_applications[data-vacation-type-id=\''  + vacationTypeID + '\']').show();
+    $('.leave_applications[data-vacation-type-id!=\'' + vacationTypeID + '\']').hide();
+  }
+
+  $("#leaveApplicationVacationTypesDropdown").change(function() {
+    var currentValue = $(this).val();
+
+    if (currentValue == "" || currentValue == "all_types") {
+      showAllLeaveApplications();
     } else {
-      var vacationType;
-      allTypes.each(function() {
-        vacationType = $(this).find('.vacation_type').html();
-        if((vacationType.match(dropdownValue) == null)) {
-          $(this).hide();
-        } else {
-          $(this).show();
-        }
-        if(dropdownValue == "all_types"){
-          allTypes.show();
-        }
-      });
+      showLeaveApplicationWithVacationTypeID(currentValue);
+    }
+  });
+
+  function showLeaveApplicationsWithApplicantID(applicantID) {
+    $('.leave_applications[data-applicant-id=\''  + applicantID + '\']').show();
+    $('.leave_applications[data-applicant-id!=\'' + applicantID + '\']').hide();
+  }
+
+  $("#leaveApplicationApplicantsDropdown").change(function() {
+    var currentValue = $(this).val();
+
+    if (currentValue == "" || currentValue == "all_applicants") {
+      showAllLeaveApplications();
+    } else {
+      showLeaveApplicationsWithApplicantID(currentValue);
     }
   });
 });
