@@ -7,10 +7,8 @@ class LeaveApplication < ApplicationRecord
   belongs_to :manager, class_name: "User"
   belongs_to :vacation_type
 
-  validates :start_date, :number_of_days, :reason, presence: true
-  validates_associated :vacation_type
-  validates_associated :applicant # Manager is assigned when a leave application is approved
-                                  # or rejected.
+  validates :start_date, :number_of_days, :reason, :vacation_type, :applicant, presence: true
+  # Manager is assigned when a leave application is approved or rejected.
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
 
