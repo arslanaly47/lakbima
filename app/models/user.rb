@@ -31,8 +31,8 @@ class User < ApplicationRecord
 
   validates :role, :username, :employee, presence: true
   validates :username, uniqueness: true
-  validate :date_must_be_in_future_for_a_future_user
-  validate :date_must_be_in_past_for_a_non_future_user
+  validate :date_must_be_in_future_for_a_future_user, on: :create
+  validate :date_must_be_in_past_for_a_non_future_user, on: :create
   validates_associated :salary
 
   scope :managers,  -> { where(role: Role.find_by(name: "Manager"))  }
