@@ -29,6 +29,8 @@ class LeaveApplicationsController < ApplicationController
     else
       @leave_applications = current_user.leave_applications.order(sort_column + " " + sort_direction).filter_by_vacation_type(params)
     end
+    applicant_ids = LeaveApplication.all.map(&:user_id).uniq
+    @applicants = User.find(applicant_ids)
   end
 
   def approve
