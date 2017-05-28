@@ -43,9 +43,10 @@ $(document).on('ready', function() {
     $('.leave_applications').show();
   }
 
-  function showLeaveApplicationWithVacationTypeID(vacationTypeID) {
-    $('.leave_applications[data-vacation-type-id=\''  + vacationTypeID + '\']').show();
-    $('.leave_applications[data-vacation-type-id!=\'' + vacationTypeID + '\']').hide();
+  function showLeaveApplicationsWithApplicantAndVacationTypeID(options={}) {
+    $(".leave_applications[data-applicant-id=\'" + options["applicantID"] + "\'][data-vacation-type-id=\'"  + options["vacationTypeID"] + "\']").show();
+    $(".leave_applications[data-applicant-id!=\'"     + options["applicantID"] + "\']").hide();
+    $(".leave_applications[data-vacation-type-id!=\'" + options["vacationTypeID"] + "\']").hide();
   }
 
   $("#leaveApplicationApplicantsDropdown, #leaveApplicationVacationTypesDropdown").change(function() {
@@ -53,28 +54,57 @@ $(document).on('ready', function() {
     promptOption.remove();
   });
 
+  function showLeaveApplicationsWithApplicantID(applicantID) {
+    $(".leave_applications[data-applicant-id=\'"  + applicantID + "\']").show();
+    $(".leave_applications[data-applicant-id!=\'" + applicantID + "\']").hide();
+  }
+
+  function showLeaveApplicationsWithVacationTypeID(vacationTypeID) {
+    $(".leave_applications[data-vacation-type-id=\'"  + vacationTypeID + "\']").show();
+    $(".leave_applications[data-vacation-type-id!=\'" + vacationTypeID + "\']").hide();
+  }
+
   $("#leaveApplicationVacationTypesDropdown").change(function() {
     var currentValue = $(this).val();
+    var applicantDropdownValue = $("#leaveApplicationApplicantsDropdown").val();
 
     if (currentValue == "all_types") {
-      showAllLeaveApplications();
+      if (applicantDropdownValue == "all_applicants" || applicantDropdownValue == "") {
+        showAllLeaveApplications();
+      } else {
+        showLeaveApplicationsWithApplicantID(applicantDropdownValue);
+      }
     } else {
-      showLeaveApplicationWithVacationTypeID(currentValue);
+      if (applicantDropdownValue == "all_applicants" || applicantDropdownValue == "") {
+        showLeaveApplicationsWithVacationTypeID(currentValue);
+      } else {
+        showLeaveApplicationsWithApplicantAndVacationTypeID({
+          applicantID: applicantDropdownValue,
+          vacationTypeID: currentValue
+        });
+      }
     }
   });
 
-  function showLeaveApplicationsWithApplicantID(applicantID) {
-    $('.leave_applications[data-applicant-id=\''  + applicantID + '\']').show();
-    $('.leave_applications[data-applicant-id!=\'' + applicantID + '\']').hide();
-  }
-
   $("#leaveApplicationApplicantsDropdown").change(function() {
     var currentValue = $(this).val();
+    var vacationTypeDropdownValue = $("#leaveApplicationVacationTypesDropdown").val();
 
     if (currentValue == "all_applicants") {
-      showAllLeaveApplications();
+      if (vacationTypeDropdownValue == "all_types" || vacationTypeDropdownValue == "") {
+        showAllLeaveApplications();
+      } else {
+        showLeaveApplicationsWithVacationTypeID(vacationTypeDropdownValue);
+      }
     } else {
-      showLeaveApplicationsWithApplicantID(currentValue);
+      if (vacationTypeDropdownValue == "all_types" || vacationTypeDropdownValue == "") {
+        showLeaveApplicationsWithApplicantID(currentValue);
+      } else {
+        showLeaveApplicationsWithApplicantAndVacationTypeID({
+          applicantID: currentValue,
+          vacationTypeID: vacationTypeDropdownValue
+        });
+      }
     }
   });
 });
