@@ -43,7 +43,7 @@ $(document).on('ready', function() {
     $('.leave_applications').show();
   }
 
-  function showLeaveApplicationsWithApplicantAndVacationTypeID(options={}) {
+  function showLeaveApplicationsWithApplicantAndVacationTypeID(options) {
     $(".leave_applications[data-applicant-id=\'" + options["applicantID"] + "\'][data-vacation-type-id=\'"  + options["vacationTypeID"] + "\']").show();
     $(".leave_applications[data-applicant-id!=\'"     + options["applicantID"] + "\']").hide();
     $(".leave_applications[data-vacation-type-id!=\'" + options["vacationTypeID"] + "\']").hide();
