@@ -48,10 +48,15 @@ $(document).on('ready', function() {
     $('.leave_applications[data-vacation-type-id!=\'' + vacationTypeID + '\']').hide();
   }
 
+  $("#leaveApplicationApplicantsDropdown, #leaveApplicationVacationTypesDropdown").change(function() {
+    var promptOption = $(this).find("option[value='']");
+    promptOption.remove();
+  });
+
   $("#leaveApplicationVacationTypesDropdown").change(function() {
     var currentValue = $(this).val();
 
-    if (currentValue == "" || currentValue == "all_types") {
+    if (currentValue == "all_types") {
       showAllLeaveApplications();
     } else {
       showLeaveApplicationWithVacationTypeID(currentValue);
@@ -66,7 +71,7 @@ $(document).on('ready', function() {
   $("#leaveApplicationApplicantsDropdown").change(function() {
     var currentValue = $(this).val();
 
-    if (currentValue == "" || currentValue == "all_applicants") {
+    if (currentValue == "all_applicants") {
       showAllLeaveApplications();
     } else {
       showLeaveApplicationsWithApplicantID(currentValue);
