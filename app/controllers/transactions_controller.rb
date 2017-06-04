@@ -47,6 +47,8 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def shift_summary
+  end
 
   private
 
