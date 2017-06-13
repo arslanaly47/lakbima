@@ -31,6 +31,7 @@ $(document).on('ready nested:fieldAdded', function() {
   $('.allowance-end.input-group.date').datepicker(optionsForDatePicker);
   $('#commercialRegistrationExpiry.input-group.date').datepicker(optionsForDatePicker);
   $('#municipalityRegistrationExpiry.input-group.date').datepicker(optionsForDatePicker);
+  $('#dateForTransactions.input-group.date').datepicker(optionsForDatePicker);
   
   $.validator.addMethod(
     "australianDate",

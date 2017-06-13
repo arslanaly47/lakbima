@@ -1,0 +1,44 @@
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title.p-sm
+          .col-sm-4.pull-right
+            .form-group.m-t-n-xs-for-shif-summary
+              .input-group.date
+                %span.input-group-addon
+                  %i.fa.fa-calendar
+                = text_field_tag :date_for_transactions, nil, class: 'form-control input-group date', id: "dateForTransactions"
+          .font-bold
+            Shift Summary
+        .ibox-content
+          .table-responsive
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  - if can? :show, Transaction
+                    %th ID
+                  %th From Account
+                  %th To Account
+                  %th Amount
+                  %th Happended At
+                  %th Created Through
+                  %th Description
+                  - if can?(:edit, AccountMainType)
+                    %th Actions
+              %tbody
+                - @transactions.each do |transaction|
+                  %tr
+                    - if can? :show, Transaction
+                      %td.font-bold= link_to transaction.id, [transaction.dynamic_menu, transaction]
+                    %td= transaction.from_account.try(:name)
+                    %td= transaction.to_account.try(:name)
+                    %td= transaction.amount
+                    %td= transaction.happened_at.strftime("%b %d, %Y")
+                    %td= link_to transaction.dynamic_menu.try(:name), transaction.dynamic_menu
+                    %td= transaction.description
+                    - if can?(:edit, Transaction)
+                      %td
+                        - if can? :edit, AccountMainType
+                          = link_to edit_dynamic_menu_transaction_path(transaction.dynamic_menu_id, transaction), class: "action-link" do
+                            %i.fa.fa-pencil{"aria-hidden" => true}

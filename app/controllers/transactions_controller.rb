@@ -48,6 +48,8 @@ class TransactionsController < ApplicationController
   end
 
   def shift_summary
+    date = params[:date_for_transaction] || Date.today
+    @transactions = Transaction.where(happened_at: date)
   end
 
   private
