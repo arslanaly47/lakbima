@@ -24,6 +24,7 @@ class SeedPermissionsForManager
     Permission.find_or_create_by(subject_class: 'DynamicMenu', action: 'to_account_type_ids')
     Permission.find_or_create_by(subject_class: 'Currency', action: 'set_default')
     Permission.find_or_create_by(subject_class: 'Currency', action: 'default')
+    Permission.find_or_create_by(subject_class: 'Transaction', action: 'shift_summary')
   end
 
   def seed_permissions_for_leave_application
