@@ -44,6 +44,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    determine_password
     if @user.update(user_params)
       redirect_to @user, notice: "User has successfully been updated."
     else
@@ -134,5 +135,13 @@ class UsersController < ApplicationController
 
   def set_salary
     @user.salary || @user.build_salary
+  end
+
+  def determine_password
+    password = params[:user][:password]
+    unless password.nil? || password.empty?
+      @user.password = password
+    end
+    params[:user].delete :password
   end
 end

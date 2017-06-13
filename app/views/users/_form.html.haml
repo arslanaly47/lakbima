@@ -9,6 +9,13 @@
     = f.label :username, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.text_field :username, class: 'form-control', required: true, id: 'userCreationUsername'
+  - if %w(edit update).include? action_name
+    .form-group
+      = f.label :password, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.text_field :password, value: nil, class: 'form-control'
+        %span.help-block.m-b-none
+          *Leave blank if you don't want to change the password of this user.
   - if %w(new create).include? action_name
     .form-group
       = f.label :password, class: 'col-sm-2 control-label'
