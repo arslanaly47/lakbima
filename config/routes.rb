@@ -96,4 +96,6 @@ Rails.application.routes.draw do
     end
     resources :transactions
   end
+
+  get 'shift_summary' => 'transactions#shift_summary'
 end
