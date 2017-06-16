@@ -20,8 +20,8 @@ $(document).ready(function() {
   $("#dateForTransactions").on('changeDate', function() {
     var selectedDate = $(this).val();
     var url = window.location.href;
-    if (url.indexOf('?') > 0) {
-      url.replace(/\?.*/, '');
+    if (url.indexOf('?') >= 0) {
+      url = url.replace(/\?.*/, '');
     }
     url += '?date_for_transaction=' + selectedDate;
     window.location.href = url;
