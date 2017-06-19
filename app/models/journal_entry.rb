@@ -7,7 +7,8 @@ class JournalEntry < ApplicationRecord
             :from_account_id, :to_account_id, :happened_at, presence: true
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validate :from_and_to_account_can_not_be_same
-  after_create :update_associated_accounts
+
+  after_save :update_associated_accounts
 
   def happened_at=(val)
     date = Date.strptime(val, "%d/%m/%Y") if val.present?

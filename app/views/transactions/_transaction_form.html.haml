@@ -1,0 +1,51 @@
+.modal.inmodal.fade{tabindex: "-1", role: "dialog", "aria-hidden" => "true", id: "transactionModal#{transaction.id}"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span{"aria-hidden" => "true"} &times;
+          %span.sr-only Close
+        %h4 Update the Transaction
+      .modal-body
+        = nested_form_for [dynamic_menu, transaction], html: { class: "form-horizontal", id: "updateTransaction#{transaction.id}" } do |f|
+          = render "shared/errors", resource: transaction
+          .form-group
+            = f.label :happened_at, 'Date', class: 'col-sm-2 control-label'
+            .col-sm-4.input-group.date.m-r-md
+              %span.input-group-addon
+                %i.fa.fa-calendar
+              = f.text_field :happened_at, class: 'form-control input-group date', id: "transactionHappenedAt", required: true
+          .hr-line-dashed
+          .form-group
+            = f.label :amount, class: 'col-sm-2 control-label'
+            .col-sm-4.transaction-amount-field
+              = f.number_field :amount, class: 'form-control', step: 'any', required: true
+          .hr-line-dashed
+          .form-group
+            = f.label :description, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_area :description, class: 'form-control'
+          .hr-line-dashed
+          .form-group
+            = f.label :from_account_id, "From", class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.select :from_account_id,  grouped_options_for_select(dynamic_menu.from_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Select an account" }, class: "form-control", required: true
+          .hr-line-dashed
+          .form-group
+            = f.label :to_account_id, "To", class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.select :to_account_id,  grouped_options_for_select(dynamic_menu.to_account_types.includes(:accounts).map { |account_type| [account_type.name, account_type.accounts.pluck(:name, :id)] }), { prompt: "Select an account" }, class: "form-control", required: true
+          .hr-line-dashed
+          .form-group
+            = label_tag :attachments, "Attachments", class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.fields_for :attachments do |attachment_field|
+                = render 'attachment', f: attachment_field
+              = f.link_to_add :attachments, class: 'btn btn-primary m-t-xs' do
+                %i.fa.fa-plus-circle
+                %span.bold Add a new attachment
+          .hr-line-dashed
+          .form-group
+            .col-sm-4.col-sm-offset-2
+              = link_to "Update", "#", class: "btn btn-primary update-transaction", data: { style: "zoom-in", dynamic_menu_id: transaction.dynamic_menu_id, transaction_id: transaction.id }
+              = link_to "Close", accounts_path, class: "btn btn-white", data: { dismiss: "modal" }

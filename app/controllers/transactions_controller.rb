@@ -26,9 +26,16 @@ class TransactionsController < ApplicationController
   def update
     @transaction.user = current_user
     if @transaction.update_attributes(transaction_params)
-      redirect_to [@dynamic_menu, @transaction], notice: "Transaction has successfully been updated."
+      respond_to do |format|
+        format.html { redirect_to [@dynamic_menu, @transaction], notice: "Transaction has successfully been updated."
+ }
+        format.js { flash.now[:notice] = "Transaction has successfully been updated."  }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 

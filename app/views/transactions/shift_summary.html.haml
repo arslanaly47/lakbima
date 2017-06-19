@@ -8,9 +8,10 @@
               .input-group.date
                 %span.input-group-addon
                   %i.fa.fa-calendar
-                = text_field_tag :date_for_transactions, nil, class: 'form-control input-group date', id: "dateForTransactions"
+                = text_field_tag :date_for_transaction, nil, class: 'form-control input-group date', id: "dateForTransactions"
           .font-bold
-            Shift Summary
+            = "Shift Summary" + (params[:date_for_transaction].present? ? " for #{Date.parse(params[:date_for_transaction]).strftime('%b %d, %Y')}" : '')
+            .text-info
         .ibox-content
           .table-responsive
             %table.table.table-bordered.table-striped
@@ -28,7 +29,7 @@
                     %th Actions
               %tbody
                 - @transactions.each do |transaction|
-                  %tr
+                  %tr{data: {id: transaction.id}}
                     - if can? :show, Transaction
                       %td.font-bold= link_to transaction.id, [transaction.dynamic_menu, transaction]
                     %td= transaction.from_account.try(:name)
@@ -40,5 +41,8 @@
                     - if can?(:edit, Transaction)
                       %td
                         - if can? :edit, AccountMainType
-                          = link_to edit_dynamic_menu_transaction_path(transaction.dynamic_menu_id, transaction), class: "action-link" do
+                          = link_to "#", class: "action-link", data: { toggle: "modal", target: "#transactionModal#{transaction.id}" } do
                             %i.fa.fa-pencil{"aria-hidden" => true}
+#transactionFormModals
+  - @transactions.each do |transaction|
+    = render 'transaction_form', dynamic_menu: transaction.dynamic_menu, transaction: transaction

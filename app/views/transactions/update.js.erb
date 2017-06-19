@@ -1,0 +1,7 @@
+<% if @transaction.valid? %>
+  $("tr[data-id=<%= @transaction.id %>]").replaceWith("<%= j render "transactions/transaction", dynamic_menu: @dynamic_menu, transaction: @transaction %>");
+  $("#transactionModal<%= @transaction.id %>").modal('hide');
+  $(".wrapper-content").prepend("<%= j render "shared/flash_messages" %>");
+<% else %>
+  $("#updateTransaction<%= @transaction.id %>").prepend("<%= j render "shared/errors", resource: @transaction %>");
+<% end %>

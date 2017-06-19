@@ -1,7 +1,7 @@
 class Transaction < ApplicationRecord
   has_many :attachments, as: :attachable
-  belongs_to :from_account, class_name: "Account"
-  belongs_to :to_account,   class_name: "Account"
+  belongs_to :from_account, class_name: 'Account'
+  belongs_to :to_account,   class_name: 'Account'
   belongs_to :dynamic_menu
   belongs_to :user
 
@@ -15,13 +15,13 @@ class Transaction < ApplicationRecord
                                 reject_if: proc { |attributes|
                                   attributes['image'].blank?
                                 }
-  after_create :update_associated_accounts
+  after_save :update_associated_accounts
 
   def from_account_id_can_not_be_same_as_to_account
     return if from_account_id.nil? || to_account_id.nil?
 
     if from_account_id == to_account_id
-      errors.add :base, "From account ID can't be same as to account ID."
+      errors.add :base, 'From account ID can\'t be the same as account ID.'
     end
   end
 
@@ -43,9 +43,11 @@ class Transaction < ApplicationRecord
   end
 
   def update_associated_accounts
-    from_account.transactional_balance -= amount
-    from_account.save
-    to_account.transactional_balance += amount
-    to_account.save
+    if amount_changed?
+      from_account.transactional_balance -= amount
+      from_account.save
+      to_account.transactional_balance += amount
+      to_account.save
+    end
   end
 end

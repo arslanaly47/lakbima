@@ -1,0 +1,12 @@
+%tr.animated.fadeInDown{data: { id: transaction.id } }
+  %td.font-bold= link_to transaction.id, [dynamic_menu, transaction]
+  %td= transaction.from_account.try(:name)
+  %td= transaction.to_account.try(:name)
+  %td= transaction.amount
+  %td= transaction.happened_at.strftime("%b %d, %Y")
+  %td= link_to dynamic_menu.name, dynamic_menu
+  %td= transaction.description
+  - if can? :edit, Transaction
+    %td
+      = link_to "#", class: "action-link", data: { toggle: "modal", target: "#transactionModal#{transaction.id}" } do
+        %i.fa.fa-pencil{"aria-hidden" => true}
