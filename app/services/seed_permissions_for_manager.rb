@@ -16,6 +16,7 @@ class SeedPermissionsForManager
       end
     end
     Permission.find_or_create_by(subject_class: 'Employee', action: 'download_pdf')
+    Permission.find_or_create_by(subject_class: 'Employee', action: 'download_attachment')
     Permission.find_or_create_by(subject_class: 'AccountMainType', action: 'account_sub_headers')
     Permission.find_or_create_by(subject_class: 'AccountSubType', action: 'account_lists')
     Permission.find_or_create_by(subject_class: 'Account', action: 'account_tree')
