@@ -1,8 +1,11 @@
 class CompaniesController < ApplicationController
   load_and_authorize_resource
 
+  before_action :redirect_if_subdomain_not_www
   before_action :set_company, only: [:edit, :update, :show, :destroy]
   helper_method :sort_column
+
+  include ApplicationHelper
 
   def new
     @company = Company.new
@@ -57,5 +60,11 @@ class CompaniesController < ApplicationController
 
   def sort_column
     Company.column_names.include?(params[:sort])? params[:sort] : "id"
+  end
+
+  def redirect_if_subdomain_not_www
+    unless current_subdomain_www?
+      redirect_to root_url
+    end
   end
 end

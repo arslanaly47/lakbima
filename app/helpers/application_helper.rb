@@ -5,4 +5,8 @@ module ApplicationHelper
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
     link_to title, {sort: column, direction: direction}, {class: css_class}
   end
+
+  def current_subdomain_www?
+    Apartment::Tenant.current == 'public'
+  end
 end

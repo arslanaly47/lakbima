@@ -101,7 +101,7 @@
             - if can? :index, Role
               %li{class: "#{'active' if controller_name == 'roles'}"}
                 = link_to "Roles", roles_path
-      - if can?(:index, Company)
+      - if can?(:index, Company) && current_subdomain_www?
         %li{class: "#{'active' if controller_name == 'companies' }"}
           = link_to companies_path do
             %i.fa.fa-building
