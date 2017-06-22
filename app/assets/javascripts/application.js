@@ -49,4 +49,13 @@ $(document).ready(function () {
 
   Pace.options.ajax.trackWebSockets = false;
   Pace.options.ajax                 = false;
+
+  $.validator.addMethod(
+    'australianDate',
+    function(value, element) {
+      return value.match(/^(0?[1-9]|[12][0-9]|3[0-1])[/., -](0?[1-9]|1[0-2])[/., -](19|20)?\d{2}$/);
+    },
+    'Please enter a valid date'
+  );
+
 });

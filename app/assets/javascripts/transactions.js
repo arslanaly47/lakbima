@@ -13,7 +13,8 @@ $(document).ready(function() {
         required: true
       },
       "transaction[happened_at]": {
-        required: true
+        required: true,
+        australianDate: true
       }
     }
   });

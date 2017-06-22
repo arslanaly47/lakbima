@@ -33,15 +33,6 @@ $(document).on('ready nested:fieldAdded', function() {
   $('#municipalityRegistrationExpiry.input-group.date').datepicker(optionsForDatePicker);
   $('#dateForTransactions.input-group.date').datepicker(optionsForDatePicker);
   
-  $.validator.addMethod(
-    "australianDate",
-    function(value, element) {
-      return value.match(/^(0?[1-9]|[12][0-9]|3[0-1])[/., -](0?[1-9]|1[0-2])[/., -](19|20)?\d{2}$/);
-    },
-    "Please enter a valid date"
-  );
-
-
   $("#manageEmployee").validate({
     rules: {
       "employee[first_name]": {
