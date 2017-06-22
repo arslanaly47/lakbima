@@ -11,6 +11,14 @@ $(document).ready(function() {
         minlength: 3,
         maxlength: 15,
         required: true
+      },
+      "company[commercial_registration_expiry]": {
+        australianDate: true,
+        date: false
+      },
+      "company[municipality_registration_expiry]": {
+        australianDate: true,
+        date: false
       }
     }
   });
