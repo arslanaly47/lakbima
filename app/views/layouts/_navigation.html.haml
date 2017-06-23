@@ -109,7 +109,7 @@
         %li{class: "#{'active' if controller_name == 'users' && %w(new index create edit show).include?(action_name)}"}
           = link_to '#' do
             %i.fa.fa-user-plus
-            %span.nav-label Manager Users
+            %span.nav-label Manage Users
             %span.fa.arrow
           %ul.nav.nav-second-level
             - if can? :new, User
