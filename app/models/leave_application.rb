@@ -1,14 +1,15 @@
 class LeaveApplication < ApplicationRecord
 
-  has_one :applicant_notification, -> { applicant }, class_name: "Notification"
-  has_one :action_notification,    -> { action    }, class_name: "Notification"
+  has_one :applicant_notification, -> { applicant }, class_name: 'Notification'
+  has_one :action_notification,    -> { action    }, class_name: 'Notification'
 
-  belongs_to :applicant, class_name: "User", foreign_key: :user_id
-  belongs_to :manager, class_name: "User"
+  belongs_to :applicant, class_name: 'User', foreign_key: :user_id
+  belongs_to :manager,   class_name: 'User'
   belongs_to :vacation_type
 
   validates :start_date, :number_of_days, :reason, :vacation_type, :applicant, presence: true
   # Manager is assigned when a leave application is approved or rejected.
+  validate :creator_should_not_be_manager
   validate :end_date_should_be_after_start_date
   validate :not_before_today_date, on: :create
 
@@ -53,5 +54,11 @@ class LeaveApplication < ApplicationRecord
 
   def self.filter_by_vacation_type(params)
     params[:vacation_type].present? ? self.where(vacation_type_id: params[:vacation_type]) : self.all
+  end
+
+  def creator_should_not_be_manager
+    if applicant.manager?
+      errors.add :base, 'applicant must be an employee, not a manager.'
+    end
   end
 end
