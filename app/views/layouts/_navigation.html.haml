@@ -106,15 +106,15 @@
           = link_to companies_path do
             %i.fa.fa-building
             %span.nav-label Manage Companies
-        %li{class: "#{'active' if controller_name == 'users' && %w(new index create edit show).include?(action_name)}"}
-          = link_to '#' do
-            %i.fa.fa-user-plus
-            %span.nav-label Manage Users
-            %span.fa.arrow
-          %ul.nav.nav-second-level
-            - if can? :new, User
-              %li{class: "#{'active' if controller_name == 'users' && (%w(new create).include? action_name)}"}
-                = link_to "Create a new user", new_user_path
-            - if can? :index, User
-              %li{class: "#{'active' if controller_name == 'users' && action_name == 'index'}"}
-                = link_to "List all the users", users_path
+      %li{class: "#{'active' if controller_name == 'users' && %w(new index create edit show).include?(action_name)}"}
+        = link_to '#' do
+          %i.fa.fa-user-plus
+          %span.nav-label Manage Users
+          %span.fa.arrow
+        %ul.nav.nav-second-level
+          - if can? :new, User
+            %li{class: "#{'active' if controller_name == 'users' && (%w(new create).include? action_name)}"}
+              = link_to "Create a new user", new_user_path
+          - if can? :index, User
+            %li{class: "#{'active' if controller_name == 'users' && action_name == 'index'}"}
+              = link_to "List all the users", users_path
