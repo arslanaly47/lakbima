@@ -79,13 +79,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :account_sub_types, path: "account_sub_headers" do
+  resources :account_sub_types, path: 'account_sub_headers' do
     member do
       get 'account_lists'
     end
   end
 
-  resources :account_types, path: "account_lists"
+  resources :account_types, path: 'account_lists'
   get 'profile' => 'users#profile'
   patch 'update_profile' => 'users#update_profile'
 
