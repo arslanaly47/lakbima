@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
-  devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords" }
+  devise_for :users, controllers: { sessions: 'users/sessions', passwords: 'users/passwords'}
   resources :job_titles, :allowance_types, :vacation_types, :roles, :attachment_types, :roles, :branches, :companies
 
   resources :currencies do
