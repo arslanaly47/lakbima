@@ -58,9 +58,9 @@
                     - else
                       %td= leave_application.end_date
                     - unless current_user.manager?
-                      %td{class: "#{class_decider(leave_application.status)}"}= leave_application.status
+                      %td{class: "#{class_decider(leave_application.status)}", id: "notification_manager_#{leave_application.id}"}= leave_application.status
                     - if current_user.manager?
-                      %td
+                      %td{id: "notification_#{leave_application.id}"}
                         - if leave_application.pending?
                           = link_to "Approve", "", class: "btn btn-sm btn-primary leave-approve", data: { style: "zoom-in", leave_application_id: leave_application.id }
                           = link_to "Deny", "", class: "btn btn-sm btn-danger leave-deny", data: { style: "zoom-in", leave_application_id: leave_application.id }
@@ -69,3 +69,4 @@
                             %span.label.label-primary.animted.fadeInDown Approved
                           - else
                             %span.label.label-danger.animted.fadeInDown Denied
+

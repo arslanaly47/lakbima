@@ -4,7 +4,7 @@
       - if notification.applicant?
         .pull-left.p-xxs
           - if notification.generator.profile_image
-            = image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
+            //= image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
           - else
             = image_tag "no-user-image.gif", class: "img-circle"
         .media-body.p-xxs
@@ -19,7 +19,7 @@
       - elsif notification.action?
         .pull-left.p-xxs
           - if notification.generator.profile_image
-            = image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
+            //= image_tag notification.generator.profile_image.image.url(:thumb), class: "img-circle"
           - else
             = image_tag "no-user-image.gif", class: "img-circle"
         .media-body.p-xxs
